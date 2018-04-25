@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{861980B8-0680-4939-98C7-408FCBAACB5C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ICSharpCode.Core</RootNamespace>
+    <AssemblyName>ICSharpCode.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\Assemblies\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddIns\AddIn.cs" />
+    <Compile Include="AddIns\AddInAction.cs" />
+    <Compile Include="AddIns\AddInLoadException.cs" />
+    <Compile Include="AddIns\AddInManager.cs" />
+    <Compile Include="AddIns\AddInManifest.cs" />
+    <Compile Include="AddIns\AddInReference.cs" />
+    <Compile Include="AddIns\AddInTree.cs" />
+    <Compile Include="AddIns\AddInTreeNode.cs" />
+    <Compile Include="Doozer\IBuildItemsModifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\PropertyService\CallbackOnDispose.cs" />
+    <Compile Include="Core\ExtensionAddInTreeNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Command\StatusUpdateHandle.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Condition\ComplexCondition.cs" />
+    <Compile Include="Class\Codon.cs" />
+    <Compile Include="Condition\Condition.cs" />
+    <Compile Include="Condition\ConditionAction.cs" />
+    <Compile Include="AddIns\ExtensionPath.cs" />
+    <Compile Include="Service\FileUtility\FileUtility.cs" />
+    <Compile Include="Core\CoreException.cs" />
+    <Compile Include="Core\CoreStartup.cs" />
+    <Compile Include="Condition\ICondition.cs" />
+    <Compile Include="Evaluator\CompareConditionEvaluator.cs" />
+    <Compile Include="Evaluator\IConditionEvaluator.cs" />
+    <Compile Include="Doozer\IDoozer.cs" />
+    <Compile Include="Service\LoggingService\ILoggingService.cs" />
+    <Compile Include="Service\StringParser\IStringTagProvider.cs" />
+    <Compile Include="Evaluator\IOwnerState.cs" />
+    <Compile Include="Evaluator\LazyConditionEvaluator.cs" />
+    <Compile Include="Doozer\LazyLoadDoozer.cs" />
+    <Compile Include="Service\LoggingService\Log4netLoggingService.cs" />
+    <Compile Include="Service\LoggingService\LoggingService.cs" />
+    <Compile Include="Service\LoggingService\LoggingServiceManager.cs" />
+    <Compile Include="Evaluator\OwnerStateConditionEvaluator.cs" />
+    <Compile Include="Service\PropertyService\Properties.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\PropertyService\PropertyChangedEventArgs.cs" />
+    <Compile Include="Service\PropertyService\PropertyChangedEventHandler.cs" />
+    <Compile Include="Service\PropertyService\PropertyService.cs" />
+    <Compile Include="Service\ResourceService\ResourceNotFoundException.cs" />
+    <Compile Include="Service\ResourceService\ResourceService.cs" />
+    <Compile Include="Class\Runtime.cs" />
+    <Compile Include="Service\StringParser\StringParser.cs" />
+    <Compile Include="Service\LoggingService\TextWriterLoggingService.cs" />
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

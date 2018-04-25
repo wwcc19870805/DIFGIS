@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B1136AA6-6901-4F66-9EC2-71DC7372A882}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DF2DTool</RootNamespace>
+    <AssemblyName>DF2DTool</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Utils.v13.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DFCommon">
+      <HintPath>..\..\Assemblies\DFCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.3DAnalyst, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.ADF, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.ADF.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.AxControls, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
+    <Reference Include="ESRI.ArcGIS.Carto, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Controls, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.DataSourcesFile, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.DataSourcesFile.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.DataSourcesGDB, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Display, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geodatabase, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.GeoDatabaseDistributed, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.GeoDatabaseDistributed.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geometry, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.GlobeCore, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Output, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.System, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.SystemUI, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Version, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL" />
+    <Reference Include="ICSharpCode.Core">
+      <HintPath>..\..\Assemblies\ICSharpCode.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\CadWrite.cs" />
+    <Compile Include="Class\ClassOutline.cs" />
+    <Compile Include="Class\CommonFunction.cs" />
+    <Compile Include="Class\ConvertLog.cs" />
+    <Compile Include="Class\CoordConvert.cs" />
+    <Compile Include="Class\CoordConvertPara.cs" />
+    <Compile Include="Class\CoreData.cs" />
+    <Compile Include="Class\DataSetNames.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Class\ExportMain.cs" />
+    <Compile Include="Class\ExportToMdb.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Class\FcOpertion.cs" />
+    <Compile Include="Class\GisRead.cs" />
+    <Compile Include="Class\Item.cs" />
+    <Compile Include="Class\MapCode.cs" />
+    <Compile Include="Class\PublicFun.cs" />
+    <Compile Include="Class\Utility.cs" />
+    <Compile Include="Command\CmdArea.cs" />
+    <Compile Include="Command\CmdAzimuthAngle2.cs" />
+    <Compile Include="Command\CmdAzimuthAngle.cs" />
+    <Compile Include="Command\CmdCoordConvert.cs" />
+    <Compile Include="Command\CmdCoordinate.cs" />
+    <Compile Include="Command\CmdDistance.cs" />
+    <Compile Include="Command\CmdIncludedAngle.cs" />
+    <Compile Include="Command\CmdMapExportByCircle.cs" />
+    <Compile Include="Command\CmdMapExportByCoordinate.cs" />
+    <Compile Include="Command\CmdMapExportByPolygon.cs" />
+    <Compile Include="Command\CmdMapExportByRectangle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Command\CmdMDBToSDE.cs" />
+    <Compile Include="Command\CmdMeteDataManagement.cs" />
+    <Compile Include="Command\CmdSDEBackup.cs" />
+    <Compile Include="Command\CmdSheetClip.cs" />
+    <Compile Include="Command\CmdSpecialMap.cs" />
+    <Compile Include="Frm\DatasetEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\DatasetEdit.Designer.cs">
+      <DependentUpon>DatasetEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm\FrmAddSheet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmArea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmAzimuthAngle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmConnect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmConnSDE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmCoordConvert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmCoordinate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmDistance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmDxfExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmErrorInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmFilter.Designer.cs">
+      <DependentUpon>FrmFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm\FrmIncludedAngle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmLayoutPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmMapExportByCoordinate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmMDBToSDE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmMetaDataManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmSDEBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmSDEFileName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmSpecialMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmSpecialMap.Designer.cs">
+      <DependentUpon>FrmSpecialMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm\FrmStandardOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\ICadWrite.cs" />
+    <Compile Include="Interface\IConvertLog.cs" />
+    <Compile Include="Interface\IDxfExport.cs" />
+    <Compile Include="Interface\IGisRead.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Class\PublicFunction.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Frm\FrmAddSheet.resx">
+      <DependentUpon>FrmAddSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmArea.resx">
+      <DependentUpon>FrmArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmAzimuthAngle.resx">
+      <DependentUpon>FrmAzimuthAngle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmConnect.resx">
+      <DependentUpon>FrmConnect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmConnSDE.resx">
+      <DependentUpon>FrmConnSDE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmCoordConvert.resx">
+      <DependentUpon>FrmCoordConvert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmCoordinate.resx">
+      <DependentUpon>FrmCoordinate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmDistance.resx">
+      <DependentUpon>FrmDistance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmDxfExport.resx">
+      <DependentUpon>FrmDxfExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmErrorInfo.resx">
+      <DependentUpon>FrmErrorInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmFilter.resx">
+      <DependentUpon>FrmFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmIncludedAngle.resx">
+      <DependentUpon>FrmIncludedAngle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmLayoutPage.resx">
+      <DependentUpon>FrmLayoutPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmMapExportByCoordinate.resx">
+      <DependentUpon>FrmMapExportByCoordinate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmMDBToSDE.resx">
+      <DependentUpon>FrmMDBToSDE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmMetaDataManagement.resx">
+      <DependentUpon>FrmMetaDataManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmSDEBackup.resx">
+      <DependentUpon>FrmSDEBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmSDEFileName.resx">
+      <DependentUpon>FrmSDEFileName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmSpecialMap.resx">
+      <DependentUpon>FrmSpecialMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmStandardOutput.resx">
+      <DependentUpon>FrmStandardOutput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DF2DControl\DF2DControl.csproj">
+      <Project>{9C67C4D9-E0C3-47CD-AC61-781CAC302A30}</Project>
+      <Name>DF2DControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DF2DCreate\DF2DCreate.csproj">
+      <Project>{C46D5106-D93F-42D8-B497-2219A96A18C4}</Project>
+      <Name>DF2DCreate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DF2DData\DF2DData.csproj">
+      <Project>{E45F5F6C-6A98-408E-B801-032D8192DB46}</Project>
+      <Name>DF2DData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DF2DPipe\DF2DPipe.csproj">
+      <Project>{4C51AAF5-9F69-4281-80AB-8E6025A25807}</Project>
+      <Name>DF2DPipe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFDataConfig\DFDataConfig.csproj">
+      <Project>{A79ECE0A-6524-41AE-97AD-31F451D065C5}</Project>
+      <Name>DFDataConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFWinForms\DFWinForms.csproj">
+      <Project>{36821DE9-E893-4F96-B6A2-CD8DB0548C1B}</Project>
+      <Name>DFWinForms</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

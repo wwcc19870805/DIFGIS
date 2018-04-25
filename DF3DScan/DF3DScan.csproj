@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B9591EFB-8A6A-4AD4-B9F2-2A9F9ABE3CE3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DF3DScan</RootNamespace>
+    <AssemblyName>DF3DScan</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Charts.v13.2.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Data.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Images.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Images.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Printing.v13.2.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Utils.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.2.UI, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Utils.v13.2.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraBars.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraEditors.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraGrid.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraLayout.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraPrinting.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraTreeList.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraVerticalGrid.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.AxControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.AxControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.FdeCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.FdeCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.FdeDataInterop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.FdeDataInterop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.FdeGeometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.FdeGeometry.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.FdeUndoRedo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.FdeUndoRedo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.Math, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.Math.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.RenderControl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.RenderControl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.Resource, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.Resource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Assemblies\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\CameraProperty.cs" />
+    <Compile Include="Class\CustomValidationRule.cs" />
+    <Compile Include="Class\ExportProcess.cs" />
+    <Compile Include="Class\PropertyObject.cs" />
+    <Compile Include="Class\TerrainAnalyseCallBack.cs" />
+    <Compile Include="Command\CmdCameraTour.cs" />
+    <Compile Include="Command\CmdCertainScene.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Command\CmdCreateTerrainHole.cs" />
+    <Compile Include="Command\CmdEarthworkCalculation.cs" />
+    <Compile Include="Command\CmdHideElevation.cs" />
+    <Compile Include="Command\CmdIdentifyQuery.cs" />
+    <Compile Include="Command\CmdInitView3D.cs" />
+    <Compile Include="Command\CmdLocByCoordinate.cs" />
+    <Compile Include="Command\CmdMultiScreenCompare.cs" />
+    <Compile Include="Command\CmdNormalConditionQuery.cs" />
+    <Compile Include="Command\CmdPreviousView.cs" />
+    <Compile Include="Command\CmdMap2D.cs" />
+    <Compile Include="Command\CmdStereoView.cs" />
+    <Compile Include="Command\CmdSunShine.cs" />
+    <Compile Include="Command\CmdTopView.cs" />
+    <Compile Include="Command\CmdWalk.cs" />
+    <Compile Include="Command\CmdFullScreen.cs" />
+    <Compile Include="Command\CmdLookAtNorth.cs" />
+    <Compile Include="Command\CmdWander.cs" />
+    <Compile Include="Command\CmdTerrainOpacity.cs" />
+    <Compile Include="Command\CmdNextView.cs" />
+    <Compile Include="Command\CmdHeavyRain.cs" />
+    <Compile Include="Command\CmdLocByAddress.cs" />
+    <Compile Include="Command\CmdNormalRegionQuery.cs" />
+    <Compile Include="Condition\TerrainCondition.cs" />
+    <Compile Include="Condition\PreviousViewCondition.cs" />
+    <Compile Include="Condition\NextViewCondition.cs" />
+    <Compile Include="Condition\HaveRoadDataCondition.cs" />
+    <Compile Include="Condition\HaveAddressDataCondition.cs" />
+    <Compile Include="Condition\ElevationCondition.cs" />
+    <Compile Include="Frm\AttributeEditDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmNormalRegionQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmExportVideo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FormCreateLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FormEditLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FormLocByCoordinate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmNormalConditionQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\ProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UC\UCCameraTour.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCEarthworkCalculation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCFrameEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCAnimationNav.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCCertainScene.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCLocByRoad.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCMultiScreenCompare.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCLocByAddress.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCPropertyInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="Frm\AttributeEditDlg.resx">
+      <DependentUpon>AttributeEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmExportVideo.resx">
+      <DependentUpon>FrmExportVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FormCreateLocation.resx">
+      <DependentUpon>FormCreateLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FormEditLocation.resx">
+      <DependentUpon>FormEditLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FormLocByCoordinate.resx">
+      <DependentUpon>FormLocByCoordinate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmNormalConditionQuery.resx">
+      <DependentUpon>FrmNormalConditionQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmNormalRegionQuery.resx">
+      <DependentUpon>FrmNormalRegionQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\ProgressDialog.resx">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UC\UCCameraTour.resx">
+      <DependentUpon>UCCameraTour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCEarthworkCalculation.resx">
+      <DependentUpon>UCEarthworkCalculation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCFrameEdit.resx">
+      <DependentUpon>UCFrameEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCAnimationNav.resx">
+      <DependentUpon>UCAnimationNav.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCCertainScene.resx">
+      <DependentUpon>UCCertainScene.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCLocByRoad.resx">
+      <DependentUpon>UCLocByRoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCMultiScreenCompare.resx">
+      <DependentUpon>UCMultiScreenCompare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCLocByAddress.resx">
+      <DependentUpon>UCLocByAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCPropertyInfo.resx">
+      <DependentUpon>UCPropertyInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <Compile Include="Command\CmdMiddleRain.cs" />
+    <Compile Include="Command\CmdLightRain.cs" />
+    <Compile Include="Command\CmdHeavySnow.cs" />
+    <Compile Include="Command\CmdMiddleSnow.cs" />
+    <Compile Include="Command\CmdLightSnow.cs" />
+    <Compile Include="Command\CmdLocByRoad.cs" />
+    <Compile Include="Command\CmdLocByRoadCross.cs" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DF3DControl\DF3DControl.csproj">
+      <Project>{C26A0E84-964E-47A7-87FD-3A442EF0A16A}</Project>
+      <Name>DF3DControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DF3DData\DF3DData.csproj">
+      <Project>{4ACE0882-C073-4B99-A14D-8C89B589456D}</Project>
+      <Name>DF3DData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DF3DDraw\DF3DDraw.csproj">
+      <Project>{EE31F2F1-355F-4584-B19B-6375D7E1A10F}</Project>
+      <Name>DF3DDraw</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFCommon\DFCommon.csproj">
+      <Project>{322195C7-73BD-417B-8100-3640AAC2BE3C}</Project>
+      <Name>DFCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFDataConfig\DFDataConfig.csproj">
+      <Project>{A79ECE0A-6524-41AE-97AD-31F451D065C5}</Project>
+      <Name>DFDataConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFWinForms\DFWinForms.csproj">
+      <Project>{36821DE9-E893-4F96-B6A2-CD8DB0548C1B}</Project>
+      <Name>DFWinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSharpCode.Core\ICSharpCode.Core.csproj">
+      <Project>{861980B8-0680-4939-98C7-408FCBAACB5C}</Project>
+      <Name>ICSharpCode.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

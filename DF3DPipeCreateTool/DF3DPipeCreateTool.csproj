@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3C0FA68F-0047-4F6A-8DA3-E02E2266CB71}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DF3DPipeCreateTool</RootNamespace>
+    <AssemblyName>DF3DPipeCreateTool</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>3DPipeCreate.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.BonusSkins.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Data.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Utils.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.2.UI, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Utils.v13.2.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraBars.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraEditors.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraGrid.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraLayout.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraNavBar.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraTreeList.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.AxControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.AxControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.FdeCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.FdeCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.FdeDataInterop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.FdeDataInterop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.FdeGeometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.FdeGeometry.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.FdeUndoRedo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.FdeUndoRedo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.Math, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.Math.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.RenderControl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.RenderControl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.Resource, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\Gvitech.CityMaker.Resource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\CMFieldConfig.cs" />
+    <Compile Include="Class\ColorClass.cs" />
+    <Compile Include="Class\CopyReplicatingHandler.cs" />
+    <Compile Include="Class\DataModel.cs" />
+    <Compile Include="Class\DataObject.cs" />
+    <Compile Include="Class\DataProvider.cs" />
+    <Compile Include="Service\FacilityInfoService.cs" />
+    <Compile Include="Class\GvitchCopyCallBack.cs" />
+    <Compile Include="Class\GvitechFeatureProgress.cs" />
+    <Compile Include="Class\Maths.cs" />
+    <Compile Include="Enum\CompareRlt.cs" />
+    <Compile Include="Class\DF3DPipeCreateApp.cs" />
+    <Compile Include="Class\Fac.cs" />
+    <Compile Include="Class\FacClass.cs" />
+    <Compile Include="Class\FacStyleClass.cs" />
+    <Compile Include="Class\SyncPipeLib.cs" />
+    <Compile Include="Class\PipeNodeFac.cs" />
+    <Compile Include="Class\PipeBuildFac.cs" />
+    <Compile Include="Class\Vector.cs" />
+    <Compile Include="Enum\DataLifeCyle.cs" />
+    <Compile Include="Enum\LocationType.cs" />
+    <Compile Include="Class\ObjectIdGenerator.cs" />
+    <Compile Include="Class\ModelClass.cs" />
+    <Compile Include="Class\PipeNodeStyleClass.cs" />
+    <Compile Include="Enum\StyleType.cs" />
+    <Compile Include="Class\TextureClass.cs" />
+    <Compile Include="Class\TopoClass.cs" />
+    <Compile Include="Enum\TurnerStyle.cs" />
+    <Compile Include="Class\PipeBuildStyleClass.cs" />
+    <Compile Include="Enum\HeightMode.cs" />
+    <Compile Include="Enum\HeightParam.cs" />
+    <Compile Include="Enum\RenderType.cs" />
+    <Compile Include="Enum\ModelType.cs" />
+    <Compile Include="Enum\SecShape.cs" />
+    <Compile Include="Enum\HorizontalPos.cs" />
+    <Compile Include="Enum\VerticalPos.cs" />
+    <Compile Include="Enum\EditState.cs" />
+    <Compile Include="Enum\SegType.cs" />
+    <Compile Include="Frm\FormChangeTerrain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmEditColor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmPipeNodeStyle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\FrmPipeLineStyle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\DrawConnBlend.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\DrawCylinderLine.cs" />
+    <Compile Include="ParamModeling\DrawDynamicFlow.cs" />
+    <Compile Include="ParamModeling\DrawGeometry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\DrawHeevenWell.cs" />
+    <Compile Include="ParamModeling\DrawJoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\DrawJointEnd.cs" />
+    <Compile Include="ParamModeling\DrawJointFour.cs" />
+    <Compile Include="ParamModeling\DrawJointMulti.cs" />
+    <Compile Include="ParamModeling\DrawJointThree.cs" />
+    <Compile Include="ParamModeling\DrawJointTwo.cs" />
+    <Compile Include="ParamModeling\DrawPipeLine.cs" />
+    <Compile Include="ParamModeling\DrawReduceWell.cs" />
+    <Compile Include="ParamModeling\DrawScanModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\DrawStaticModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\DrawTerrainWell.cs" />
+    <Compile Include="ParamModeling\DrawWell.cs" />
+    <Compile Include="ParamModeling\IDrawConnBlend.cs" />
+    <Compile Include="ParamModeling\IDrawCylinderLine.cs" />
+    <Compile Include="ParamModeling\IDrawDynamicFlow.cs" />
+    <Compile Include="ParamModeling\IDrawGeometry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\IDrawHeevenWell.cs" />
+    <Compile Include="ParamModeling\IDrawJoint.cs" />
+    <Compile Include="ParamModeling\IDrawJointEnd.cs" />
+    <Compile Include="ParamModeling\IDrawJointFour.cs" />
+    <Compile Include="ParamModeling\IDrawJointMulti.cs" />
+    <Compile Include="ParamModeling\IDrawJointThree.cs" />
+    <Compile Include="ParamModeling\IDrawJointTwo.cs" />
+    <Compile Include="ParamModeling\IDrawPipeLine.cs" />
+    <Compile Include="ParamModeling\IDrawReduceWell.cs" />
+    <Compile Include="ParamModeling\IDrawScanModel.cs" />
+    <Compile Include="ParamModeling\IDrawStaticModel.cs" />
+    <Compile Include="ParamModeling\IDrawTerrainWell.cs" />
+    <Compile Include="ParamModeling\IDrawWell.cs" />
+    <Compile Include="ParamModeling\IPipeSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\ISection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\ParamModelFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\PipeSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParamModeling\Section.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Class\FacClassReg.cs" />
+    <Compile Include="UC\UCCatalogLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCColorLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCImportData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCModelLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCPipeLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCPipeSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCShow3DPipe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCTextureLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCTemplateLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCTopoCreate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCTopoLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCAuto3DCreate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\UCTempLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="Frm\FormChangeTerrain.resx">
+      <DependentUpon>FormChangeTerrain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmEditColor.resx">
+      <DependentUpon>FrmEditColor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmPipeBuildStyle.resx">
+      <DependentUpon>FrmPipeBuildStyle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmPipeNodeStyle.resx">
+      <DependentUpon>FrmPipeNodeStyle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\FrmPipeLineStyle.resx">
+      <DependentUpon>FrmPipeLineStyle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UC\UCCatalogLib.resx">
+      <DependentUpon>UCCatalogLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCColorLib.resx">
+      <DependentUpon>UCColorLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCImportData.resx">
+      <DependentUpon>UCImportData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCModelLib.resx">
+      <DependentUpon>UCModelLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCPipeLib.resx">
+      <DependentUpon>UCPipeLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCPipeSet.resx">
+      <DependentUpon>UCPipeSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCShow3DPipe.resx">
+      <DependentUpon>UCShow3DPipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCTextureLib.resx">
+      <DependentUpon>UCTextureLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCTemplateLib.resx">
+      <DependentUpon>UCTemplateLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCTopoCreate.resx">
+      <DependentUpon>UCTopoCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCTopoLib.resx">
+      <DependentUpon>UCTopoLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCAuto3DCreate.resx">
+      <DependentUpon>UCAuto3DCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC\UCTempLib.resx">
+      <DependentUpon>UCTempLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <Compile Include="Class\PipeLineStyleClass.cs" />
+    <Compile Include="Frm\FrmPipeBuildStyle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Class\PipeLineFac.cs" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DF3DDraw\DF3DDraw.csproj">
+      <Project>{EE31F2F1-355F-4584-B19B-6375D7E1A10F}</Project>
+      <Name>DF3DDraw</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFAlgorithm\DFAlgorithm.csproj">
+      <Project>{D510D286-B1DD-46CF-836A-0DB9A62C6407}</Project>
+      <Name>DFAlgorithm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFCommon\DFCommon.csproj">
+      <Project>{322195C7-73BD-417B-8100-3640AAC2BE3C}</Project>
+      <Name>DFCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFDataConfig\DFDataConfig.csproj">
+      <Project>{A79ECE0A-6524-41AE-97AD-31F451D065C5}</Project>
+      <Name>DFDataConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFWinForms\DFWinForms.csproj">
+      <Project>{36821DE9-E893-4F96-B6A2-CD8DB0548C1B}</Project>
+      <Name>DFWinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSharpCode.Core\ICSharpCode.Core.csproj">
+      <Project>{861980B8-0680-4939-98C7-408FCBAACB5C}</Project>
+      <Name>ICSharpCode.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="3DPipeCreate.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

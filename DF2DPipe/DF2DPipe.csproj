@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4C51AAF5-9F69-4281-80AB-8E6025A25807}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DF2DPipe</RootNamespace>
+    <AssemblyName>DF2DPipe</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Data.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v13.2.UI, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Images.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Snap.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Snap.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Snap.v13.2.Extensions, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Spreadsheet.v13.2.Core, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Utils.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.2.UI, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.Utils.v13.2.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraBars.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v13.2.UI, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v13.2.Wizard, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\DevExpress.XtraEditors.v13.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraNavBar.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraRichEdit.v13.2.Extensions, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraSpreadsheet.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DF3DAuthority, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="DF3DControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="DF3DData, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="DF3DDraw, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="DF3DPipeCreateTool, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <ExecutableExtension>.exe</ExecutableExtension>
+    </Reference>
+    <Reference Include="DFAlgorithm, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="ESRI.ArcGIS.3DAnalyst, Version=10.2.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.3DAnalyst.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.AxControls, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.AxControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Carto, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.Carto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Controls, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.Controls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.DataSourcesGDB, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.DataSourcesGDB.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Display, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.Display.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geodatabase, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.Geodatabase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geometry, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.Geometry.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Output, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.Output.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.System, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.System.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.SystemUI, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.SystemUI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Version, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\ESRI.ArcGIS.Version.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.AxControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=x86" />
+    <Reference Include="Gvitech.CityMaker.FdeCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.FdeGeometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.Math, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Gvitech.CityMaker.RenderControl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af8ecbfa1f04dea, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="NPOI, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\BuildingStats.cs" />
+    <Compile Include="Class\EconomyStats.cs" />
+    <Compile Include="Class\EconomyStatsFactory.cs" />
+    <Compile Include="Class\GlobalValue.cs" />
+    <Compile Include="Class\GreenStats.cs" />
+    <Compile Include="Class\PublicFunction.cs" />
+    <Compile Include="Class\Query.cs" />
+    <Compile Include="Class\RailwayStats.cs" />
+    <Compile Include="Class\RoadStats.cs" />
+    <Compile Include="Class\SelectOption.cs" />
+    <Compile Include="Class\ShowProperty.cs" />
+    <Compile Include="Class\StructureStats.cs" />
+    <Compile Include="Common\ElementOper.cs" />
+    <Compile Include="Query\Command\CmdCompoundConditionQuery.cs" />
+    <Compile Include="Query\Command\CmdIdentifyQuery.cs" />
+    <Compile Include="Query\Command\CmdLineQuery.cs" />
+    <Compile Include="Query\Command\CmdQueryByBuildYear.cs" />
+    <Compile Include="Query\Command\CmdQueryByDeep.cs" />
+    <Compile Include="Query\Command\CmdQueryByDiameter.cs" />
+    <Compile Include="Query\Command\CmdQueryByFusu.cs" />
+    <Compile Include="Query\Command\CmdQueryByMaterial.cs" />
+    <Compile Include="Query\Command\CmdQueryByOwner.cs" />
+    <Compile Include="Query\Command\CmdQueryByRoad.cs" />
+    <Compile Include="Query\Command\CmdRectQuery.cs" />
+    <Compile Include="Query\Command\CmdRegionConditionQuery.cs" />
+    <Compile Include="Query\Command\CmdSimpleConditionQuery.cs" />
+    <Compile Include="Query\Frm\FrmCompoundConditionQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\Frm\FrmPropertyQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\Frm\FrmPropertyQueryBoth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\Frm\FrmPropertyQueryByDepth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\Frm\FrmPropertyQueryByDiameter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\Frm\FrmRegionConditionQuery2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\Frm\FrmSimpleConditionQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\UC\UCPropertyInfo2D.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\Command\CmdALLPipeLineLengthStats2D.cs" />
+    <Compile Include="Stats\Command\CmdBuildingTargetStats.cs" />
+    <Compile Include="Stats\Command\CmdGreenTargetStats.cs" />
+    <Compile Include="Stats\Command\CmdPipeLineLengthStats2D.cs" />
+    <Compile Include="Stats\Command\CmdALLPipeNodeNumberStats2D.cs" />
+    <Compile Include="Stats\Command\CmdPipeNodeNumberStats2D.cs" />
+    <Compile Include="Stats\Command\CmdCompoundConditionStats2D.cs" />
+    <Compile Include="Stats\Command\CmdRailwayTargetStats.cs" />
+    <Compile Include="Stats\Command\CmdRegionConditionStats2D.cs" />
+    <Compile Include="Stats\Command\CmdRegionPipeLineLengthStats2D.cs" />
+    <Compile Include="Stats\Command\CmdRegionPipeNodeNumberStats2D.cs" />
+    <Compile Include="Stats\Command\CmdRoadTargetStats.cs" />
+    <Compile Include="Stats\Command\CmdStatsByBuildYear2D.cs" />
+    <Compile Include="Stats\Command\CmdStatsByDepthSeparation2D.cs" />
+    <Compile Include="Stats\Command\CmdStatsByDiameterSeparation2D.cs" />
+    <Compile Include="Stats\Command\CmdStatsByFusu2D.cs" />
+    <Compile Include="Stats\Command\CmdStatsByMaterial2D.cs" />
+    <Compile Include="Stats\Command\CmdStatsByOwner2D.cs" />
+    <Compile Include="Stats\Command\CmdStatsByRoad2D.cs" />
+    <Compile Include="Stats\Command\CmdStructuresTargetStats.cs" />
+    <Compile Include="Stats\Frm\FrmCompoundConditionStats2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmEconomyStatsChart2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmPipeLineLengthStats2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmPipeLineStatsOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmPipeLineStatsOutput2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmPipeNodeNumberStats2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmPipeNodeStatsOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmPropertyStatsByDepth2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmSeparationStats2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmPropertyStats2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmStatasByRoadChart2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmStatsByRoad2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmStatsByRoadOutput2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmPropertyStatsByBuildYear2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmPropertyStatsByDiameter2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmEconomyStatsPolygonByDistrict2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\Frm\FrmEconomyStatsPropOutput2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\UC\UCEconomyStatsChartOutput2D.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\UC\UCEconomyStatsOutput2D.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\UC\UCPipeLineStatsChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\UC\UCPipeLineStatsOutput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\UC\UCPipeNodeStatsChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\UC\UCPipeNodeStatsOutput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\UC\UCEconomyStatsPropOutput2D.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="Query\Frm\FrmCompoundConditionQuery.resx">
+      <DependentUpon>FrmCompoundConditionQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\Frm\FrmPropertyQuery.resx">
+      <DependentUpon>FrmPropertyQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\Frm\FrmPropertyQueryBoth.resx">
+      <DependentUpon>FrmPropertyQueryBoth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\Frm\FrmPropertyQueryByDepth.resx">
+      <DependentUpon>FrmPropertyQueryByDepth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\Frm\FrmPropertyQueryByDiameter.resx">
+      <DependentUpon>FrmPropertyQueryByDiameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\Frm\FrmRegionConditionQuery2D.resx">
+      <DependentUpon>FrmRegionConditionQuery2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\Frm\FrmSimpleConditionQuery.resx">
+      <DependentUpon>FrmSimpleConditionQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Query\UC\UCPropertyInfo2D.resx">
+      <DependentUpon>UCPropertyInfo2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmCompoundConditionStats2D.resx">
+      <DependentUpon>FrmCompoundConditionStats2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmEconomyStatsChart2D.resx">
+      <DependentUpon>FrmEconomyStatsChart2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmPipeLineLengthStats2D.resx">
+      <DependentUpon>FrmPipeLineLengthStats2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmPipeLineStatsOutput.resx">
+      <DependentUpon>FrmPipeLineStatsOutput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmPipeLineStatsOutput2D.resx">
+      <DependentUpon>FrmPipeLineStatsOutput2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmPipeNodeNumberStats2D.resx">
+      <DependentUpon>FrmPipeNodeNumberStats2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmPipeNodeStatsOutput.resx">
+      <DependentUpon>FrmPipeNodeStatsOutput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmPropertyStatsByDepth2D.resx">
+      <DependentUpon>FrmPropertyStatsByDepth2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmSeparationStats2D.resx">
+      <DependentUpon>FrmSeparationStats2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmPropertyStats2D.resx">
+      <DependentUpon>FrmPropertyStats2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmStatasByRoadChart2D.resx">
+      <DependentUpon>FrmStatasByRoadChart2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmStatsByRoad2D.resx">
+      <DependentUpon>FrmStatsByRoad2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmStatsByRoadOutput2D.resx">
+      <DependentUpon>FrmStatsByRoadOutput2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmPropertyStatsByBuildYear2D.resx">
+      <DependentUpon>FrmPropertyStatsByBuildYear2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmPropertyStatsByDiameter2D.resx">
+      <DependentUpon>FrmPropertyStatsByDiameter2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmEconomyStatsPolygonByDistrict2D.resx">
+      <DependentUpon>FrmEconomyStatsPolygonByDistrict2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Frm\FrmEconomyStatsPropOutput2D.resx">
+      <DependentUpon>FrmEconomyStatsPropOutput2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\UC\UCEconomyStatsChartOutput2D.resx">
+      <DependentUpon>UCEconomyStatsChartOutput2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\UC\UCEconomyStatsOutput2D.resx">
+      <DependentUpon>UCEconomyStatsOutput2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\UC\UCPipeLineStatsChart.resx">
+      <DependentUpon>UCPipeLineStatsChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\UC\UCPipeLineStatsOutput.resx">
+      <DependentUpon>UCPipeLineStatsOutput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\UC\UCPipeNodeStatsChart.resx">
+      <DependentUpon>UCPipeNodeStatsChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\UC\UCPipeNodeStatsOutput.resx">
+      <DependentUpon>UCPipeNodeStatsOutput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\UC\UCEconomyStatsPropOutput2D.resx">
+      <DependentUpon>UCEconomyStatsPropOutput2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DF2DControl\DF2DControl.csproj">
+      <Project>{9C67C4D9-E0C3-47CD-AC61-781CAC302A30}</Project>
+      <Name>DF2DControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DF2DData\DF2DData.csproj">
+      <Project>{E45F5F6C-6A98-408E-B801-032D8192DB46}</Project>
+      <Name>DF2DData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DF3DPipe\DF3DPipe.csproj">
+      <Project>{F316B40F-BB98-415C-BE6D-867EDDD91F00}</Project>
+      <Name>DF3DPipe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFCommon\DFCommon.csproj">
+      <Project>{322195C7-73BD-417B-8100-3640AAC2BE3C}</Project>
+      <Name>DFCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFDataConfig\DFDataConfig.csproj">
+      <Project>{A79ECE0A-6524-41AE-97AD-31F451D065C5}</Project>
+      <Name>DFDataConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFWinForms\DFWinForms.csproj">
+      <Project>{36821DE9-E893-4F96-B6A2-CD8DB0548C1B}</Project>
+      <Name>DFWinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSharpCode.Core\ICSharpCode.Core.csproj">
+      <Project>{861980B8-0680-4939-98C7-408FCBAACB5C}</Project>
+      <Name>ICSharpCode.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DFAlgorithm.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
