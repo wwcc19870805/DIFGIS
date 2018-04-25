@@ -400,10 +400,11 @@ namespace DF3DPipe.Query.UC
                     {
 
                         #region 定位
+                        int i = 1;
                         int geoindex = row.FieldIndex("Geometry");
                         if (geoindex == -1 || !(row.GetValue(geoindex) is IModelPoint)) continue;
                         DF3DApplication app = DF3DApplication.Application;
-                        if (app != null && app.Current3DMapControl != null)
+                        if (app != null && app.Current3DMapControl != null)  
                         {
                             IModelPoint geo = row.GetValue(geoindex) as IModelPoint;
                             IModelPointSymbol mps = new ModelPointSymbol();
