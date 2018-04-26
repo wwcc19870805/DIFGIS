@@ -595,6 +595,24 @@ namespace DF3DPipeCreateTool.Class
                             FieldType = gviFieldType.gviFieldDouble
                         };
                         infos.Add(newVal);
+                        //-------------便于之后做退让判断20180305--------------
+                        newVal = new FieldInfoClass
+                        {
+                            Name = "P_IsFusu",
+                            Alias = "前点是否具备风格",
+                            FieldType = gviFieldType.gviFieldString,
+                            Length = 80
+                        };
+                        infos.Add(newVal);
+                        //-----------------------------------------------------
+                        newVal = new FieldInfoClass
+                        {
+                            Name = "E_FacClass",
+                            Alias = "后点所在设施类",
+                            FieldType = gviFieldType.gviFieldString,
+                            Length = 80
+                        };
+                        infos.Add(newVal);
                         newVal = new FieldInfoClass
                         {
                             Name = "E_FacClass",
@@ -617,6 +635,16 @@ namespace DF3DPipeCreateTool.Class
                             FieldType = gviFieldType.gviFieldDouble
                         };
                         infos.Add(newVal);
+                        //-------------便于之后做退让判断20180305--------------
+                        newVal = new FieldInfoClass
+                        {
+                            Name = "E_IsFusu",
+                            Alias = "后点是否具备风格",
+                            FieldType = gviFieldType.gviFieldString,
+                            Length = 80
+                        };
+                        infos.Add(newVal);
+                        //-----------------------------------------------------
                         newVal = new FieldInfoClass
                         {
                             Name = "ResistanceA",

@@ -730,13 +730,13 @@ namespace DF3DPipeCreateTool.UC
                     if (!bTerrainHeight)
                     {
                         DFDataConfig.Class.FieldInfo fi = fcrPipeNode.FacilityType.GetFieldInfoBySystemName("DetectNo");
-                        if (fi != null) array = new string[] { fi.Name };
+                        if (fi != null) array = new string[] { fi.Name, "StyleId" };
                     }
                     else
                     {
                         DFDataConfig.Class.FieldInfo fi = fcrPipeNode.FacilityType.GetFieldInfoBySystemName("DetectNo");
                         DFDataConfig.Class.FieldInfo fi1 = fcrPipeNode.FacilityType.GetFieldInfoBySystemName("SurfHeight");
-                        if (fi != null && fi1 != null) array = new string[] { fi.Name, fi1.Name };
+                        if (fi != null && fi1 != null) array = new string[] { fi.Name, fi1.Name, "StyleId" };
                     }
                     if (array != null)
                     {
@@ -749,11 +749,11 @@ namespace DF3DPipeCreateTool.UC
                                 IQueryFilter filter1 = new QueryFilterClass();
                                 if (!bTerrainHeight)
                                 {
-                                    filter1.SubFields = string.Format("oid,{0}", array[0]);
+                                    filter1.SubFields = string.Format("oid,{0},{1}", array[0], array[1]);
                                 }
                                 else
                                 {
-                                    filter1.SubFields = string.Format("oid,{0},{1}", array[0], array[1]);
+                                    filter1.SubFields = string.Format("oid,{0},{1},{2}", array[0], array[1], array[2]);
                                 }
                                 IFdeCursor cursor = new FdeCursorClass();
                                 cursor = fcNode.Search(filter1, true);
@@ -770,11 +770,11 @@ namespace DF3DPipeCreateTool.UC
                                             {
                                                 if (!bTerrainHeight)
                                                 {
-                                                    dictionary.Add(key, new object[] { num4, fcrPipeNode.FeatureClassId });
+                                                    dictionary.Add(key, new object[] { num4, fcrPipeNode.FeatureClassId, row.GetValue(2) });
                                                 }
                                                 else
                                                 {
-                                                    dictionary.Add(key, new object[] { num4, fcrPipeNode.FeatureClassId, row.GetValue(2) });
+                                                    dictionary.Add(key, new object[] { num4, fcrPipeNode.FeatureClassId, row.GetValue(2), row.GetValue(3) });
                                                 }
                                             }
                                         }
@@ -848,6 +848,7 @@ namespace DF3DPipeCreateTool.UC
                                         rowTopo.SetValue(rowTopo.FieldIndex("Edge"), row.GetValue(0));
                                         rowTopo.SetValue(rowTopo.FieldIndex("Geometry"), row.GetValue(3));
                                         string newVal = "";
+                                        //起点
                                         if ((!row.IsNull(1) && !string.IsNullOrEmpty(row.GetValue(1).ToString())))
                                         {
                                             string temp = row.GetValue(1).ToString();
@@ -856,18 +857,40 @@ namespace DF3DPipeCreateTool.UC
                                             {
                                                 rowTopo.SetValue(rowTopo.FieldIndex("PNode"), objArray[0]);
                                                 rowTopo.SetValue(rowTopo.FieldIndex("P_FacClass"), objArray[1]);
+                                                string styleId ="-1";
                                                 if (bTerrainHeight)
                                                 {
                                                     row.SetValue(4, objArray[2]);
+                                                    styleId = objArray[3].ToString();
                                                 }
+                                                else styleId = objArray[2].ToString();
+                                                //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                                int indexP_IsFusu = rowTopo.FieldIndex("P_IsFusu");
+                                                if (indexP_IsFusu != -1)
+                                                {
+                                                    if (styleId.Equals("-1"))
+                                                    {
+                                                        rowTopo.SetValue(indexP_IsFusu, "no");
+                                                    }
+                                                    else
+                                                    {
+                                                        rowTopo.SetValue(indexP_IsFusu, "yes");
+                                                    }
+                                                }
+                                                //-----------------------------------------------------------------
                                             }
                                         }
                                         else
                                         {
                                             rowTopo.SetNull(rowTopo.FieldIndex("PNode"));
                                             rowTopo.SetNull(rowTopo.FieldIndex("P_FacClass"));
+                                            //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                            int indexP_IsFusu = rowTopo.FieldIndex("P_IsFusu");
+                                            if (indexP_IsFusu != -1) rowTopo.SetValue(indexP_IsFusu, "");
+                                            //-----------------------------------------------------------------
                                             newVal = newVal + "未连接前点;";
                                         }
+                                        //终点
                                         if ((!row.IsNull(2) && !string.IsNullOrEmpty(row.GetValue(2).ToString())))
                                         {
                                             string temp = row.GetValue(2).ToString();
@@ -876,16 +899,37 @@ namespace DF3DPipeCreateTool.UC
                                             {
                                                 rowTopo.SetValue(rowTopo.FieldIndex("ENode"), objArray[0]);
                                                 rowTopo.SetValue(rowTopo.FieldIndex("E_FacClass"), objArray[1]);
+                                                string styleId = "-1";
                                                 if (bTerrainHeight)
                                                 {
                                                     row.SetValue(5, objArray[2]);
+                                                    styleId = objArray[3].ToString();
                                                 }
+                                                else styleId = objArray[2].ToString();
+                                                //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                                int indexE_IsFusu = rowTopo.FieldIndex("E_IsFusu");
+                                                if (indexE_IsFusu != -1)
+                                                {
+                                                    if (styleId.Equals("-1"))
+                                                    {
+                                                        rowTopo.SetValue(indexE_IsFusu, "no");
+                                                    }
+                                                    else
+                                                    {
+                                                        rowTopo.SetValue(indexE_IsFusu, "yes");
+                                                    }
+                                                }
+                                                //-----------------------------------------------------------------
                                             }
                                         }
                                         else
                                         {
                                             rowTopo.SetNull(rowTopo.FieldIndex("ENode"));
                                             rowTopo.SetNull(rowTopo.FieldIndex("E_FacClass"));
+                                            //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                            int indexE_IsFusu = rowTopo.FieldIndex("E_IsFusu");
+                                            if (indexE_IsFusu != -1) rowTopo.SetValue(indexE_IsFusu, "");
+                                            //-----------------------------------------------------------------
                                             newVal = newVal + "未连接后;";
                                         }
                                         rowTopo.SetValue(rowTopo.FieldIndex("Topo_Error"), newVal);
@@ -1172,6 +1216,21 @@ namespace DF3DPipeCreateTool.UC
                                                     rowTopo.SetValue(rowTopo.FieldIndex("PNode"), buffer5.GetValue(2));
                                                     rowTopo.SetValue(rowTopo.FieldIndex("P_FacClass"), buffer5.GetValue(3));
                                                     rowTopo.SetValue(rowTopo.FieldIndex("PDis"), num6);
+                                                    //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                                    string styleId = buffer5.GetValue(6).ToString();
+                                                    int indexP_IsFusu = rowTopo.FieldIndex("P_IsFusu");
+                                                    if (indexP_IsFusu != -1)
+                                                    {
+                                                        if (styleId.Equals("-1"))
+                                                        {
+                                                            rowTopo.SetValue(indexP_IsFusu, "no");
+                                                        }
+                                                        else
+                                                        {
+                                                            rowTopo.SetValue(indexP_IsFusu, "yes");
+                                                        }
+                                                    }
+                                                    //-----------------------------------------------------------------
                                                 }
                                                 else
                                                 {
@@ -1183,6 +1242,21 @@ namespace DF3DPipeCreateTool.UC
                                                     rowTopo.SetValue(rowTopo.FieldIndex("PNode"), buffer4.GetValue(2));
                                                     rowTopo.SetValue(rowTopo.FieldIndex("P_FacClass"), buffer4.GetValue(3));
                                                     rowTopo.SetValue(rowTopo.FieldIndex("PDis"), num5);
+                                                    //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                                    string styleId = buffer5.GetValue(6).ToString();
+                                                    int indexP_IsFusu = rowTopo.FieldIndex("P_IsFusu");
+                                                    if (indexP_IsFusu != -1)
+                                                    {
+                                                        if (styleId.Equals("-1"))
+                                                        {
+                                                            rowTopo.SetValue(indexP_IsFusu, "no");
+                                                        }
+                                                        else
+                                                        {
+                                                            rowTopo.SetValue(indexP_IsFusu, "yes");
+                                                        }
+                                                    }
+                                                    //-----------------------------------------------------------------
                                                 }
                                             }
                                             else
@@ -1190,6 +1264,10 @@ namespace DF3DPipeCreateTool.UC
                                                 rowTopo.SetNull(rowTopo.FieldIndex("PNode"));
                                                 rowTopo.SetNull(rowTopo.FieldIndex("P_FacClass"));
                                                 rowTopo.SetNull(rowTopo.FieldIndex("PDis"));
+                                                //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                                int indexP_IsFusu = rowTopo.FieldIndex("P_IsFusu");
+                                                if (indexP_IsFusu != -1) rowTopo.SetValue(indexP_IsFusu, "");
+                                                //-----------------------------------------------------------------
                                                 newVal = newVal + "未连接前点;";
                                             }
                                             #endregion
@@ -1247,6 +1325,22 @@ namespace DF3DPipeCreateTool.UC
                                                     rowTopo.SetValue(rowTopo.FieldIndex("ENode"), buffer5.GetValue(2));
                                                     rowTopo.SetValue(rowTopo.FieldIndex("E_FacClass"), buffer5.GetValue(3));
                                                     rowTopo.SetValue(rowTopo.FieldIndex("EDis"), num6);
+                                                    //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                                    string styleId = buffer5.GetValue(6).ToString();
+                                                    int indexE_IsFusu = rowTopo.FieldIndex("E_IsFusu");
+                                                    if (indexE_IsFusu != -1)
+                                                    {
+                                                        if (styleId.Equals("-1"))
+                                                        {
+                                                            rowTopo.SetValue(indexE_IsFusu, "no");
+                                                        }
+                                                        else
+                                                        {
+                                                            rowTopo.SetValue(indexE_IsFusu, "yes");
+                                                        }
+                                                    }
+                                                    //-----------------------------------------------------------------
+
                                                 }
                                                 else
                                                 {
@@ -1258,6 +1352,21 @@ namespace DF3DPipeCreateTool.UC
                                                     rowTopo.SetValue(rowTopo.FieldIndex("ENode"), buffer4.GetValue(2));
                                                     rowTopo.SetValue(rowTopo.FieldIndex("E_FacClass"), buffer4.GetValue(3));
                                                     rowTopo.SetValue(rowTopo.FieldIndex("EDis"), num5);
+                                                    //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                                    string styleId = buffer5.GetValue(6).ToString();
+                                                    int indexE_IsFusu = rowTopo.FieldIndex("E_IsFusu");
+                                                    if (indexE_IsFusu != -1)
+                                                    {
+                                                        if (styleId.Equals("-1"))
+                                                        {
+                                                            rowTopo.SetValue(indexE_IsFusu, "no");
+                                                        }
+                                                        else
+                                                        {
+                                                            rowTopo.SetValue(indexE_IsFusu, "yes");
+                                                        }
+                                                    }
+                                                    //-----------------------------------------------------------------
                                                 }
                                             }
                                             else
@@ -1265,6 +1374,10 @@ namespace DF3DPipeCreateTool.UC
                                                 rowTopo.SetNull(rowTopo.FieldIndex("ENode"));
                                                 rowTopo.SetNull(rowTopo.FieldIndex("E_FacClass"));
                                                 rowTopo.SetNull(rowTopo.FieldIndex("EDis"));
+                                                //-----------填写设施风格偏于之后管线退让判断20180305--------------
+                                                int indexE_IsFusu = rowTopo.FieldIndex("E_IsFusu");
+                                                if (indexE_IsFusu != -1) rowTopo.SetValue(indexE_IsFusu, "");
+                                                //-----------------------------------------------------------------
                                                 newVal = newVal + "未连接后点;";
                                             }
                                             rowTopo.SetValue(rowTopo.FieldIndex("Topo_Error"), newVal);

@@ -57,7 +57,29 @@ namespace DF3DPipeCreateTool.Class
                 return 0.0;
             }
         }
+        public bool IsSBackhind
+        {
+            get
+            {
+                return this._isSBackhind;
+            }
+            set
+            {
+                this._isSBackhind = value;
+            }
+        }
 
+        public bool IsEBackhind
+        {
+            get
+            {
+                return this._isEBackhind;
+            }
+            set
+            {
+                this._isEBackhind = value;
+            }
+        }
         public PipeLineFac(FacClassReg facClassReg, FacStyleClass style, IRowBuffer rowInfo, TopoClass tc, bool isSBackhind = true, bool isEBackhind = true)
             : base(facClassReg, style, rowInfo)
         {

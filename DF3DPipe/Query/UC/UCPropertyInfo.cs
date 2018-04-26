@@ -398,7 +398,6 @@ namespace DF3DPipe.Query.UC
                     cursor = fc.Search(filter, false);
                     if ((row = cursor.NextRow()) != null)
                     {
-
                         #region 定位
                         int geoindex = row.FieldIndex("Geometry");
                         if (geoindex == -1 || !(row.GetValue(geoindex) is IModelPoint)) continue;

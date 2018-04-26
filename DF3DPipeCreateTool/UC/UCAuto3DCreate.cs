@@ -1482,6 +1482,62 @@ namespace DF3DPipeCreateTool.UC
                                         break;
                                     case "PipeLine":
                                         fac = new PipeLineFac(facClassReg, style, r, topoClass, isSBackhind, isEBackhind);
+                                        if (topoClass != null)
+                                        {
+                                            IObjectClass ocTopo = fac.Reg.GetFeatureClass();
+                                            IQueryFilter ocFilter = new QueryFilterClass
+                                            {
+                                                WhereClause = string.Format("A_FacClass = '{0}' and Edge = {1}", fac.Reg.FeatureClassId, fac.FeatureId),
+                                                SubFields = "oid,P_FacClass,PNode,P_IsFusu,E_FacClass,ENode,E_IsFusu"
+                                            };
+                                            IRowBuffer ocRow = ocTopo.Search(ocFilter, true).NextRow();
+                                            if (ocRow != null)
+                                            {
+                                                if (!ocRow.IsNull(3))
+                                                {
+                                                    string styleID = ocRow.GetValue(3).ToString();
+                                                    if (styleID.Equals("no"))
+                                                    {
+                                                        (fac as PipeLineFac).IsSBackhind = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        (fac as PipeLineFac).IsSBackhind = false;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    (fac as PipeLineFac).IsSBackhind = false;
+                                                }
+
+                                                if (!ocRow.IsNull(6))
+                                                {
+                                                    string styleID = ocRow.GetValue(6).ToString();
+                                                    if (styleID.Equals("no"))
+                                                    {
+                                                        (fac as PipeLineFac).IsEBackhind = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        (fac as PipeLineFac).IsEBackhind = false;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    (fac as PipeLineFac).IsEBackhind = false;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                (fac as PipeLineFac).IsSBackhind = isSBackhind;
+                                                (fac as PipeLineFac).IsEBackhind = isEBackhind;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            (fac as PipeLineFac).IsSBackhind = isSBackhind;
+                                            (fac as PipeLineFac).IsEBackhind = isEBackhind;
+                                        }
                                         break;
                                     case "PipeBuild":
                                     case "PipeBuild1":
@@ -1983,8 +2039,8 @@ namespace DF3DPipeCreateTool.UC
                         model.FineModel = style2.FineModel;
                         model.SimpleModel = style2.SimpleModel;
                         model.FLAG = FLAG;
-                        model.Pitch = (fac.Pitch / 180) * 3.1415926535897931;
-                        model.Yaw = (fac.Yaw / 180) * 3.1415926535897931;
+                        model.Pitch = (fac.Pitch / 180) * Math.PI;
+                        model.Yaw = (fac.Yaw / 180) * Math.PI;
                         model.SetParameter(fac.CenterPosition, fac.IsValve, fac.IsWell, fac.SurfH, fac.TopH, fac.BottomH, style2.IsFollowDir, style2.IsFollowDia, style2.IsFollowSurfH, style2.IsStretchZ, style2.IsRotateZ);
                         geometry = model;
                     }
