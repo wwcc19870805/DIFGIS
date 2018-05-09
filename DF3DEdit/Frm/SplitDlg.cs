@@ -49,12 +49,9 @@ namespace DF3DEdit.Frm
         public SplitDlg()
         {
             DF3DApplication app = DF3DApplication.Application;
-            if (app == null || app.Current3DMapControl == null) return;
+            if (app == null || app.Current3DMapControl == null || app.Workbench == null) return;
             this.InitializeComponent();
-            //MainFrmService.RibbonControl.Enabled = false;
-            //MainFrmService.LayerTreePanel.Enabled = false;
-            //MainFrmService.HideContainerBottom.Enabled = false;
-            //MainFrmService.RightPanelContainer.Enabled = false;
+            app.Workbench.SetMenuEnable(false);
             this._interactaMode = app.Current3DMapControl.InteractMode;
             app.Current3DMapControl.InteractMode = gviInteractMode.gviInteractNormal;
             GeometryEdit.Instance().SpatialQueryEditStopEvent += new SpatialQueryEditStopHandle(this.SpatialQueryEditStopEvent);
@@ -455,10 +452,7 @@ namespace DF3DEdit.Frm
             if (app == null || app.Current3DMapControl == null) return;
             this.DeleteRenderGeo(ref this._renderGeo);
             app.Current3DMapControl.HighlightHelper.SetRegion(null);
-            //MainFrmService.RibbonControl.Enabled = true;
-            //MainFrmService.LayerTreePanel.Enabled = true;
-            //MainFrmService.HideContainerBottom.Enabled = true;
-            //MainFrmService.RightPanelContainer.Enabled = true;
+            app.Workbench.SetMenuEnable(true);
             GeometryEdit.Instance().SpatialQueryEditStopEvent -= new SpatialQueryEditStopHandle(this.SpatialQueryEditStopEvent);
             app.Current3DMapControl.InteractMode = this._interactaMode;
         }
