@@ -36,11 +36,11 @@ namespace DF2DTool.Frm
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.btn_OK = new DevExpress.XtraEditors.SimpleButton();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.btn_OK = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -62,9 +62,28 @@ namespace DF2DTool.Frm
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(271, 53);
+            this.layoutControl1.Size = new System.Drawing.Size(224, 53);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // btn_OK
+            // 
+            this.btn_OK.Location = new System.Drawing.Point(73, 23);
+            this.btn_OK.Name = "btn_OK";
+            this.btn_OK.Size = new System.Drawing.Size(79, 22);
+            this.btn_OK.StyleController = this.layoutControl1;
+            this.btn_OK.TabIndex = 5;
+            this.btn_OK.Text = "确定";
+            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click_1);
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(44, 5);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(70, 14);
+            this.labelControl1.StyleController = this.layoutControl1;
+            this.labelControl1.TabIndex = 4;
+            this.labelControl1.Text = "labelControl1";
             // 
             // layoutControlGroup1
             // 
@@ -76,7 +95,7 @@ namespace DF2DTool.Frm
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(271, 53);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(224, 53);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -91,18 +110,9 @@ namespace DF2DTool.Frm
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup2.Size = new System.Drawing.Size(271, 53);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(224, 53);
             this.layoutControlGroup2.Text = "layoutControlGroup2";
             this.layoutControlGroup2.TextVisible = false;
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Location = new System.Drawing.Point(45, 5);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(70, 14);
-            this.labelControl1.StyleController = this.layoutControl1;
-            this.labelControl1.TabIndex = 4;
-            this.labelControl1.Text = "labelControl1";
             // 
             // layoutControlItem1
             // 
@@ -110,27 +120,17 @@ namespace DF2DTool.Frm
             this.layoutControlItem1.CustomizationFormText = "坐标：";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(265, 18);
+            this.layoutControlItem1.Size = new System.Drawing.Size(218, 18);
             this.layoutControlItem1.Text = "坐标：";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(36, 14);
-            // 
-            // btn_OK
-            // 
-            this.btn_OK.Location = new System.Drawing.Point(88, 23);
-            this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(97, 22);
-            this.btn_OK.StyleController = this.layoutControl1;
-            this.btn_OK.TabIndex = 5;
-            this.btn_OK.Text = "确定";
-            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click_1);
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.btn_OK;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(83, 18);
+            this.layoutControlItem2.Location = new System.Drawing.Point(68, 18);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(101, 29);
+            this.layoutControlItem2.Size = new System.Drawing.Size(83, 29);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextToControlDistance = 0;
@@ -142,7 +142,7 @@ namespace DF2DTool.Frm
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
             this.emptySpaceItem1.Location = new System.Drawing.Point(0, 18);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(83, 29);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(68, 29);
             this.emptySpaceItem1.Text = "emptySpaceItem1";
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -150,15 +150,15 @@ namespace DF2DTool.Frm
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
             this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem2";
-            this.emptySpaceItem2.Location = new System.Drawing.Point(184, 18);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(151, 18);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(81, 29);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(67, 29);
             this.emptySpaceItem2.Text = "emptySpaceItem2";
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // FrmCoordinate
             // 
-            this.ClientSize = new System.Drawing.Size(271, 53);
+            this.ClientSize = new System.Drawing.Size(224, 53);
             this.Controls.Add(this.layoutControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmCoordinate";

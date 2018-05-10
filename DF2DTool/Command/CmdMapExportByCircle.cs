@@ -102,7 +102,7 @@ namespace DF2DTool.Command
             }
             catch (System.Exception ex)
             {
-
+                WaitForm.Stop();
             }
         }
 

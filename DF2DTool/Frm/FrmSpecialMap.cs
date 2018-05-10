@@ -397,7 +397,7 @@ namespace DF2DTool.Frm
                 this.btnUnSel.Enabled = true;
                 this.btnSelAll.Enabled = true;
                 this.btnUnSelAll.Enabled = true;
-                this.rgGrnBelow.Enabled = true;
+                this.rgGrnBelow.Enabled = false;
                 this.rgGrnBelow.SelectedIndex = 0;
             }
         }
@@ -533,6 +533,7 @@ namespace DF2DTool.Frm
         {
             try
             {
+                if (!this.che_SetAllColor.Checked) return;
                 custom = 3;
                 if (this._dt == null) return;
                 else
@@ -584,8 +585,8 @@ namespace DF2DTool.Frm
                 ILayer pLayer;
                 string strFilter = "";
                 WaitForm.Start("开始制作专题图,请稍后...");
-                m_BackFill = CommonFunction.GetRGBColor(ce_BackFill.Color.R, ce_BackFill.Color.G, ce_BackFill.Color.B);
-                m_ColorBack = CommonFunction.GetRGBColor(ce_ColorBack.Color.R, ce_ColorBack.Color.G, ce_ColorBack.Color.B);
+                m_BackFill = CommonFunction.GetRGBColor(ce_BackFill.Color.R, ce_BackFill.Color.G, ce_BackFill.Color.B);//面填充颜色
+                m_ColorBack = CommonFunction.GetRGBColor(ce_ColorBack.Color.R, ce_ColorBack.Color.G, ce_ColorBack.Color.B);//要素边框颜色
                 foreach (object obj in lbx_BackMap.Items)
                 {
                     string item = obj.ToString();
@@ -601,15 +602,15 @@ namespace DF2DTool.Frm
                     Color colorMap = _dicColors[layerName];
                     pLayer = GetLayerByName(layerName);
                     if (pLayer == null) continue;
-                    WaitForm.SetCaption("正在渲染底图图层" + pLayer.Name + "请稍后...");
-                    if (this.rgGrnBelow.Enabled)
+                    WaitForm.SetCaption("正在渲染图层" + pLayer.Name + "请稍后...");
+                    if ((pLayer.Name.Contains("点") || pLayer.Name.Contains("线")) && rgGrnBelow.Enabled)
                     {
-                        if (this.rgGrnBelow.SelectedIndex == 1)
+                        if (this.rgGrnBelow.SelectedIndex == 0)
                         {
                             m_ColorPipeDown = CommonFunction.GetRGBColor(colorMap.R, colorMap.G, colorMap.B);
                             m_ColorPipeUp = CommonFunction.GetRGBColor(ce_Ground.Color.R, ce_Ground.Color.G, ce_Ground.Color.B);
                         }
-                        if (this.rgGrnBelow.SelectedIndex == 0)
+                        else
                         {
                             m_ColorPipeUp = CommonFunction.GetRGBColor(colorMap.R, colorMap.G, colorMap.B);
                             m_ColorPipeDown = CommonFunction.GetRGBColor(ce_Below.Color.R, ce_Below.Color.G, ce_Below.Color.B);
@@ -621,11 +622,11 @@ namespace DF2DTool.Frm
                         m_ColorMap = CommonFunction.GetRGBColor(colorMap.R, colorMap.G, colorMap.B);
                         m_ColorOutline = CommonFunction.GetRGBColor(ce_ColorOutline.Color.R, ce_ColorOutline.Color.G, ce_ColorOutline.Color.B);
                         strFilter = dr["Filter"].ToString();
-                        if (strFilter != "")
+                        if (strFilter != "")//如果有过滤条件，对整个图层进行渲染
                         {
                             SpecialLayerRender(pLayer as IFeatureLayer, m_ColorMap, m_ColorOutline, m_ColorBack, m_BackFill, strFilter);
                         }
-                        else
+                        else//若无过滤条件，只对满足条件的要素进行渲染，其余要素用底图配色方案显示
                         {
                             SpecialLayerRender(pLayer as IFeatureLayer, m_ColorMap, m_ColorOutline);
                         }
@@ -633,6 +634,7 @@ namespace DF2DTool.Frm
 
 
                 }
+                WaitForm.Stop();
                 app.Current2DMapControl.ActiveView.Refresh();
             }
             catch (System.Exception ex)
@@ -752,16 +754,17 @@ namespace DF2DTool.Frm
             IGeoFeatureLayer geoFL = featureLayer as IGeoFeatureLayer;
             if (geoFL == null||featureLayer.FeatureClass == null ) return;
             
-            if (featureLayer.FeatureClass.FeatureType != esriFeatureType.esriFTAnnotation)
+            if (featureLayer.FeatureClass.FeatureType != esriFeatureType.esriFTAnnotation)//如果不为注记层
             {
-                IUniqueValueRenderer pUniqueRender_new = new UniqueValueRendererClass();
+                IUniqueValueRenderer pUniqueRender_new = new UniqueValueRendererClass();//新的UniqueRender，考虑地物编码和地上/地下两个字段
                 if (geoFL.Renderer is IUniqueValueRenderer)
                 {
                     index = featureLayer.FeatureClass.FindField(SYMBOL_SIGN_FIELD_UPDOWN);
-                    if (index > -1)
+                    if (index > -1)//如果存在【地上/地下】字段
                     {
                         string strValue = "";
                         string s = "";
+                        //获得图层的UniqueRender
                         IUniqueValueRenderer pUniqueRender = (featureLayer as IGeoFeatureLayer).Renderer as IUniqueValueRenderer;
                         for (j = 0; j < pUniqueRender.FieldCount; j++)
                         {
@@ -780,13 +783,14 @@ namespace DF2DTool.Frm
                                 ISymbol sym = pUniqueRender.get_Symbol(pUniqueRender.get_Value(i));
                                 if (pUniqueRender.get_Label(pUniqueRender.get_Value(i)).IndexOf("地下") > -1)
                                 {
+                                    //根据地上/地下改变符号颜色
                                     switch (featureLayer.FeatureClass.ShapeType)
                                     {
-                                        case esriGeometryType.esriGeometryPoint:
-                                            (sym as IMarkerSymbol).Color = colorDown;
+                                        case esriGeometryType.esriGeometryPoint://点要素层
+                                            (sym as IMarkerSymbol).Color = colorDown;//设置地下管线符号颜色
                                             break;
-                                        case esriGeometryType.esriGeometryPolyline:
-                                            (sym as ILineSymbol).Color = colorDown;
+                                        case esriGeometryType.esriGeometryPolyline://线要素层
+                                            (sym as ILineSymbol).Color = colorDown;//设置地下管线符号颜色
                                             break;
                                     }
                                 }
@@ -794,11 +798,11 @@ namespace DF2DTool.Frm
                                 {
                                     switch (featureLayer.FeatureClass.ShapeType)
                                     {
-                                        case esriGeometryType.esriGeometryPoint:
-                                            (sym as IMarkerSymbol).Color = colorUp;
+                                        case esriGeometryType.esriGeometryPoint://点要素层
+                                            (sym as IMarkerSymbol).Color = colorUp;//设置地上管线符号颜色
                                             break;
-                                        case esriGeometryType.esriGeometryPolyline:
-                                            (sym as ILineSymbol).Color = colorUp;
+                                        case esriGeometryType.esriGeometryPolyline://线要素层
+                                            (sym as ILineSymbol).Color = colorUp;//设置地上管线符号颜色
                                             break;
                                     }
                                 }
@@ -808,6 +812,7 @@ namespace DF2DTool.Frm
                         {
                             if (pUniqueRender.FieldCount < 3)
                             {
+                                //添加渲染字段【地上/地下】
                                 pUniqueRender_new.FieldCount = pUniqueRender.FieldCount + 1;
                                 for (i = 0; i < pUniqueRender.FieldCount; i++)
                                 {
@@ -815,11 +820,12 @@ namespace DF2DTool.Frm
                                 }
                                 pUniqueRender_new.set_Field(i, SYMBOL_SIGN_FIELD_UPDOWN);
                                 pUniqueRender_new.FieldDelimiter = "_";
+                                //添加值
                                 for (i = 0; i < pUniqueRender.ValueCount; i++)
                                 {
                                     strValue = pUniqueRender.get_Value(i);
-                                    IClone pCloneSymbolDown = (pUniqueRender.get_Symbol(strValue) as IClone).Clone();
-                                    IClone pCloneSymbolUp = (pUniqueRender.get_Symbol(strValue) as IClone).Clone();
+                                    IClone pCloneSymbolDown = (pUniqueRender.get_Symbol(strValue) as IClone).Clone();//复制地下管线符号
+                                    IClone pCloneSymbolUp = (pUniqueRender.get_Symbol(strValue) as IClone).Clone();//复制地上管线符号
                                     pUniqueRender_new.AddValue(strValue + "_2", pUniqueRender.get_Heading(strValue), pCloneSymbolDown as ISymbol);
                                     pUniqueRender_new.set_Label(strValue + "_2", pUniqueRender.get_Label(strValue) + "_地下");
                                     pUniqueRender_new.AddValue(strValue + "_1", pUniqueRender.get_Heading(strValue), pCloneSymbolUp as ISymbol);
@@ -828,15 +834,15 @@ namespace DF2DTool.Frm
                                     //根据地上/地下改变符号颜色
                                     switch (featureLayer.FeatureClass.ShapeType)
                                     {
-                                        case esriGeometryType.esriGeometryPoint:
-                                            (pCloneSymbolDown as IMarkerSymbol).Color = colorDown;
-                                            (pCloneSymbolUp as IMarkerSymbol).Color = colorUp;
+                                        case esriGeometryType.esriGeometryPoint://点要素层
+                                            (pCloneSymbolDown as IMarkerSymbol).Color = colorDown;//设置地下管线符号颜色
+                                            (pCloneSymbolUp as IMarkerSymbol).Color = colorUp;//设置地上管线符号颜色
                                             (pUniqueRender_new as IRotationRenderer).RotationField = SYMBOL_SIGN_FIELD_DIRCTION;
                                             (pUniqueRender_new as IRotationRenderer).RotationType = esriSymbolRotationType.esriRotateSymbolGeographic;
                                             break;
-                                        case esriGeometryType.esriGeometryPolyline:
-                                            (pCloneSymbolDown as ILineSymbol).Color = colorDown;
-                                            (pCloneSymbolUp as ILineSymbol).Color = colorUp;
+                                        case esriGeometryType.esriGeometryPolyline://线要素层
+                                            (pCloneSymbolDown as ILineSymbol).Color = colorDown;//设置地下管线符号颜色
+                                            (pCloneSymbolUp as ILineSymbol).Color = colorUp;//设置地上管线符号颜色
                                             break;
                                     }
                                 }
@@ -856,20 +862,22 @@ namespace DF2DTool.Frm
                     pUniqueRender_new.set_Field(0, SYMBOL_SIGN_FIELD_UPDOWN);
                     ISimpleRenderer pSimpleRender = (featureLayer as IGeoFeatureLayer).Renderer as ISimpleRenderer;
 
-                    IClone pCloneSymbolDown = (pSimpleRender.Symbol as IClone).Clone();
-                    IClone pCloneSymbolUp = (pSimpleRender.Symbol as IClone).Clone();
+                    //添加值
+                    IClone pCloneSymbolDown = (pSimpleRender.Symbol as IClone).Clone();//复制地下管线符号
+                    IClone pCloneSymbolUp = (pSimpleRender.Symbol as IClone).Clone();//复制地上管线符号
                     pUniqueRender_new.AddValue("2", "地下", pCloneSymbolDown as ISymbol);
                     pUniqueRender_new.AddValue("1", "地上", pCloneSymbolUp as ISymbol);
 
+                    //改变符号的颜色
                     switch (featureLayer.FeatureClass.ShapeType)
                     {
-                        case esriGeometryType.esriGeometryPoint:
-                            (pCloneSymbolDown as IMarkerSymbol).Color = colorDown;
-                            (pCloneSymbolUp as IMarkerSymbol).Color = colorUp;
+                        case esriGeometryType.esriGeometryPoint://点要素层
+                            (pCloneSymbolDown as IMarkerSymbol).Color = colorDown;//设置地下管线符号颜色
+                            (pCloneSymbolUp as IMarkerSymbol).Color = colorUp;//设置地上管线符号颜色
                             break;
-                        case esriGeometryType.esriGeometryPolyline:
-                            (pCloneSymbolDown as ILineSymbol).Color = colorDown;
-                            (pCloneSymbolUp as ILineSymbol).Color = colorUp;
+                        case esriGeometryType.esriGeometryPolyline://线要素层
+                            (pCloneSymbolDown as ILineSymbol).Color = colorDown;//设置地下管线符号颜色
+                            (pCloneSymbolUp as ILineSymbol).Color = colorUp;//设置地上管线符号颜色
                             break;
                     }
                     (featureLayer as IGeoFeatureLayer).Renderer = pUniqueRender_new as IFeatureRenderer;
@@ -1046,20 +1054,23 @@ namespace DF2DTool.Frm
             IFillSymbol fillSymbol = null;
             IGeoFeatureLayer geoFL = featureLayer as IGeoFeatureLayer;
             if (geoFL == null) return;
+            //由查询条件得到属性值
             IArray arrProperty = this.GetProperty(strFilter);
-            IField pFilterFld = this.frmFilter.Field;
+            IField pFilterFld = this.frmFilter.Field;//过滤条件中的属性值
 
+            //根据过滤条件定义符号化方案
             if (geoFL.Renderer is IUniqueValueRenderer)
             {
+                //获得UniqueRender的所有值
                 pUniqueRender = geoFL.Renderer as IUniqueValueRenderer;
                 switch (featureLayer.FeatureClass.ShapeType)
                 {
-                    case esriGeometryType.esriGeometryPoint:
+                    case esriGeometryType.esriGeometryPoint://点要素层
                     for (i = 0; i < pUniqueRender.ValueCount;i++)
                     {
                         bFlag = false;
                         for (j=0;j < arrProperty.Count;j++)
-                        {
+                            {
                             if(pUniqueRender.get_Value(i) == arrProperty.get_Element(j).ToString())
                             {
                                 markerSymbol = pUniqueRender.get_Symbol(pUniqueRender.get_Value(i)) as IMarkerSymbol;
@@ -1068,7 +1079,7 @@ namespace DF2DTool.Frm
                                 break;
                             }
                  
-                        }
+                        }   
                         if(bFlag) continue;
                         markerSymbol = pUniqueRender.get_Symbol(pUniqueRender.get_Value(i)) as IMarkerSymbol;
                         markerSymbol.Color = colorBack;                       

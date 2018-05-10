@@ -73,7 +73,7 @@ namespace DF2DDataCheck.Command
             List<DF2DFeatureClass> list = Dictionary2DTable.Instance.GetFeatureClassByFacilityClassName("PipeNode");
             if (list == null) return;
             Dictionary<IFeatureClass, DataTable> dict = new Dictionary<IFeatureClass, DataTable>();
-            WaitForm.Start("开始数据唯一性检查..", "请稍后");
+            WaitForm.Start("开始数据唯一性检查..", "请稍候");
             foreach (DF2DFeatureClass dfcc in list)
             {
                 IFeatureClass fc = dfcc.GetFeatureClass();
@@ -99,17 +99,17 @@ namespace DF2DDataCheck.Command
                         dr["FeatureClass"] = fc;
                         dr["ErrorType"] = "【物探点名】字段值重复";
                         dt.Rows.Add(dr);
-                        Console.WriteLine(pFea.OID);
+                        //Console.WriteLine(pFea.OID);
               }
    
                 if (dt.Rows.Count > 0) dict[fc] = dt;
             }
-            if (dict.Count == 0)
-            {
+            //if (dict.Count == 0)
+            //{
 
-                XtraMessageBox.Show("提示表格数据为空！");
+            //    XtraMessageBox.Show("提示表格数据为空！");
                 
-            }
+            //}
             WaitForm.Stop();
             FormCheckResult dlg = new FormCheckResult(dict, m_pMapControl);
             dlg.Text = this.CommandName;

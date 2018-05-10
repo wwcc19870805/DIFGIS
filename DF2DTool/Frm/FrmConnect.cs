@@ -295,6 +295,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmConnect";
+            this.ShowIcon = false;
             this.Text = "连接参数";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -346,6 +347,10 @@ namespace DF2DTool.Frm
                     {
                         IWorkspaceFactory pWS = new SdeWorkspaceFactoryClass();
                         string filename = pFrmSDEFileName.SDEFileName;
+                        if (!Directory.Exists(sDir))
+                        {
+                            Directory.CreateDirectory(sDir);
+                        }
                         if (File.Exists(sDir + "\\" + filename + ".sde"))
                         {
                             File.Delete(sDir + "\\" + filename + ".sde");

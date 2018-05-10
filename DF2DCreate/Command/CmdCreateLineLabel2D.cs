@@ -70,7 +70,6 @@ namespace DF2DCreate.Command
             {
                 m_pActiveView.PartialRefresh(esriViewDrawPhase.esriViewGraphics, null, null);
             }
-            base.OnMouseDown(button, shift, x, y, mapX, mapY);
 
             IFeature pFeature;
             IGeometry pGeo;
@@ -90,89 +89,98 @@ namespace DF2DCreate.Command
             
 
 
-            string[] fields = new string[]{"Classify","StartNo","EndNo","Material","Coverstyle","Diameter","proad"};
-            foreach (MajorClass mc in LogicDataStructureManage2D.Instance.GetAllMajorClass())
+            string[] sysFields = new string[]{"Classify","StartNo","EndNo","Material","CoverStyle","Diameter","Road"};
+            string[] fields = new string[] { "类别", "起点号", "终点号", "材质", "埋设方式", "管径", "所在道路" };
+            try
             {
-                WaitForm.Start("正在查询...", "请稍后");
-                string[] arrFc2DId = mc.Fc2D.Split(';');//将二级大类所对应的要素类ID转换为数组
-                if (arrFc2DId == null) continue;
-
-                foreach (SubClass sc in mc.SubClasses)
+                foreach (MajorClass mc in LogicDataStructureManage2D.Instance.GetAllMajorClass())
                 {
-                    if (!sc.Visible2D) continue;
-                    foreach (string fc2DId in arrFc2DId)//遍历二级子类所对应的要素类ID
+                    WaitForm.Start("正在查询...", "请稍后");
+                    string[] arrFc2DId = mc.Fc2D.Split(';');//将二级大类所对应的要素类ID转换为数组
+                    if (arrFc2DId == null) continue;
+
+                    foreach (SubClass sc in mc.SubClasses)
                     {
-                        DF2DFeatureClass dffc = DF2DFeatureClassManager.Instance.GetFeatureClassByID(fc2DId);//根据要素类ID得到DF2DFC
-                        if (dffc == null) continue;
-                        FacilityClass fcc = dffc.GetFacilityClass();
-                        if (fcc.Name != "PipeLine") continue;
-                        IFeatureLayer fl = dffc.GetFeatureLayer();                    
-
-                        ISpatialFilter pSpatialFilter = new SpatialFilterClass();
-                        pSpatialFilter.Geometry = m_pGeoTrack;
-                        pSpatialFilter.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
-                        pSpatialFilter.WhereClause = "SMSCODE =  '" + sc.Name + "'";
-                        IFeatureClass fc = dffc.GetFeatureClass();
-                        pFeaCur = fc.Search(pSpatialFilter, false);
-                        while ((pFeature = pFeaCur.NextFeature()) != null)
+                        if (!sc.Visible2D) continue;
+                        foreach (string fc2DId in arrFc2DId)//遍历二级子类所对应的要素类ID
                         {
-                            foreach(string field in fields)
-                            {
-                               DFDataConfig.Class.FieldInfo  fi = fcc.GetFieldInfoBySystemName(field);
-                               if(fi == null) continue;
-                               int index  = fc.Fields.FindField(fi.Name);
-                               object obj = pFeature.get_Value(index);
-                                switch(field)
-                                {
-                                    case "Classify":
-                                        classify = obj.ToString();
-                                        break;
-                                    case "StartNo":
-                                        startNo = obj.ToString();
-                                        break;
-                                    case "EndNo":
-                                        endNo = obj.ToString();
-                                        break;
-                                    case "Material":
-                                        material = obj.ToString();
-                                        break;
-                                    case "Coverstyle":
-                                        coverstyle = obj.ToString();
-                                        break;
-                                    case "Diameter":
-                                        diameter = obj.ToString();
-                                        break;
-                                    case "proad":
-                                        road = obj.ToString();
-                                        break;
+                            DF2DFeatureClass dffc = DF2DFeatureClassManager.Instance.GetFeatureClassByID(fc2DId);//根据要素类ID得到DF2DFC
+                            if (dffc == null) continue;
+                            FacilityClass fcc = dffc.GetFacilityClass();
+                            if (fcc.Name != "PipeLine") continue;
+                            IFeatureLayer fl = dffc.GetFeatureLayer();
 
+                            ISpatialFilter pSpatialFilter = new SpatialFilterClass();
+                            pSpatialFilter.Geometry = m_pGeoTrack;
+                            pSpatialFilter.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+                            pSpatialFilter.WhereClause = "SMSCODE =  '" + sc.Name + "'";
+                            IFeatureClass fc = dffc.GetFeatureClass();
+                            pFeaCur = fc.Search(pSpatialFilter, false);
+                            while ((pFeature = pFeaCur.NextFeature()) != null)
+                            {
+                                foreach (string field in sysFields)
+                                {
+                                    DFDataConfig.Class.FieldInfo fi = fcc.GetFieldInfoBySystemName(field);
+                                    if (fi == null) continue;
+                                    int index = fc.Fields.FindField(fi.Name);
+                                    object obj = pFeature.get_Value(index);
+                                    switch (field)
+                                    {
+                                        case "Classify":
+                                            classify = obj.ToString();
+                                            break;
+                                        case "StartNo":
+                                            startNo = obj.ToString();
+                                            break;
+                                        case "EndNo":
+                                            endNo = obj.ToString();
+                                            break;
+                                        case "Material":
+                                            material = obj.ToString();
+                                            break;
+                                        case "CoverStyle":
+                                            coverstyle = obj.ToString();
+                                            break;
+                                        case "Diameter":
+                                            diameter = obj.ToString();
+                                            break;
+                                        case "Road":
+                                            road = obj.ToString();
+                                            break;
+
+                                    }
                                 }
+                                IPolyline pline = m_pGeoTrack as IPolyline;
+                                IPoint point1 = pline.ToPoint;
+                                ITopologicalOperator topo = pFeature.Shape as ITopologicalOperator;
+                                IGeometry geo = topo.Intersect(m_pGeoTrack, esriGeometryDimension.esriGeometry0Dimension);
+                                IPointCollection pointCol = geo as IPointCollection;
+                                IPoint point2 = pointCol.get_Point(pointCol.PointCount - 1);
+                                distance = GetDistanceOfTwoPoints(point1, point2);
+                                IntersectPipe interPipe = new IntersectPipe(pFeature, fl, distance, classify, startNo, endNo, material, coverstyle, diameter, road);
+                                m_IntersectPipes.Add(interPipe);
                             }
-                            IPolyline pline = m_pGeoTrack as IPolyline;
-                            IPoint point1 = pline.ToPoint;
-                            ITopologicalOperator topo = pFeature.Shape as ITopologicalOperator;
-                            IGeometry geo = topo.Intersect(m_pGeoTrack,esriGeometryDimension.esriGeometry0Dimension);
-                            IPointCollection pointCol = geo as IPointCollection;                          
-                            IPoint point2 = pointCol.get_Point(pointCol.PointCount -1);
-                            distance = GetDistanceOfTwoPoints(point1,point2);
-                            IntersectPipe interPipe = new IntersectPipe(pFeature, fl, distance, classify, startNo, endNo, material, coverstyle, diameter, road);
-                            m_IntersectPipes.Add(interPipe);
                         }
                     }
                 }
+                if (m_IntersectPipes.Count == 0) return;
+                List<IntersectPipe> orderList = m_IntersectPipes.OrderBy(i => i.Distance).ToList<IntersectPipe>();
+                DrawPipeLabels();
+
+                int n = 0;
+                foreach (IntersectPipe interPipe in orderList)
+                {
+                    WaitForm.SetCaption("正在输出属性，请稍后...");
+                    DrawPipeInfo(interPipe, n);
+                    ++n;
+                }
+                WaitForm.Stop();
             }
-            if (m_IntersectPipes.Count == 0) return;
-            List<IntersectPipe> orderList = m_IntersectPipes.OrderBy(i => i.Distance).ToList<IntersectPipe>();
-            DrawPipeLabels();
-           
-            int n = 0;
-            foreach (IntersectPipe interPipe in orderList)
+            catch (System.Exception ex)
             {
-                WaitForm.SetCaption("正在输出属性，请稍后...");
-                DrawPipeInfo(interPipe,n);
-                ++n;
+                WaitForm.Stop();
             }
-            WaitForm.Stop();
+          
         }
         private void DrawPipeInfo(IntersectPipe interPipe,int i)
         {
@@ -533,12 +541,21 @@ namespace DF2DCreate.Command
 
         public override void RestoreEnv()
         {
-            
-            mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
-            if (mapView == null) return;
-            mapView.UnBind(this);
-            Map2DCommandManager.Pop();
 
+            try
+            {
+                IMap2DView mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
+                if (mapView == null) return;
+                if (app == null || app.Current2DMapControl == null || app.Workbench == null) return;
+                m_pActiveView.GraphicsContainer.DeleteAllElements();
+                app.Current2DMapControl.ActiveView.Refresh();
+                mapView.UnBind(this);
+                Map2DCommandManager.Pop();
+            }
+            catch (System.Exception ex)
+            {
+
+            }
         }
     
     }

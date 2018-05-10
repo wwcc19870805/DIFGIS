@@ -808,6 +808,7 @@ namespace DF2DPipe.Frm
             this.ClientSize = new System.Drawing.Size(506, 443);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmRegionConditionQuery2D";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "复合条件查询";
             this.Load += new System.EventHandler(this.FrmCompoundConditionQuery_Load);

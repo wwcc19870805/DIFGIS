@@ -293,6 +293,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(219, 184);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmMapExportByCoordinate";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "图幅参数设置";
             this.Load += new System.EventHandler(this.FrmMapExportByCoordinate_Load);

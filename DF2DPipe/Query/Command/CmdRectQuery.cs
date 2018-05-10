@@ -21,6 +21,7 @@ using DevExpress.XtraBars.Docking;
 using DF2DPipe.Query.UC;
 using DFDataConfig.Logic;
 using ESRI.ArcGIS.Display;
+using DF2DPipe.Query.Frm;
 
 
 namespace DF2DPipe.Query.Command
@@ -31,7 +32,7 @@ namespace DF2DPipe.Query.Command
         private DockPanel _dockPanel;
         private int _height = 200;
         private UIDockPanel _uPanel;
-        private int _width = 400;
+        private int _width = 300;
         private UCPropertyInfo2D _ucPropInfo2D;
         public Dictionary<string, DataTable> _dict = new Dictionary<string, DataTable>();
 
@@ -44,9 +45,9 @@ namespace DF2DPipe.Query.Command
             if (!bBind) return;
             DF2DApplication app = DF2DApplication.Application;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(false);
+            app.Workbench.SetMenuEnable(false);
             app.Current2DMapControl.MousePointer = esriControlsMousePointer.esriPointerArrow;
-
+            FrmMajorClass.Instance.Show();
 
 
 
@@ -58,7 +59,7 @@ namespace DF2DPipe.Query.Command
             this._dict.Clear();
             bool ready = true;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(true);
+            app.Workbench.SetMenuEnable(true);
             m_ActiveView = app.Current2DMapControl.ActiveView;
             IScreenDisplay m_Display = app.Current2DMapControl.ActiveView.ScreenDisplay;            
             try
@@ -95,9 +96,9 @@ namespace DF2DPipe.Query.Command
                     if (ready)
                     {
 
-                       foreach (LogicGroup lg in LogicDataStructureManage2D.Instance.RootLogicGroups)
-                       {
-                            foreach (MajorClass mc in lg.MajorClasses)
+                       //foreach (LogicGroup lg in LogicDataStructureManage2D.Instance.RootLogicGroups)
+                       //{
+                            foreach (MajorClass mc in FrmMajorClass.Instance.MajorClasses)
                             {
                                 foreach (SubClass sc in mc.SubClasses)
                                 {
@@ -200,7 +201,7 @@ namespace DF2DPipe.Query.Command
                         }
 
                     }
-                }
+                //}
             }
             catch 
             {

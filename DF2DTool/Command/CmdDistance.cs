@@ -28,7 +28,7 @@ namespace DF2DTool.Command
 
         private INewLineFeedback m_pNewLineFeedback = null;
 
-        private  IPoint m_pAnchorPoint;        
+        private IPoint m_pAnchorPoint;
         private IPoint m_pLastPoint;
 
         private double m_dblDistance;
@@ -49,122 +49,100 @@ namespace DF2DTool.Command
             m_pActiveView = (IActiveView)this.m_FocusMap;
         }
 
-         public override void OnMouseDown(int button, int shift, int x, int y, double mapX, double mapY)
+        public override void OnMouseDown(int button, int shift, int x, int y, double mapX, double mapY)
         {
-
+            m_pAnchorPoint = this.m_pMapControl.ActiveView.ScreenDisplay.DisplayTransformation.ToMapPoint(x, y);
+            if (m_pNewLineFeedback == null)
             {
-                m_pAnchorPoint = this.m_pMapControl.ActiveView.ScreenDisplay.DisplayTransformation.ToMapPoint(x, y);
-                if (m_pNewLineFeedback == null)
-                {
-                    ISimpleLineSymbol pSLnSym;
-                    m_pNewLineFeedback = new NewLineFeedbackClass();
-                    pSLnSym = (ISimpleLineSymbol)m_pNewLineFeedback.Symbol;
-                    Color color = ColorTranslator.FromHtml(SystemInfo.Instance.LineColor);
-                    IColor pColor = new RgbColorClass();
-                    pColor.RGB = color.B * 65536 + color.G * 256 + color.R;
+                ISimpleLineSymbol pSLnSym;
+                m_pNewLineFeedback = new NewLineFeedbackClass();
+                pSLnSym = (ISimpleLineSymbol)m_pNewLineFeedback.Symbol;
+                Color color = ColorTranslator.FromHtml(SystemInfo.Instance.LineColor);
+                IColor pColor = new RgbColorClass();
+                pColor.RGB = color.B * 65536 + color.G * 256 + color.R;
 
-                    pSLnSym.Color = pColor;
-                    pSLnSym.Style = esriSimpleLineStyle.esriSLSSolid;
+                pSLnSym.Color = pColor;
+                pSLnSym.Style = esriSimpleLineStyle.esriSLSSolid;
 
-                    m_pNewLineFeedback.Display = this.m_pMapControl.ActiveView.ScreenDisplay;
-                    m_pNewLineFeedback.Start(m_pAnchorPoint);
+                m_pNewLineFeedback.Display = this.m_pMapControl.ActiveView.ScreenDisplay;
+                m_pNewLineFeedback.Start(m_pAnchorPoint);
 
-                }
-                else
-                {
-                    m_pNewLineFeedback.AddPoint(m_pAnchorPoint);
-                }
             }
-            base.OnMouseDown(button, shift, x, y, mapX, mapY);
-
-
-
+            else
+            {
+                m_pNewLineFeedback.AddPoint(m_pAnchorPoint);
+            }
 
         }
 
 
-         public override void OnMouseMove(int button, int shift, int x, int y, double mapX, double mapY)
-         {
-             {
-                 if (m_pNewLineFeedback != null)
-                 {
-                     m_pLastPoint = this.m_pMapControl.ActiveView.ScreenDisplay.DisplayTransformation.ToMapPoint(x, y);
+        public override void OnMouseMove(int button, int shift, int x, int y, double mapX, double mapY)
+        {
+            {
+                if (m_pNewLineFeedback != null)
+                {
+                    m_pLastPoint = this.m_pMapControl.ActiveView.ScreenDisplay.DisplayTransformation.ToMapPoint(x, y);
 
-                     m_pNewLineFeedback.MoveTo(m_pLastPoint);
-                     m_dblDistance = CommonFunction.GetDistance_P12(m_pAnchorPoint, m_pLastPoint);
-                 }
-                 
-             }
-             base.OnMouseMove(button, shift, x, y, mapX, mapY);
-         }
+                    m_pNewLineFeedback.MoveTo(m_pLastPoint);
+                    m_dblDistance = CommonFunction.GetDistance_P12(m_pAnchorPoint, m_pLastPoint);
+                }
+
+            }
+        }
 
 
-         public override void OnDoubleClick(int button, int shift, int x, int y, double mapX, double mapY)
-         {
-             {
+        public override void OnDoubleClick(int button, int shift, int x, int y, double mapX, double mapY)
+        {
+            /* m_pNewLineFeedback = new NewLineFeedbackClass();*/
+            IGeometry pGeomLn = m_pNewLineFeedback.Stop();
 
-                /* m_pNewLineFeedback = new NewLineFeedbackClass();*/
-                 IGeometry pGeomLn = m_pNewLineFeedback.Stop();
-                 
-                 if (pGeomLn != null)
-                 {
-                     AddCreateElement(pGeomLn, this.m_pMapControl.ActiveView);
-                     this.m_pMapControl.ActiveView.Refresh();
-                     strResult = m_dblDistance.ToString(".##") + "米";
+            if (pGeomLn != null)
+            {
+                AddCreateElement(pGeomLn, this.m_pActiveView);
+                this.m_pActiveView.Refresh();
+                strResult = m_dblDistance.ToString(".##") + "米";
+                app.Current2DMapControl.ActiveView.Refresh();
+                FrmDistance.Instance().ShowDialog();
+            }
 
-                     if (strResult != null)
-                     {
-                         FrmDistance frmDistance = FrmDistance.Instance();
-                         frmDistance.ShowDialog();
-
-                         
-                     }
-                     
-                 }
-
-                 m_pNewLineFeedback = null;
-             }
-
-             
-             base.OnDoubleClick(button, shift, x, y, mapX, mapY);
-
-         }
+            m_pNewLineFeedback = null;
+        }
 
 
 
-         public void AddCreateElement(IGeometry pGeomLine, IActiveView pAV)
-         {
-             ILineElement pElemLine;
-             IElement pElem;
-             IGraphicsContainer pGraCont;
-             ISimpleLineSymbol pSLnSym;
+        public void AddCreateElement(IGeometry pGeomLine, IActiveView pAV)
+        {
+            ILineElement pElemLine;
+            IElement pElem;
+            IGraphicsContainer pGraCont;
+            ISimpleLineSymbol pSLnSym;
 
 
-             pElem = new LineElementClass();
-             pElem.Geometry = pGeomLine;
-             pElemLine = (ILineElement)pElem;
+            pElem = new LineElementClass();
+            pElem.Geometry = pGeomLine;
+            pElemLine = (ILineElement)pElem;
 
-             pSLnSym = new SimpleLineSymbolClass();
-             Color color = ColorTranslator.FromHtml(SystemInfo.Instance.LineColor);
-             IColor pColor = new RgbColorClass();
-             pColor.RGB = color.B * 65536 + color.G * 256 + color.R;
-             pSLnSym.Color = pColor;
-             pSLnSym.Style = esriSimpleLineStyle.esriSLSSolid;
-             pElemLine.Symbol = pSLnSym;
-             pGraCont = (IGraphicsContainer)pAV;
-             pGraCont.AddElement(pElem, 0);
+            pSLnSym = new SimpleLineSymbolClass();
+            Color color = ColorTranslator.FromHtml(SystemInfo.Instance.LineColor);
+            IColor pColor = new RgbColorClass();
+            pColor.RGB = color.B * 65536 + color.G * 256 + color.R;
+            pSLnSym.Color = pColor;
+            pSLnSym.Style = esriSimpleLineStyle.esriSLSSolid;
+            pElemLine.Symbol = pSLnSym;
+            pGraCont = (IGraphicsContainer)pAV;
+            pGraCont.AddElement(pElem, 0);
 
-         }
+        }
 
-         public override void RestoreEnv()
-         {
+        public override void RestoreEnv()
+        {
 
-             Map2DCommandManager.Pop();
-             mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
-             if (mapView == null) return;
-             mapView.UnBind(this);
+            Map2DCommandManager.Pop();
+            mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
+            if (mapView == null) return;
+            mapView.UnBind(this);
 
-         }
+        }
 
 
     }

@@ -22,6 +22,7 @@ using DF2DData.LogicTree;
 using ESRI.ArcGIS.DataSourcesFile;
 using System.IO;
 using DevExpress.XtraEditors;
+using DevExpress.XtraTreeList.Nodes;
 
 namespace DF2DData.UserControl.Pad
 {
@@ -125,10 +126,11 @@ namespace DF2DData.UserControl.Pad
 
         public override void InitPopMenu()
         {
-            base.AddMenuItem("新建组");
-            base.AddMenuItem("");
-            base.AddMenuItem("加载临时数据", new string[] { "加载数据库...", "加载3D瓦片...", "", "加载要素图层...", "加载影像图层...", "加载Cad图层...", "", "创建新的矢量图层..." });
+            //base.AddMenuItem("新建组");
+            //base.AddMenuItem("");
+            base.AddMenuItem("加载临时数据", new string[] { "加载Cad图层..."});
             base.AddMenuItems(new string[] { "", "全部展开", "全部折叠" });
+            base.AddMenuItem("移除Cad图层");
         }
 
         public override void OnMenuItemClick(string caption)
@@ -150,6 +152,9 @@ namespace DF2DData.UserControl.Pad
                 case "加载Cad图层...":
                     AddCadLayer();
                     break;
+                case "移除Cad图层":
+                    RemoveCadLayers();
+                    break;
                 //case "加载3D瓦片...":
                 //    Open3DTile();
                 //    break;
@@ -162,6 +167,18 @@ namespace DF2DData.UserControl.Pad
             }
         }
 
+        private void RemoveCadLayers()
+        {
+            if(_dictCadLyr == null||_dictCadLyr.Count == 0)return;
+            DF2DApplication app = DF2DApplication.Application;
+            foreach (KeyValuePair<TreeListNode,ICadLayer> kv in _dictCadLyr)
+            {
+                _baseTree.Nodes.Remove(kv.Key);
+                app.Current2DMapControl.Map.DeleteLayer(kv.Value);
+            }
+            _dictCadLyr.Clear();
+           
+        }
         private void CreateGroup()
         {
             //Group g = new Group();
@@ -188,6 +205,7 @@ namespace DF2DData.UserControl.Pad
             //}
         }
 
+        Dictionary<TreeListNode, ICadLayer> _dictCadLyr;
         private void AddCadLayer()
         {           
             OpenFileDialog ofd = new OpenFileDialog();
@@ -210,8 +228,14 @@ namespace DF2DData.UserControl.Pad
                     cadLayer.CadDrawingDataset = cadDs;
                     cadLayer.Name = cadName;
                     DF2DApplication app = DF2DApplication.Application;
+                    if (_dictCadLyr == null)
+                    {
+                        _dictCadLyr = new Dictionary<TreeListNode, ICadLayer>();
+                    }
+                    TreeListNode node = AddCadNodeToTreeList(cadLayer);
+                    if (node == null) return;
+                    _dictCadLyr[node] = cadLayer;     
                     app.Current2DMapControl.Map.AddLayer(cadLayer);
-                    AddCadNodeToTreeList(cadLayer);
                     app.Current2DMapControl.ActiveView.Refresh();              
                 }
                 catch (System.Exception ex)
@@ -237,12 +261,16 @@ namespace DF2DData.UserControl.Pad
             ESRI.ArcGIS.esriSystem.IName name = (ESRI.ArcGIS.esriSystem.IName)cadDatasetName;
             return (ICadDrawingDataset)name.Open();
         }
-        private void AddCadNodeToTreeList(ICadLayer layer)
+        
+        private TreeListNode AddCadNodeToTreeList(ICadLayer layer)
         {
+            if (_dictCadLyr.ContainsValue(layer)) { XtraMessageBox.Show("该图层已添加，请勿重复添加该图层!"); return null; }
             TreeNodeComLayer comLayerNode = new TreeNodeComLayer() { Name = layer.Name, CustomValue = layer };
             comLayerNode.OwnNode = _baseTree.AppendNode(new object[] { comLayerNode.Name }, null);//为树创建根节点
             comLayerNode.ImageIndex = 0;
             comLayerNode.Visible = true;
+            return comLayerNode.OwnNode;
+  
         }
   
 

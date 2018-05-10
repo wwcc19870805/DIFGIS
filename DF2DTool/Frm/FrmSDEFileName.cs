@@ -181,6 +181,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(284, 73);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmSDEFileName";
+            this.ShowIcon = false;
             this.Text = "连接SDE文件名";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);

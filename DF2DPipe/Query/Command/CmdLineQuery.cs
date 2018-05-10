@@ -23,6 +23,7 @@ using DF2DPipe.Query.UC;
 using DFDataConfig.Logic;
 using ESRI.ArcGIS.Display;
 using DFCommon.Class;
+using DF2DPipe.Query.Frm;
 
 namespace DF2DPipe.Query.Command
 {
@@ -45,8 +46,9 @@ namespace DF2DPipe.Query.Command
             if (!bBind) return;
             DF2DApplication app = DF2DApplication.Application;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(false);
+            app.Workbench.SetMenuEnable(false);
             app.Current2DMapControl.MousePointer = esriControlsMousePointer.esriPointerArrow;
+            FrmMajorClass.Instance.Show();
         }
 
         public override void OnMouseDown(int button, int shift, int x, int y, double mapX, double mapY)
@@ -55,7 +57,7 @@ namespace DF2DPipe.Query.Command
             this._dict.Clear();
             bool ready = true;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(true);
+            app.Workbench.SetMenuEnable(true);
             m_ActiveView = app.Current2DMapControl.ActiveView;
             IScreenDisplay m_Display = app.Current2DMapControl.ActiveView.ScreenDisplay;
             IGeometry pGeo = null;
@@ -106,9 +108,9 @@ namespace DF2DPipe.Query.Command
 
                     if (ready)
                     {
-                        foreach (LogicGroup lg in LogicDataStructureManage2D.Instance.RootLogicGroups)
-                        {
-                            foreach (MajorClass mc in lg.MajorClasses)
+                        //foreach (LogicGroup lg in LogicDataStructureManage2D.Instance.RootLogicGroups)
+                        //{
+                            foreach (MajorClass mc in FrmMajorClass.Instance.MajorClasses)
                             {
                                 foreach (SubClass sc in mc.SubClasses)
                                 {
@@ -210,7 +212,7 @@ namespace DF2DPipe.Query.Command
                     {
                     }  
                             
-                }
+                //}
             }
             catch 
             {

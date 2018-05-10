@@ -585,6 +585,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(284, 313);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmConnSDE";
+            this.ShowIcon = false;
             this.Text = "连接SDE";
             this.Load += new System.EventHandler(this.FrmConnSDE_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
@@ -679,7 +680,7 @@ namespace DF2DTool.Frm
             }
             catch (Exception ex)
             {
-                MessageBox.Show("SDE连接参数错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show("SDE连接参数错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine(ex.Message + "\r\n" + ex.StackTrace);
             }
             return null;
@@ -745,6 +746,7 @@ namespace DF2DTool.Frm
             pWorkspace = null;
             try
             {
+
                 pWorkspace = getWorkspace();
             }
             catch (Exception ex)
@@ -753,7 +755,7 @@ namespace DF2DTool.Frm
             }
             if (pWorkspace != null)
             {
-                MessageBox.Show("成功打开连接！");
+                XtraMessageBox.Show("成功打开连接！");
                 btnTestConn.Enabled = false;
                 cbVersion.Enabled = true;
             }

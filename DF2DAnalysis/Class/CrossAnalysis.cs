@@ -204,6 +204,7 @@ namespace DF2DAnalysis.Class
             if (dict.Count == 0) return ;
             if (_hsCross == null) return;
             List<string> mcChecked = new List<string>();
+            Dictionary<string,string> sameCross = new Dictionary<string,string>();
             try
             {
                 foreach (MajorClass mca in LogicDataStructureManage2D.Instance.GetAllMajorClass())
@@ -330,10 +331,37 @@ namespace DF2DAnalysis.Class
                                 {
                                     string idA = mca.Name + "_" + la.OID;
                                     string idB = mcb.Name + "_" + lb.OID;
-                                    _hsCross.Add(idA+","+idB);
+                                    if (mca.Alias == mcb.Alias)//如果是同类型管线分析碰撞
+                                    {
+                                        sameCross[idA + "," + idB] = idA + "," + idB;//将管线碰撞ID对添加到字典
+                                        if (!sameCross.ContainsKey(idB + "," + idA))//如果字典中查不到该id对（相同的id对，顺序相反）
+                                        {                                       
+                                            _hsCross.Add(idA + "," + idB);      //将该碰撞管线对添加到碰撞列表                                                                            
+                                        }
+                                   
+                                    }
+                                    else
+                                    {
+                                        _hsCross.Add(idA + "," + idB);
+                                    }                                   
                                     if (_hsTxt != null)
                                     {
-                                        _hsTxt.Add(idA + "," + idB + "," + point.X.ToString() + "," + point.Y.ToString() + "," + zA.ToString() + "," + zB.ToString() + "," +　System.Math.Abs(deltaH - l).ToString());
+                                        if (mca.Alias == mcb.Alias)
+                                        {
+                                            sameCross[idA + "," + idB] = idA + "," + idB;
+                                            if (!sameCross.ContainsKey(idB + "," + idA))
+                                            {
+                                                
+                                                _hsTxt.Add(idA + "," + idB + "," + point.X.ToString() + "," + point.Y.ToString() + "," + zA.ToString() + "," + zB.ToString() + "," + System.Math.Abs(deltaH - l).ToString());
+                                                
+                                            }                                        
+                                        }
+                                        else
+                                        {
+                                            _hsTxt.Add(idA + "," + idB + "," + point.X.ToString() + "," + point.Y.ToString() + "," + zA.ToString() + "," + zB.ToString() + "," + System.Math.Abs(deltaH - l).ToString());
+                                        }
+                                       
+                                       
                                     }
                                     //if (_dicCross.ContainsValue(idA) && _dicCross.ContainsKey(idB))
                                     //{

@@ -154,7 +154,7 @@ namespace DF2DDocumentManage.Frm
             // 
             this.xtraTabPage2.Controls.Add(this.gridControl1);
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(342, 197);
+            this.xtraTabPage2.Size = new System.Drawing.Size(561, 197);
             this.xtraTabPage2.Text = "项目文档";
             // 
             // gridControl1
@@ -163,7 +163,7 @@ namespace DF2DDocumentManage.Frm
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(342, 197);
+            this.gridControl1.Size = new System.Drawing.Size(561, 197);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -257,6 +257,7 @@ namespace DF2DDocumentManage.Frm
             this.ClientSize = new System.Drawing.Size(577, 262);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmDownLoadFile";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "文件下载";
             this.Load += new System.EventHandler(this.FrmDownLoadFile_Load);

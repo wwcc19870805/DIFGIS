@@ -150,11 +150,23 @@
     <Compile Include="Frm\FrmDataIntegrityCheck.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Frm\frmIntegrityCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\frmIntegrityCheck.Designer.cs">
+      <DependentUpon>frmIntegrityCheck.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm\frmProgress.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm\frmProgress.Designer.cs">
       <DependentUpon>frmProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm\frmSelType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm\frmSelType.Designer.cs">
+      <DependentUpon>frmSelType.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -168,8 +180,14 @@
     <EmbeddedResource Include="Frm\FrmDataIntegrityCheck.resx">
       <DependentUpon>FrmDataIntegrityCheck.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Frm\frmIntegrityCheck.resx">
+      <DependentUpon>frmIntegrityCheck.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm\frmProgress.resx">
       <DependentUpon>frmProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm\frmSelType.resx">
+      <DependentUpon>frmSelType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>

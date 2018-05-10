@@ -32,6 +32,7 @@ namespace DF2DPipe.Query.Command
         {
             Map2DCommandManager.Push(this);
             FrmPropertyQueryBoth dialog = new FrmPropertyQueryBoth(this.CommandName, "BuildYear");
+            dialog.Text = "按建设年代查询";
             if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
             this._uPanel = new UIDockPanel("查询结果", "查询结果", this.Location, this._width, this._height);
             this._dockPanel = FloatPanelManager.Instance.Add(ref this._uPanel, DockingStyle.Right);

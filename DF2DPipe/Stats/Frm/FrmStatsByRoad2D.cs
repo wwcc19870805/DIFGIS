@@ -456,6 +456,7 @@ namespace DF2DPipe.Stats.Frm
             this.ClientSize = new System.Drawing.Size(419, 417);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmStatsByRoad2D";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FrmStatsByRoad2D_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

@@ -81,6 +81,9 @@ namespace DF2DAnalysis.Frm
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.se_Min = new DevExpress.XtraEditors.SpinEdit();
+            this.se_Max = new DevExpress.XtraEditors.SpinEdit();
             this.btn_save = new DevExpress.XtraEditors.SimpleButton();
             this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
             this.btn_Close = new DevExpress.XtraEditors.SimpleButton();
@@ -95,6 +98,9 @@ namespace DF2DAnalysis.Frm
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -102,14 +108,10 @@ namespace DF2DAnalysis.Frm
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.se_Max = new DevExpress.XtraEditors.SpinEdit();
-            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.se_Min = new DevExpress.XtraEditors.SpinEdit();
-            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.se_Min.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.se_Max.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_CrossPipe)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gc_CrossPipeStats)).BeginInit();
@@ -121,6 +123,9 @@ namespace DF2DAnalysis.Frm
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
@@ -128,11 +133,6 @@ namespace DF2DAnalysis.Frm
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.se_Max.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.se_Min.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -154,6 +154,45 @@ namespace DF2DAnalysis.Frm
             this.layoutControl1.Size = new System.Drawing.Size(650, 407);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(15, 274);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(60, 14);
+            this.labelControl1.StyleController = this.layoutControl1;
+            this.labelControl1.TabIndex = 14;
+            this.labelControl1.Text = "总分区数：";
+            // 
+            // se_Min
+            // 
+            this.se_Min.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.se_Min.Location = new System.Drawing.Point(102, 318);
+            this.se_Min.Name = "se_Min";
+            this.se_Min.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.se_Min.Size = new System.Drawing.Size(50, 22);
+            this.se_Min.StyleController = this.layoutControl1;
+            this.se_Min.TabIndex = 13;
+            // 
+            // se_Max
+            // 
+            this.se_Max.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.se_Max.Location = new System.Drawing.Point(102, 292);
+            this.se_Max.Name = "se_Max";
+            this.se_Max.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.se_Max.Size = new System.Drawing.Size(50, 22);
+            this.se_Max.StyleController = this.layoutControl1;
+            this.se_Max.TabIndex = 12;
             // 
             // btn_save
             // 
@@ -308,6 +347,42 @@ namespace DF2DAnalysis.Frm
             this.layoutControlItem6.TextToControlDistance = 0;
             this.layoutControlItem6.TextVisible = false;
             // 
+            // layoutControlItem8
+            // 
+            this.layoutControlItem8.Control = this.se_Max;
+            this.layoutControlItem8.CustomizationFormText = "分区编号上限：";
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 173);
+            this.layoutControlItem8.MinSize = new System.Drawing.Size(141, 26);
+            this.layoutControlItem8.Name = "layoutControlItem8";
+            this.layoutControlItem8.Size = new System.Drawing.Size(141, 26);
+            this.layoutControlItem8.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem8.Text = "分区编号上限：";
+            this.layoutControlItem8.TextSize = new System.Drawing.Size(84, 14);
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.se_Min;
+            this.layoutControlItem9.CustomizationFormText = "layoutControlItem9";
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 199);
+            this.layoutControlItem9.MinSize = new System.Drawing.Size(141, 26);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(141, 26);
+            this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem9.Text = "分区编号下限：";
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(84, 14);
+            // 
+            // layoutControlItem10
+            // 
+            this.layoutControlItem10.Control = this.labelControl1;
+            this.layoutControlItem10.CustomizationFormText = "layoutControlItem10";
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 155);
+            this.layoutControlItem10.Name = "layoutControlItem10";
+            this.layoutControlItem10.Size = new System.Drawing.Size(141, 18);
+            this.layoutControlItem10.Text = "layoutControlItem10";
+            this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem10.TextToControlDistance = 0;
+            this.layoutControlItem10.TextVisible = false;
+            // 
             // layoutControlGroup3
             // 
             this.layoutControlGroup3.CustomizationFormText = "碰撞统计";
@@ -390,91 +465,19 @@ namespace DF2DAnalysis.Frm
             this.layoutControlItem1.TextToControlDistance = 0;
             this.layoutControlItem1.TextVisible = false;
             // 
-            // se_Max
-            // 
-            this.se_Max.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.se_Max.Location = new System.Drawing.Point(102, 292);
-            this.se_Max.Name = "se_Max";
-            this.se_Max.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.se_Max.Size = new System.Drawing.Size(50, 22);
-            this.se_Max.StyleController = this.layoutControl1;
-            this.se_Max.TabIndex = 12;
-            // 
-            // layoutControlItem8
-            // 
-            this.layoutControlItem8.Control = this.se_Max;
-            this.layoutControlItem8.CustomizationFormText = "分区编号上限：";
-            this.layoutControlItem8.Location = new System.Drawing.Point(0, 173);
-            this.layoutControlItem8.MinSize = new System.Drawing.Size(141, 26);
-            this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(141, 26);
-            this.layoutControlItem8.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem8.Text = "分区编号上限：";
-            this.layoutControlItem8.TextSize = new System.Drawing.Size(84, 14);
-            // 
-            // se_Min
-            // 
-            this.se_Min.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.se_Min.Location = new System.Drawing.Point(102, 318);
-            this.se_Min.Name = "se_Min";
-            this.se_Min.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.se_Min.Size = new System.Drawing.Size(50, 22);
-            this.se_Min.StyleController = this.layoutControl1;
-            this.se_Min.TabIndex = 13;
-            // 
-            // layoutControlItem9
-            // 
-            this.layoutControlItem9.Control = this.se_Min;
-            this.layoutControlItem9.CustomizationFormText = "layoutControlItem9";
-            this.layoutControlItem9.Location = new System.Drawing.Point(0, 199);
-            this.layoutControlItem9.MinSize = new System.Drawing.Size(141, 26);
-            this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(141, 26);
-            this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem9.Text = "分区编号下限：";
-            this.layoutControlItem9.TextSize = new System.Drawing.Size(84, 14);
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Location = new System.Drawing.Point(15, 274);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(60, 14);
-            this.labelControl1.StyleController = this.layoutControl1;
-            this.labelControl1.TabIndex = 14;
-            this.labelControl1.Text = "总分区数：";
-            // 
-            // layoutControlItem10
-            // 
-            this.layoutControlItem10.Control = this.labelControl1;
-            this.layoutControlItem10.CustomizationFormText = "layoutControlItem10";
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 155);
-            this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(141, 18);
-            this.layoutControlItem10.Text = "layoutControlItem10";
-            this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem10.TextToControlDistance = 0;
-            this.layoutControlItem10.TextVisible = false;
-            // 
             // FrmAllPipelineCross
             // 
             this.ClientSize = new System.Drawing.Size(650, 407);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmAllPipelineCross";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "管线碰撞分析";
             this.Load += new System.EventHandler(this.FrmPipelineCross_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.se_Min.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.se_Max.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_CrossPipe)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gc_CrossPipeStats)).EndInit();
@@ -486,6 +489,9 @@ namespace DF2DAnalysis.Frm
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
@@ -493,11 +499,6 @@ namespace DF2DAnalysis.Frm
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.se_Max.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.se_Min.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -587,7 +588,7 @@ namespace DF2DAnalysis.Frm
         private bool IsCountNumberRight(Decimal value)
         {
             Int16 num = Convert.ToInt16(value);
-            if (0 < num && num < count) return true;
+            if (0 < num && num <= count) return true;
             else return false;
         }
         private IPolygon CreatePolygonByPoints(IPointCollection pCol)

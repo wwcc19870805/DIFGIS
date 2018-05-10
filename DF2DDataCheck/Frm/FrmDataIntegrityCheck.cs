@@ -10,6 +10,7 @@ using DevExpress.XtraEditors;
 using System.Collections;
 using DF2DData.Class;
 using DFDataConfig.Class;
+using DFDataConfig.Logic;
 using ESRI.ArcGIS.Geodatabase;
 
 namespace DF2DDataCheck.Frm
@@ -47,8 +48,8 @@ namespace DF2DDataCheck.Frm
 
         private ArrayList m_arrPntField;
         private ArrayList m_arrArcField;
-        DF2DFeatureClass dfcc;
-        FacilityClass fcc;
+        private DF2DFeatureClass dfcc;
+        private FacilityClass fcc;
         string FieldName;
         private ArrayList m_arrPntFieldSel;
         private ArrayList m_arrArcFieldSel;
@@ -133,9 +134,9 @@ namespace DF2DDataCheck.Frm
             // 
             // simpleButton2
             // 
-            this.simpleButton2.Location = new System.Drawing.Point(503, 439);
+            this.simpleButton2.Location = new System.Drawing.Point(480, 439);
             this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(128, 22);
+            this.simpleButton2.Size = new System.Drawing.Size(151, 22);
             this.simpleButton2.StyleController = this.layoutControl1;
             this.simpleButton2.TabIndex = 7;
             this.simpleButton2.Text = "关闭";
@@ -143,7 +144,7 @@ namespace DF2DDataCheck.Frm
             // 
             // simpleButton1
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(404, 439);
+            this.simpleButton1.Location = new System.Drawing.Point(381, 439);
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(95, 22);
             this.simpleButton1.StyleController = this.layoutControl1;
@@ -156,10 +157,10 @@ namespace DF2DDataCheck.Frm
             this.layoutControl3.Controls.Add(this.lstArcField);
             this.layoutControl3.Controls.Add(this.labelControl2);
             this.layoutControl3.Controls.Add(this.ckbArcCheck);
-            this.layoutControl3.Location = new System.Drawing.Point(320, 2);
+            this.layoutControl3.Location = new System.Drawing.Point(297, 2);
             this.layoutControl3.Name = "layoutControl3";
             this.layoutControl3.Root = this.layoutControlGroup2;
-            this.layoutControl3.Size = new System.Drawing.Size(311, 433);
+            this.layoutControl3.Size = new System.Drawing.Size(334, 433);
             this.layoutControl3.TabIndex = 5;
             this.layoutControl3.Text = "layoutControl3";
             // 
@@ -167,7 +168,7 @@ namespace DF2DDataCheck.Frm
             // 
             this.lstArcField.Location = new System.Drawing.Point(2, 43);
             this.lstArcField.Name = "lstArcField";
-            this.lstArcField.Size = new System.Drawing.Size(307, 388);
+            this.lstArcField.Size = new System.Drawing.Size(330, 388);
             this.lstArcField.StyleController = this.layoutControl3;
             this.lstArcField.TabIndex = 6;
             // 
@@ -185,7 +186,7 @@ namespace DF2DDataCheck.Frm
             this.ckbArcCheck.Location = new System.Drawing.Point(2, 2);
             this.ckbArcCheck.Name = "ckbArcCheck";
             this.ckbArcCheck.Properties.Caption = "管线线表检查";
-            this.ckbArcCheck.Size = new System.Drawing.Size(307, 19);
+            this.ckbArcCheck.Size = new System.Drawing.Size(330, 19);
             this.ckbArcCheck.StyleController = this.layoutControl3;
             this.ckbArcCheck.TabIndex = 4;
             this.ckbArcCheck.CheckedChanged += new System.EventHandler(this.ckbArcCheck_CheckedChanged);
@@ -203,7 +204,7 @@ namespace DF2DDataCheck.Frm
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup2.Size = new System.Drawing.Size(311, 433);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(334, 433);
             this.layoutControlGroup2.Text = "layoutControlGroup2";
             this.layoutControlGroup2.TextVisible = false;
             // 
@@ -213,7 +214,7 @@ namespace DF2DDataCheck.Frm
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(311, 23);
+            this.layoutControlItem5.Size = new System.Drawing.Size(334, 23);
             this.layoutControlItem5.Text = "layoutControlItem5";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextToControlDistance = 0;
@@ -225,7 +226,7 @@ namespace DF2DDataCheck.Frm
             this.emptySpaceItem8.CustomizationFormText = "emptySpaceItem8";
             this.emptySpaceItem8.Location = new System.Drawing.Point(124, 23);
             this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(187, 18);
+            this.emptySpaceItem8.Size = new System.Drawing.Size(210, 18);
             this.emptySpaceItem8.Text = "emptySpaceItem8";
             this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -247,7 +248,7 @@ namespace DF2DDataCheck.Frm
             this.layoutControlItem8.CustomizationFormText = "layoutControlItem8";
             this.layoutControlItem8.Location = new System.Drawing.Point(0, 41);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(311, 392);
+            this.layoutControlItem8.Size = new System.Drawing.Size(334, 392);
             this.layoutControlItem8.Text = "layoutControlItem8";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextToControlDistance = 0;
@@ -261,7 +262,7 @@ namespace DF2DDataCheck.Frm
             this.layoutControl2.Location = new System.Drawing.Point(2, 2);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.Root;
-            this.layoutControl2.Size = new System.Drawing.Size(314, 433);
+            this.layoutControl2.Size = new System.Drawing.Size(291, 433);
             this.layoutControl2.TabIndex = 4;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -269,7 +270,7 @@ namespace DF2DDataCheck.Frm
             // 
             this.lstPntField.Location = new System.Drawing.Point(2, 43);
             this.lstPntField.Name = "lstPntField";
-            this.lstPntField.Size = new System.Drawing.Size(310, 388);
+            this.lstPntField.Size = new System.Drawing.Size(287, 388);
             this.lstPntField.StyleController = this.layoutControl2;
             this.lstPntField.TabIndex = 6;
             // 
@@ -287,7 +288,7 @@ namespace DF2DDataCheck.Frm
             this.ckbPntCheck.Location = new System.Drawing.Point(2, 2);
             this.ckbPntCheck.Name = "ckbPntCheck";
             this.ckbPntCheck.Properties.Caption = "管线点表检查";
-            this.ckbPntCheck.Size = new System.Drawing.Size(310, 19);
+            this.ckbPntCheck.Size = new System.Drawing.Size(287, 19);
             this.ckbPntCheck.StyleController = this.layoutControl2;
             this.ckbPntCheck.TabIndex = 4;
             this.ckbPntCheck.CheckedChanged += new System.EventHandler(this.ckbPntCheck_CheckedChanged);
@@ -305,7 +306,7 @@ namespace DF2DDataCheck.Frm
             this.Root.Location = new System.Drawing.Point(0, 0);
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.Root.Size = new System.Drawing.Size(314, 433);
+            this.Root.Size = new System.Drawing.Size(291, 433);
             this.Root.Text = "Root";
             this.Root.TextVisible = false;
             // 
@@ -315,7 +316,7 @@ namespace DF2DDataCheck.Frm
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(314, 23);
+            this.layoutControlItem3.Size = new System.Drawing.Size(291, 23);
             this.layoutControlItem3.Text = "layoutControlItem3";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextToControlDistance = 0;
@@ -327,7 +328,7 @@ namespace DF2DDataCheck.Frm
             this.emptySpaceItem6.CustomizationFormText = "emptySpaceItem6";
             this.emptySpaceItem6.Location = new System.Drawing.Point(124, 23);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(190, 18);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(167, 18);
             this.emptySpaceItem6.Text = "emptySpaceItem6";
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -349,7 +350,7 @@ namespace DF2DDataCheck.Frm
             this.layoutControlItem7.CustomizationFormText = "layoutControlItem7";
             this.layoutControlItem7.Location = new System.Drawing.Point(0, 41);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(314, 392);
+            this.layoutControlItem7.Size = new System.Drawing.Size(291, 392);
             this.layoutControlItem7.Text = "layoutControlItem7";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextToControlDistance = 0;
@@ -380,7 +381,7 @@ namespace DF2DDataCheck.Frm
             this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem2";
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 437);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(318, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(295, 26);
             this.emptySpaceItem2.Text = "emptySpaceItem2";
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -390,7 +391,7 @@ namespace DF2DDataCheck.Frm
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(318, 437);
+            this.layoutControlItem1.Size = new System.Drawing.Size(295, 437);
             this.layoutControlItem1.Text = "layoutControlItem1";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextToControlDistance = 0;
@@ -400,9 +401,9 @@ namespace DF2DDataCheck.Frm
             // 
             this.layoutControlItem2.Control = this.layoutControl3;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(318, 0);
+            this.layoutControlItem2.Location = new System.Drawing.Point(295, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(315, 437);
+            this.layoutControlItem2.Size = new System.Drawing.Size(338, 437);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextToControlDistance = 0;
@@ -412,7 +413,7 @@ namespace DF2DDataCheck.Frm
             // 
             this.layoutControlItem9.Control = this.simpleButton1;
             this.layoutControlItem9.CustomizationFormText = "layoutControlItem9";
-            this.layoutControlItem9.Location = new System.Drawing.Point(402, 437);
+            this.layoutControlItem9.Location = new System.Drawing.Point(379, 437);
             this.layoutControlItem9.Name = "layoutControlItem9";
             this.layoutControlItem9.Size = new System.Drawing.Size(99, 26);
             this.layoutControlItem9.Text = "layoutControlItem9";
@@ -424,9 +425,9 @@ namespace DF2DDataCheck.Frm
             // 
             this.layoutControlItem10.Control = this.simpleButton2;
             this.layoutControlItem10.CustomizationFormText = "layoutControlItem10";
-            this.layoutControlItem10.Location = new System.Drawing.Point(501, 437);
+            this.layoutControlItem10.Location = new System.Drawing.Point(478, 437);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(132, 26);
+            this.layoutControlItem10.Size = new System.Drawing.Size(155, 26);
             this.layoutControlItem10.Text = "layoutControlItem10";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextToControlDistance = 0;
@@ -436,7 +437,7 @@ namespace DF2DDataCheck.Frm
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(318, 437);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(295, 437);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(84, 26);
             this.emptySpaceItem1.Text = "emptySpaceItem1";
@@ -500,24 +501,39 @@ namespace DF2DDataCheck.Frm
         private void FrmDataIntegrityCheck_Load(object sender, EventArgs e)
         {
 
+            string strValue;
+            string strDescription;
+            string[] s;
 
-
+            //从配置文件读取管线类别信息，填充界面控件
+            ReadFieldInfo();
+            foreach (LogicGroup lg in LogicDataStructureManage2D.Instance.RootLogicGroups)
+            {
+                foreach (MajorClass mc in lg.MajorClasses)
+                {
+                    
+                }
+            }
             //从配置文件读取点表线表的字段信息，填充界面控件
-
             m_arrPntField = new ArrayList();
             m_arrArcField = new ArrayList();
-            ReadFieldInfo();
 
             for (int i = 0; i < m_arrPntField.Count; i++)
             {
+                s = m_arrPntField[i].ToString().Split(new char[]{','});
+                strValue = s[0].Trim();
+                strDescription = s[1].Trim();
 
-                this.lstPntField.Items.Add(m_arrPntField[i]);
+                this.lstPntField.Items.Add(strValue, strDescription);
             }
 
             for (int j = 0; j < m_arrArcField.Count; j++)
             {
+                s = m_arrArcField[j].ToString().Split(new char[] { ',' });
+                strValue = s[0].Trim();
+                strDescription = s[1].Trim();
 
-                this.lstArcField.Items.Add(m_arrArcField[j]);
+                this.lstArcField.Items.Add(strValue, strDescription);
             }
 
         }
@@ -530,13 +546,12 @@ namespace DF2DDataCheck.Frm
             IFeatureClass fc = dfcc.GetFeatureClass();
             if (fc == null) return;
             FacilityClass fcc = dfcc.GetFacilityClass();
-
             List<DFDataConfig.Class.FieldInfo> m_list = fcc.FieldInfoCollection;
             foreach (DFDataConfig.Class.FieldInfo Field in m_list)
             {
-                if (Field.CanQuery)
+                if (Field.NeedCheck)
                 {
-                    FieldName = Field.Name;
+                    FieldName = Field.Name + "," + Field.Alias;
                     m_arrPntField.Add(FieldName);
                 }
                 else continue;
@@ -551,9 +566,9 @@ namespace DF2DDataCheck.Frm
             List<DFDataConfig.Class.FieldInfo> n_list = fcc.FieldInfoCollection;
             foreach (DFDataConfig.Class.FieldInfo Field in n_list)
             {
-                if (Field.CanQuery)
+                if (Field.NeedCheck)
                 {
-                    FieldName = Field.Name;
+                    FieldName = Field.Name + "," + Field.Alias;
                     m_arrArcField.Add(FieldName);
                 }
                 else continue;

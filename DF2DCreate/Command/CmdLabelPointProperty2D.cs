@@ -39,7 +39,8 @@ namespace DF2DCreate.Command
         private double dblStartY;
         private int nWidth = 8; //标注表格的单位宽高
         private int nHeight = 2;
-        string[] fields = new string[] { "Classify", "x", "y", "DetectNo", "Additional", "Standard", "proad" };
+        string[] sysFields = new string[] { "Classify", "x", "y", "Detectid", "Additional", "Road" };
+        string[] fields = new string[] { "类别", "x坐标", "y坐标", "探查号", "附属物",  "所在道路" };
         public override void Run(object sender, EventArgs e)
         {
             Map2DCommandManager.Push(this);
@@ -111,7 +112,7 @@ namespace DF2DCreate.Command
                                 while ((pFeature = pFeaCur.NextFeature()) != null)
                                 {
                                     if (have) break;
-                                    foreach (string field in fields)
+                                    foreach (string field in sysFields)
                                     {
                                        DFDataConfig.Class.FieldInfo  fi = fcc.GetFieldInfoBySystemName(field);
                                        if(fi == null) continue;
@@ -128,7 +129,7 @@ namespace DF2DCreate.Command
                                            case "y":
                                                yCoor = obj.ToString();
                                                break;
-                                           case "DetectNo":
+                                           case "Detectid":
                                                detectNo = obj.ToString();
                                                break;
                                            case "Additional":
@@ -137,9 +138,30 @@ namespace DF2DCreate.Command
                                            case "Standard":
                                                standard = obj.ToString();
                                                break;
-                                           case "proad":
+                                           case "Road":
                                                road = obj.ToString();
                                                break;
+                                           //case "Classify":
+                                           //    classify = obj.ToString();
+                                           //    break;
+                                           //case "x":
+                                           //    xCoor = obj.ToString();
+                                           //    break;
+                                           //case "y":
+                                           //    yCoor = obj.ToString();
+                                           //    break;
+                                           //case "DetectNo":
+                                           //    detectNo = obj.ToString();
+                                           //    break;
+                                           //case "Additional":
+                                           //    fusu = obj.ToString();
+                                           //    break;
+                                           //case "Standard":
+                                           //    standard = obj.ToString();
+                                           //    break;
+                                           //case "proad":
+                                           //    road = obj.ToString();
+                                           //    break;
                                        }
                                     }
                                     LabelPoint lp = new LabelPoint(pFeature, fl, classify, xCoor, yCoor, detectNo, fusu, standard, road);
@@ -277,25 +299,25 @@ namespace DF2DCreate.Command
 
                 switch (fi)
                 {
-                    case "Classify":
+                    case "类别":
                         sym.Text = lp.Classify;
                         break;
-                    case "x":
+                    case "x坐标":
                         sym.Text = lp.X;
                         break;
-                    case "y":
+                    case "y坐标":
                         sym.Text = lp.Y;
                         break;
-                    case "DetectNo":
+                    case "探查号":
                         sym.Text = lp.DetectNo;
                         break;
-                    case "Additional":
+                    case "附属物":
                         sym.Text = lp.Fusu;
                         break;
-                    case "Standard":
+                    case "规格":
                         sym.Text = lp.Standard;
                         break;
-                    case "proad":
+                    case "所在道路":
                         sym.Text = lp.Road;
                         break;
                 }
@@ -378,12 +400,20 @@ namespace DF2DCreate.Command
 
         public override void RestoreEnv()
         {
+            try
+            {
+                IMap2DView mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
+                if (mapView == null) return;
+                if (app == null || app.Current2DMapControl == null || app.Workbench == null) return;
+                m_pActiveView.GraphicsContainer.DeleteAllElements();
+                app.Current2DMapControl.ActiveView.Refresh();
+                mapView.UnBind(this);
+                Map2DCommandManager.Pop();
+            }
+            catch (System.Exception ex)
+            {
 
-            mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
-            if (mapView == null) return;
-            mapView.UnBind(this);
-            Map2DCommandManager.Pop();
-
+            }
         }
     }
 }

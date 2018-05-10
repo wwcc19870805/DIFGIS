@@ -37,7 +37,7 @@ namespace DF2DPipe.Stats.Command
             if (!bBind) return;
             DF2DApplication app = DF2DApplication.Application;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(false);
+            app.Workbench.SetMenuEnable(false);
             app.Current2DMapControl.MousePointer = esriControlsMousePointer.esriPointerArrow;
         }
         public override void OnMouseDown(int button, int shift, int x, int y, double mapX, double mapY)
@@ -45,7 +45,7 @@ namespace DF2DPipe.Stats.Command
             DF2DApplication app = DF2DApplication.Application;
             bool ready = true;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(true);
+            app.Workbench.SetMenuEnable(true);
             m_ActiveView = app.Current2DMapControl.ActiveView;
             IScreenDisplay m_Display = app.Current2DMapControl.ActiveView.ScreenDisplay;
 
@@ -73,7 +73,6 @@ namespace DF2DPipe.Stats.Command
                     IGeometry geo = band.TrackNew(m_Display, null);
                     app.Current2DMapControl.DrawShape(geo, ref symbol);
                     WaitForm.Start("正在查询...", "请稍后");
-
                     if (geo.IsEmpty)
                     {
                         IPoint searchPoint = new PointClass();

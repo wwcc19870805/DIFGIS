@@ -32,6 +32,7 @@ namespace DF2DCreate.Command
         private DF2DApplication app;
         private IMap m_pMap;
         private ArrayList m_arrPntLayer;
+        private IActiveView m_pActiveView;
 
         public override void Run(object sender, EventArgs e)
         {
@@ -43,6 +44,7 @@ namespace DF2DCreate.Command
             if (app == null || app.Current2DMapControl == null) return;
             m_pMapControl = app.Current2DMapControl;
             m_pMap = m_pMapControl.Map;
+            m_pActiveView = m_pMapControl.ActiveView;
             if (mapView == null)
             {
                 return;
@@ -75,6 +77,7 @@ namespace DF2DCreate.Command
             {
                 pFeaLayer = m_arrPntLayer[i] as IFeatureLayer;
                 ArrayList features = PublicFunction.SearchFeature(pFeaLayer.FeatureClass, pPoly, esriSpatialRelEnum.esriSpatialRelContains, false);
+                
                 for (int j = 0; j < features.Count; j++)
                 {
                     LabelPointFeature(features[j] as IFeature);
@@ -199,11 +202,20 @@ namespace DF2DCreate.Command
 
         public override void RestoreEnv()
         {
+            try
+            {
+                IMap2DView mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
+                if (mapView == null) return;
+                if (app == null || app.Current2DMapControl == null || app.Workbench == null) return;
+                m_pActiveView.GraphicsContainer.DeleteAllElements();
+                app.Current2DMapControl.ActiveView.Refresh();
+                mapView.UnBind(this);
+                Map2DCommandManager.Pop();
+            }
+            catch (System.Exception ex)
+            {
 
-            Map2DCommandManager.Pop();
-            mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
-            if (mapView == null) return;
-            mapView.UnBind(this);
+            }
 
         }
 

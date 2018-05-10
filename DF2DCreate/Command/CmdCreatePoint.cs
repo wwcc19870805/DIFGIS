@@ -92,10 +92,20 @@ namespace DF2DCreate.Command
         }
         public override void RestoreEnv()
         {
-            Map2DCommandManager.Pop();
-            mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
-            if (mapView == null) return;
-            mapView.UnBind(this);
+            try
+            {
+                IMap2DView mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
+                if (mapView == null) return;
+                if (app == null || app.Current2DMapControl == null || app.Workbench == null) return;
+                pGraphicsContainer.DeleteAllElements();
+                app.Current2DMapControl.ActiveView.Refresh();
+                mapView.UnBind(this);
+                Map2DCommandManager.Pop();
+            }
+            catch (System.Exception ex)
+            {
+
+            }
 
         }
     }

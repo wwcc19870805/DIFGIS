@@ -93,7 +93,7 @@ namespace DF2DTool.Command
             }
             catch (System.Exception ex)
             {
-            	
+                WaitForm.Stop();
             }
         }
         public override void RestoreEnv()

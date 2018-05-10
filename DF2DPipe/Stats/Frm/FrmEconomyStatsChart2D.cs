@@ -92,6 +92,7 @@ namespace DF2DPipe.Stats.Frm
             this.ClientSize = new System.Drawing.Size(515, 336);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmEconomyStatsChart2D";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "统计图表";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

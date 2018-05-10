@@ -339,6 +339,7 @@ namespace DF2DAnalysis.Frm
             this.ClientSize = new System.Drawing.Size(650, 407);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmPipelineCross";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "管线碰撞分析";
             this.Load += new System.EventHandler(this.FrmPipelineCross_Load);

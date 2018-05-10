@@ -734,8 +734,8 @@ namespace DF2DPipe.Query.Frm
                         FacilityClass facc = dffc.GetFacilityClass();
                         IFeatureClass fc = dffc.GetFeatureClass();
                         if (fc == null || facc == null || facc.Name != this._facType) continue;
-                        DFDataConfig.Class.FieldInfo fiStartDepth = facc.GetFieldInfoBySystemName("StartDepth");
-                        DFDataConfig.Class.FieldInfo fiEndDepth = facc.GetFieldInfoBySystemName("EndDepth");
+                        DFDataConfig.Class.FieldInfo fiStartDepth = facc.GetFieldInfoBySystemName("StartDep");
+                        DFDataConfig.Class.FieldInfo fiEndDepth = facc.GetFieldInfoBySystemName("EndDep");
                         if (fiStartDepth == null || fiEndDepth == null) continue;
 
                         int indexStartDepth = fc.Fields.FindField(fiStartDepth.Name);

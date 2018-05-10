@@ -391,6 +391,7 @@
             this.ClientSize = new System.Drawing.Size(386, 350);
             this.Controls.Add(this.layoutControl1);
             //this.Name = "FrmFilter";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "过滤条件";
             this.Load += new System.EventHandler(this.FrmFilter_Load);

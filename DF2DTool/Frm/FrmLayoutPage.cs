@@ -120,6 +120,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(438, 340);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmLayoutPage";
+            this.ShowIcon = false;
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).EndInit();

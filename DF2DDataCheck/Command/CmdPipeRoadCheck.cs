@@ -86,7 +86,6 @@ namespace DF2DDataCheck.Command
 
         private void PipeRoadCheck()
         {
-           
             string str;
             DataTable dt = GetDataTableByStruture();
             IFeatureClass pntFeaClass;
@@ -98,7 +97,7 @@ namespace DF2DDataCheck.Command
            
             //获取交叉面
             List<DF2DFeatureClass> list = Dictionary2DTable.Instance.GetFeatureClassByFacilityClassName("TRAPLY500");
-            if (list == null) return;
+            if (list == null || list.Count == 0) return;
             WaitForm.Start("开始道路检查..", "请稍后");
             foreach (DF2DFeatureClass dfcc in list)
             {
@@ -107,7 +106,7 @@ namespace DF2DDataCheck.Command
                 FacilityClass fac = dfcc.GetFacilityClass();
                 if (fac == null) continue;
                 List<DFDataConfig.Class.FieldInfo> listField = fac.FieldInfoCollection;
-                DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("name");
+                DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("Name");
                 if (fi == null) continue;
                 IFeatureCursor pFeaCursor = pFeatureClass.Search(null, false);
                 Fea = pFeaCursor.NextFeature();
@@ -134,7 +133,7 @@ namespace DF2DDataCheck.Command
                                 string roadName = fielName + "与" + FielName + "的交岔口";
                                 IntersectRoad.Add(roadName);
                                 Hashtable.Add(pPolygon, roadName);
-                                Console.WriteLine(pFea.OID + "," + roadName);
+                                //Console.WriteLine(pFea.OID + "," + roadName);
                             }
                         }
                         pFea = pFeaCur.NextFeature();
@@ -158,9 +157,9 @@ namespace DF2DDataCheck.Command
                     FacilityClass fac = dfcc.GetFacilityClass();
                     if (fac == null) continue;
                     List<DFDataConfig.Class.FieldInfo> listField = fac.FieldInfoCollection;
-                    DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("proad");
+                    DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("Road");
                     if (fi == null) continue;
-                    DFDataConfig.Class.FieldInfo fi1 = fac.GetFieldInfoBySystemName("detectid");
+                    DFDataConfig.Class.FieldInfo fi1 = fac.GetFieldInfoBySystemName("Detectid");
                     if (fi1 == null) continue;
                     WaitForm.SetCaption(pntFeaClass.AliasName);
                     pSpatial.Geometry = Polygon;
@@ -190,7 +189,7 @@ namespace DF2DDataCheck.Command
                             dr["FeatureofClass"] = pntFeaClass.AliasName;
                             dr["FeatureofLayer"] = (pntFeaClass as IDataset).Name;
                             dr["FeatureClass"] = pntFeaClass;
-                            dr["ErrorType"] = "交叉面点道路名错误";
+                            dr["ErrorType"] = "管点所属道路名错误";
                             dt.Rows.Add(dr);
                         }
                         pFea = FeaCursor.NextFeature();
@@ -217,11 +216,11 @@ namespace DF2DDataCheck.Command
                 FacilityClass fac = dfcc.GetFacilityClass();
                 if (fac == null) continue;
                 List<DFDataConfig.Class.FieldInfo> listField = fac.FieldInfoCollection;
-                DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("proad");
+                DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("Road");
                 if (fi == null) continue;
-                DFDataConfig.Class.FieldInfo fi1 = fac.GetFieldInfoBySystemName("snodeid");
+                DFDataConfig.Class.FieldInfo fi1 = fac.GetFieldInfoBySystemName("StartNo");
                 if (fi1 == null) continue;
-                DFDataConfig.Class.FieldInfo fi2 = fac.GetFieldInfoBySystemName("enodeid");
+                DFDataConfig.Class.FieldInfo fi2 = fac.GetFieldInfoBySystemName("EndNo");
                 if (fi2 == null) continue;
 
                 WaitForm.SetCaption(parcFeaClass.AliasName);
@@ -245,7 +244,7 @@ namespace DF2DDataCheck.Command
                             dr["FeatureofClass"] = parcFeaClass.AliasName;
                             dr["FeatureofLayer"] = (parcFeaClass as IDataset).Name;
                             dr["FeatureClass"] = parcFeaClass;
-                            dr["ErrorType"] = "交叉面线道路名错误";
+                            dr["ErrorType"] = "管线所属道路名错误";
                             dt.Rows.Add(dr);
                         }
                     }
@@ -294,7 +293,7 @@ namespace DF2DDataCheck.Command
                                 dr["FeatureofClass"] = pntFeaClass.AliasName;
                                 dr["FeatureofLayer"] = (pntFeaClass as IDataset).Name;
                                 dr["FeatureClass"] = pntFeaClass;
-                                dr["ErrorType"] = "交叉面外点道路名错误";
+                                dr["ErrorType"] = "管点所属道路名错误";
                                 dt.Rows.Add(dr);
                             }
                         }
@@ -339,7 +338,7 @@ namespace DF2DDataCheck.Command
                                 dr["FeatureofClass"] = parcFeaClass.AliasName;
                                 dr["FeatureofLayer"] = (parcFeaClass as IDataset).Name;
                                 dr["FeatureClass"] = parcFeaClass;
-                                dr["ErrorType"] = "交叉面外线道路名错误";
+                                dr["ErrorType"] = "管线所属道路名错误";
                                 dt.Rows.Add(dr);
 
                             }
@@ -352,7 +351,7 @@ namespace DF2DDataCheck.Command
 
                 }
                 m++;
-                Console.WriteLine(m + FielName + Feature.OID);
+                //Console.WriteLine(m + FielName + Feature.OID);
             }
 
         }

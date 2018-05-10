@@ -33,6 +33,7 @@ namespace DF2DPipe.Query.Command
             Map2DCommandManager.Push(this);
             //FrmPropertyQuery dialog = new FrmPropertyQuery(this.CommandName, "Diameter");
             FrmPropertyQueryByDiameter dialog = new FrmPropertyQueryByDiameter(this.CommandName, "PipeLine");
+            dialog.Text = "按管径查询";
             if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
             this._uPanel = new UIDockPanel("查询结果", "查询结果", this.Location, this._width, this._height);
             this._dockPanel = FloatPanelManager.Instance.Add(ref this._uPanel, DockingStyle.Right);

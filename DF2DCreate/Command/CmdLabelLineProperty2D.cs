@@ -39,7 +39,8 @@ namespace DF2DCreate.Command
         private double dblStartY;
         private int nWidth = 8; //标注表格的单位宽高
         private int nHeight = 2;
-        string[] fields = new string[] { "Classify", "StartNo", "EndNo", "Material", "Coverstyle", "Diameter", "proad" };
+        string[] sysFields = new string[] { "Classify", "StartNo", "EndNo", "Material", "CoverStyle", "Diameter", "Road" };
+        string[] fields = new string[] { "类别", "起点号", "终点号", "材质", "埋设方式", "管径", "所在道路" };
 
         public override void Run(object sender, EventArgs e)
         {
@@ -110,7 +111,7 @@ namespace DF2DCreate.Command
                                 pFeaCur = fc.Search(pSpatialFilter, false);
                                 pFeature = pFeaCur.NextFeature();
                                 if (pFeature == null) continue;
-                                foreach (string field in fields)
+                                foreach (string field in sysFields)
                                 {
                                     DFDataConfig.Class.FieldInfo fi = fcc.GetFieldInfoBySystemName(field);
                                     if (fi == null) continue;
@@ -130,13 +131,13 @@ namespace DF2DCreate.Command
                                         case "Material":
                                             material = obj.ToString();
                                             break;
-                                        case "Coverstyle":
+                                        case "CoverStyle":
                                             coverstyle = obj.ToString();
                                             break;
                                         case "Diameter":
                                             diameter = obj.ToString();
                                             break;
-                                        case "proad":
+                                        case "Road":
                                             road = obj.ToString();
                                             break;
 
@@ -268,25 +269,25 @@ namespace DF2DCreate.Command
 
                 switch (fi)
                 {
-                    case "Classify":
+                    case "类别":
                         sym.Text = ip.Classify;
                         break;
-                    case "StartNo":
+                    case "起点号":
                         sym.Text = ip.StartNo;
                         break;
-                    case "EndNo":
+                    case "终点号":
                         sym.Text = ip.EndNo;
                         break;
-                    case "Material":
+                    case "材质":
                         sym.Text = ip.Material;
                         break;
-                    case "Coverstyle":
+                    case "埋设方式":
                         sym.Text = ip.Coverstyle;
                         break;
-                    case "Diameter":
+                    case "管径":
                         sym.Text = ip.Diameter;
                         break;
-                    case "proad":
+                    case "所在道路":
                         sym.Text = ip.Road;
                         break;
                 }

@@ -56,11 +56,12 @@ namespace DF2DCreate.Command
             {
                 //string str = textEdit1.Text;               
                 iTextElement.Text = FrmCreateText.value;
+                iTextElement.ScaleText = true;
                 //string str = frmCreateText.textEdit1.Text;
                 //iTextElement.Text = "HAO";//this.iMapDocument.DocumentFilename;//判断           
                 ITextSymbol sce = new TextSymbolClass();
                 //ISymbolCollectionElement sce = (ISymbolCollectionElement)iTextElement;
-                sce.Size = 1250/*SystemInfo.Instance.TextSize*/;
+                sce.Size = 200;
                 Color color = ColorTranslator.FromHtml(SystemInfo.Instance.TextColor);
                 IColor pColor = new RgbColorClass();
                 pColor.RGB = color.B * 65536 + color.G * 256 + color.R;

@@ -92,6 +92,7 @@ namespace DF2DAnalysis.Frm
             this.ClientSize = new System.Drawing.Size(667, 346);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmPipeTransection2D";
+            this.ShowIcon = false;
             this.Text = "横断面分析结果";
             this.Load += new System.EventHandler(this.FrmPipeTransection2D_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

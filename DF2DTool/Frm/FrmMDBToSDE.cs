@@ -685,6 +685,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(452, 281);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmMDBToSDE";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "修测数据MDB导入SDE";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

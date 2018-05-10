@@ -1761,6 +1761,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(382, 619);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmStandardOutput";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "标准图幅输出";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

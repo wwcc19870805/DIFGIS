@@ -96,7 +96,6 @@ namespace DF2DTool.Command
 //                 }
             }
               /* CommonFunction.DrawPointSMSSquareSymbol(m_pMapControl, downPoint);*/
-            base.OnMouseDown(button, shift, x, y, mapX, mapY);
         }
 
 
@@ -141,10 +140,9 @@ namespace DF2DTool.Command
             if (strResult1 != null && strResult2 != null && strResult3 != null)
             {
                 //FrmAzimuthAngle.instance.SetInfo();
-                FrmAzimuthAngle.instance.Show();
+                FrmAzimuthAngle.instance.ShowDialog();
 
             }
-            base.OnMouseUp(button, shift, x, y, mapX, mapY);
         }
 
 

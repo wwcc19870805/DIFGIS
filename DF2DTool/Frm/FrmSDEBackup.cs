@@ -275,6 +275,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(284, 135);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmSDEBackup";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SDE备份至PGDB";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

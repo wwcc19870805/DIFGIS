@@ -200,6 +200,7 @@ namespace DF2DScan.Frm
             this.ClientSize = new System.Drawing.Size(284, 88);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmSheetLoc";
+            this.ShowIcon = false;
             this.Text = "图幅定位";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmSheetLoc_FormClosed);

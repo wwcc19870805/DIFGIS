@@ -41,7 +41,7 @@ namespace DF2DTool.Command
         private IRubberBand rubberBand = null;
         private IRgbColor pRGB;
 
-        public static IPoint m_pAnchorPoint=new PointClass();
+        public static IPoint m_pAnchorPoint = new PointClass();
 
         private IDisplayFeedback m_pFeedback;
         private INewLineFeedback m_pLineFeed;
@@ -66,13 +66,11 @@ namespace DF2DTool.Command
             m_pMapControl = app.Current2DMapControl;
             m_FocusMap = m_pMapControl.ActiveView.FocusMap;
             m_pActiveView = (IActiveView)this.m_FocusMap;
-     
+
         }
 
         public override void OnMouseDown(int button, int shift, int x, int y, double mapX, double mapY)
         {
-
-               
             m_pAnchorPoint = this.m_pMapControl.ActiveView.ScreenDisplay.DisplayTransformation.ToMapPoint(x, y);
             if (m_pAnchorPoint == null) return;
             simpleMarkerSymbol = new SimpleMarkerSymbolClass();
@@ -80,7 +78,7 @@ namespace DF2DTool.Command
             element = (IElement)markerElement;
             element.Geometry = m_pAnchorPoint;
             simpleMarkerSymbol.Size = SystemInfo.Instance.SymbolSize;
-    
+
             simpleMarkerSymbol.Style = esriSimpleMarkerStyle.esriSMSCircle;
 
             Color color = ColorTranslator.FromHtml(SystemInfo.Instance.LineColor);
@@ -95,21 +93,15 @@ namespace DF2DTool.Command
                 pGraphicsContainer.AddElement(element, 0);
                 this.m_pMapControl.ActiveView.Refresh();
             }
-            Result="X=" + m_pAnchorPoint.X.ToString(".##") +"; " + "Y=" + m_pAnchorPoint.Y.ToString(".##");
-                    
-            if (Result != null)
-            {
-                FrmCoordinate frmCoordinate = FrmCoordinate.Instance();
-                frmCoordinate.ShowDialog();
-  
-                       
-            }
+            Result = "X=" + m_pAnchorPoint.X.ToString(".##") + "; " + "Y=" + m_pAnchorPoint.Y.ToString(".##");
+            FrmCoordinate.Instance().ShowDialog();
 
+ 
         }
 
-     
 
-         public override void RestoreEnv()
+
+        public override void RestoreEnv()
         {
 
             Map2DCommandManager.Pop();
@@ -120,5 +112,5 @@ namespace DF2DTool.Command
         }
 
     }
-  }
+}
 

@@ -595,6 +595,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(360, 288);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmCoordConvert";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "坐标系转换";
             this.Load += new System.EventHandler(this.FrmCoordConvert_Load);

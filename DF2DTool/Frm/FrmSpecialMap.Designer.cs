@@ -45,7 +45,6 @@
             this.btn_OK = new DevExpress.XtraEditors.SimpleButton();
             this.btn_Save = new DevExpress.XtraEditors.SimpleButton();
             this.ce_BackFill = new DevExpress.XtraEditors.ColorEdit();
-            this.ce_ColorBack = new DevExpress.XtraEditors.ColorEdit();
             this.btnUnSelAll = new DevExpress.XtraEditors.SimpleButton();
             this.btnUnSel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSel = new DevExpress.XtraEditors.SimpleButton();
@@ -83,6 +82,7 @@
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.ce_ColorBack = new DevExpress.XtraEditors.ColorPickEdit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lbx_BackMap)).BeginInit();
@@ -95,7 +95,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.colorEdit4.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.che_SetAllColor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ce_BackFill.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ce_ColorBack.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboMapName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rgChoose.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ce_AllColor.Properties)).BeginInit();
@@ -129,6 +128,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ce_ColorBack.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -145,7 +145,6 @@
             this.layoutControl1.Controls.Add(this.btn_OK);
             this.layoutControl1.Controls.Add(this.btn_Save);
             this.layoutControl1.Controls.Add(this.ce_BackFill);
-            this.layoutControl1.Controls.Add(this.ce_ColorBack);
             this.layoutControl1.Controls.Add(this.btnUnSelAll);
             this.layoutControl1.Controls.Add(this.btnUnSel);
             this.layoutControl1.Controls.Add(this.btnSel);
@@ -153,6 +152,7 @@
             this.layoutControl1.Controls.Add(this.cboMapName);
             this.layoutControl1.Controls.Add(this.rgChoose);
             this.layoutControl1.Controls.Add(this.ce_AllColor);
+            this.layoutControl1.Controls.Add(this.ce_ColorBack);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.HiddenItems.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem15});
@@ -225,11 +225,12 @@
             // 
             // ce_ColorOutline
             // 
-            this.ce_ColorOutline.EditValue = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.ce_ColorOutline.EditValue = System.Drawing.Color.Black;
             this.ce_ColorOutline.Location = new System.Drawing.Point(332, 319);
             this.ce_ColorOutline.Name = "ce_ColorOutline";
             this.ce_ColorOutline.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ce_ColorOutline.Properties.ShowCustomColors = false;
             this.ce_ColorOutline.Size = new System.Drawing.Size(93, 22);
             this.ce_ColorOutline.StyleController = this.layoutControl1;
             this.ce_ColorOutline.TabIndex = 23;
@@ -241,6 +242,7 @@
             this.ce_Below.Name = "ce_Below";
             this.ce_Below.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ce_Below.Properties.ShowCustomColors = false;
             this.ce_Below.Size = new System.Drawing.Size(89, 22);
             this.ce_Below.StyleController = this.layoutControl1;
             this.ce_Below.TabIndex = 22;
@@ -252,6 +254,7 @@
             this.ce_Ground.Name = "ce_Ground";
             this.ce_Ground.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ce_Ground.Properties.ShowCustomColors = false;
             this.ce_Ground.Size = new System.Drawing.Size(89, 22);
             this.ce_Ground.StyleController = this.layoutControl1;
             this.ce_Ground.TabIndex = 21;
@@ -281,7 +284,6 @@
             // 
             // che_SetAllColor
             // 
-            this.che_SetAllColor.EditValue = true;
             this.che_SetAllColor.Location = new System.Drawing.Point(221, 293);
             this.che_SetAllColor.Name = "che_SetAllColor";
             this.che_SetAllColor.Properties.Caption = "图层统一配色";
@@ -322,28 +324,19 @@
             // 
             // ce_BackFill
             // 
-            this.ce_BackFill.EditValue = System.Drawing.Color.Aqua;
+            this.ce_BackFill.EditValue = System.Drawing.Color.White;
             this.ce_BackFill.Location = new System.Drawing.Point(119, 397);
             this.ce_BackFill.Name = "ce_BackFill";
             this.ce_BackFill.Properties.Appearance.ForeColor = System.Drawing.Color.White;
             this.ce_BackFill.Properties.Appearance.Options.UseForeColor = true;
             this.ce_BackFill.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ce_BackFill.Properties.ShowCustomColors = false;
+            this.ce_BackFill.Properties.ShowWebColors = false;
             this.ce_BackFill.Size = new System.Drawing.Size(54, 22);
             this.ce_BackFill.StyleController = this.layoutControl1;
             this.ce_BackFill.TabIndex = 11;
             this.ce_BackFill.EditValueChanged += new System.EventHandler(this.ce_BackFill_EditValueChanged);
-            // 
-            // ce_ColorBack
-            // 
-            this.ce_ColorBack.EditValue = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.ce_ColorBack.Location = new System.Drawing.Point(119, 371);
-            this.ce_ColorBack.Name = "ce_ColorBack";
-            this.ce_ColorBack.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.ce_ColorBack.Size = new System.Drawing.Size(54, 22);
-            this.ce_ColorBack.StyleController = this.layoutControl1;
-            this.ce_ColorBack.TabIndex = 10;
             // 
             // btnUnSelAll
             // 
@@ -411,11 +404,12 @@
             // 
             // ce_AllColor
             // 
-            this.ce_AllColor.EditValue = System.Drawing.Color.Aqua;
+            this.ce_AllColor.EditValue = System.Drawing.Color.Gray;
             this.ce_AllColor.Location = new System.Drawing.Point(334, 293);
             this.ce_AllColor.Name = "ce_AllColor";
             this.ce_AllColor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ce_AllColor.Properties.ShowCustomColors = false;
             this.ce_AllColor.Size = new System.Drawing.Size(91, 22);
             this.ce_AllColor.StyleController = this.layoutControl1;
             this.ce_AllColor.TabIndex = 17;
@@ -803,6 +797,19 @@
             this.emptySpaceItem1.Text = "emptySpaceItem1";
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // ce_ColorBack
+            // 
+            this.ce_ColorBack.EditValue = System.Drawing.Color.Gray;
+            this.ce_ColorBack.Location = new System.Drawing.Point(119, 371);
+            this.ce_ColorBack.Name = "ce_ColorBack";
+            this.ce_ColorBack.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ce_ColorBack.Properties.ShowCustomColors = false;
+            this.ce_ColorBack.Properties.ShowWebColors = false;
+            this.ce_ColorBack.Size = new System.Drawing.Size(54, 22);
+            this.ce_ColorBack.StyleController = this.layoutControl1;
+            this.ce_ColorBack.TabIndex = 10;
+            // 
             // FrmSpecialMap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -810,6 +817,7 @@
             this.ClientSize = new System.Drawing.Size(433, 459);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmSpecialMap";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "专题图制作";
             this.Load += new System.EventHandler(this.FrmSpecialMap_Load);
@@ -825,7 +833,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.colorEdit4.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.che_SetAllColor.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ce_BackFill.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ce_ColorBack.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboMapName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rgChoose.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ce_AllColor.Properties)).EndInit();
@@ -859,6 +866,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ce_ColorBack.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -886,7 +894,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraEditors.ColorEdit ce_BackFill;
-        private DevExpress.XtraEditors.ColorEdit ce_ColorBack;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraEditors.SimpleButton btn_Cancel;
@@ -920,5 +927,6 @@
         private DevExpress.XtraEditors.ListBoxControl lbx_BackMap;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraEditors.ColorEdit ce_AllColor;
+        private DevExpress.XtraEditors.ColorPickEdit ce_ColorBack;
     }
 }

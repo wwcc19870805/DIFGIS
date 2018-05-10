@@ -455,7 +455,9 @@ namespace DF2DPipe.Query.Frm
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(419, 417);
             this.Controls.Add(this.layoutControl1);
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.Name = "FrmPropertyQuery";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.FrmPropertyQuery_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

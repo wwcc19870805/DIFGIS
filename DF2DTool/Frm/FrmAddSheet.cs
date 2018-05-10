@@ -12,7 +12,7 @@ using DevExpress.XtraEditors;
 
 namespace DF2DTool.Frm
 {
-    public partial class FrmAddSheet : Form
+    public partial class FrmAddSheet : XtraForm
     {
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
         private DevExpress.XtraEditors.SimpleButton btn_Cancel;
@@ -301,6 +301,7 @@ namespace DF2DTool.Frm
             this.ClientSize = new System.Drawing.Size(284, 164);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmAddSheet";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "添加图幅";
             this.Load += new System.EventHandler(this.FrmAddSheet_Load);

@@ -792,8 +792,8 @@ namespace DF2DPipe.Stats.Frm
                          FacilityClass facc = dffc.GetFacilityClass();
                          IFeatureClass fc = dffc.GetFeatureClass();
                          if (fc == null || facc == null || facc.Name != "PipeLine") continue;
-                         DFDataConfig.Class.FieldInfo fi1 = facc.GetFieldInfoBySystemName("StartDepth");
-                         DFDataConfig.Class.FieldInfo fi2 = facc.GetFieldInfoBySystemName("EndDepth");
+                         DFDataConfig.Class.FieldInfo fi1 = facc.GetFieldInfoBySystemName("StartDep");
+                         DFDataConfig.Class.FieldInfo fi2 = facc.GetFieldInfoBySystemName("EndDep");
                          DFDataConfig.Class.FieldInfo fiPipeLength = facc.GetFieldInfoBySystemName("PipeLength2D");
                          if (fi1 == null || fi2 == null || fiPipeLength == null) continue;
                          int index1 = fc.Fields.FindField(fi1.Name);

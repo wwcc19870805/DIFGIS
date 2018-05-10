@@ -22,6 +22,7 @@ using DF2DPipe.Query.UC;
 using DFDataConfig.Logic;
 using DF2DData.UserControl.Pad;
 using DF2DData.Tree;
+using DF2DPipe.Query.Frm;
 
 namespace DF2DPipe.Query.Command
 {
@@ -47,8 +48,9 @@ namespace DF2DPipe.Query.Command
             if (!bBind) return;
             DF2DApplication app = DF2DApplication.Application;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(false);
+            app.Workbench.SetMenuEnable(false);           
             app.Current2DMapControl.MousePointer = esriControlsMousePointer.esriPointerArrow;
+            FrmMajorClass.Instance.Show();
   
         }
 
@@ -62,7 +64,7 @@ namespace DF2DPipe.Query.Command
             bool ready = false;
             bool haveone = false;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(true);
+            app.Workbench.SetMenuEnable(true);
             IGeometry pGeo = null;
             try
             {
@@ -76,16 +78,16 @@ namespace DF2DPipe.Query.Command
                     if (pGeo == null) return;
                     ready = true;
                     if (ready == true)
-                    {
-                        
-                        foreach (LogicGroup lg in LogicDataStructureManage2D.Instance.RootLogicGroups)
-                        {
+                    {                      
+                        //foreach (LogicGroup lg in LogicDataStructureManage2D.Instance.RootLogicGroups)
+                        //{
                             IFeatureCursor pFeatureCursor = null;
                             IFeature pFeature = null;
                             ISpatialFilter pSpatialFilter = new SpatialFilter();
                             IFeatureClass fc;
                             DF2DFeatureClass dffc;
-                            foreach (MajorClass mc in lg.MajorClasses)
+                            //foreach (MajorClass mc in lg.MajorClasses)
+                            foreach (MajorClass mc in FrmMajorClass.Instance.MajorClasses)
                             {
                                 foreach (SubClass sc in mc.SubClasses)
                                 {                                 
@@ -213,7 +215,7 @@ namespace DF2DPipe.Query.Command
                             WaitForm.Stop();
                         }
                     }
-                }
+                //}
             }
             catch 
             {

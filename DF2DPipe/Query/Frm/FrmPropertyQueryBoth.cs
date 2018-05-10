@@ -503,6 +503,7 @@ namespace DF2DPipe.Query.Frm
             this.ClientSize = new System.Drawing.Size(399, 408);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmPropertyQueryBoth";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.FrmPropertyQuery_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

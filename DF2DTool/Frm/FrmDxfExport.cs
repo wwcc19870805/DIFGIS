@@ -25,7 +25,7 @@ namespace DF2DTool.Frm
         //		private IFeatureSelection pFeaSelection;
         private ISelection pSelection;
         private string fileType = "1";			//导入格式  1--dxf  2--南方CASS  3--青山智绘  4--Access mdb
-        private string operType = "2";			//操作类型  1--从选择集导出 2--从文件导出
+        private string operType = "1";			//操作类型  1--从选择集导出 2--从文件导出
         private string mdbFileName = "";			//配置文件
         private string layerTable = "";			//图层对应表
         private string symbolTable = "";			//要素对应表
@@ -46,15 +46,11 @@ namespace DF2DTool.Frm
         private DevExpress.XtraEditors.TextEdit txtFile;
         private DevExpress.XtraEditors.TextEdit txtAngle;
         private DevExpress.XtraEditors.TextEdit txtObjNum;
-        private DevExpress.XtraEditors.ComboBoxEdit cmbFile;
-        private DevExpress.XtraEditors.CheckedListBoxControl chlOperType;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.CheckedListBoxControl chlFiletype;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
@@ -105,9 +101,9 @@ namespace DF2DTool.Frm
         private DevExpress.XtraEditors.SimpleButton btnQuit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem26;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem27;
-        private DevExpress.XtraEditors.SimpleButton btnInFile;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem28;
         private System.Windows.Forms.SaveFileDialog sfdExport;
+        private CheckEdit ce_OperType;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
     
       
         private System.ComponentModel.Container components = null;
@@ -128,7 +124,7 @@ namespace DF2DTool.Frm
 			this.InitForm("2");
 			this.fullInputDs(mFile);
             //this.grpOther.Visible=false;
-			refCmbFile(inputDs);
+            //refCmbFile(inputDs);
 		}
         //通过选择集的方式调用
 		public FrmDxfExport(ISelection pSele,IMap pInputMap)
@@ -179,16 +175,16 @@ namespace DF2DTool.Frm
             operType = type;		//从选择集或数据库导出
             if (operType == "1")
             {
-                chlOperType.SelectedIndex = 0;
-                cmbFile.Enabled = false;
-                btnInFile.Enabled = false;
+                ce_OperType.Checked = true;
+                //cmbFile.Enabled = false;
+                //btnInFile.Enabled = false;
                 btnExport.Enabled = true;
             }
             else
             {
-                chlOperType.SelectedIndex = 1;
-                cmbFile.Enabled = true;
-                btnInFile.Enabled = true;
+                //chlOperType.SelectedIndex = 1;
+                //cmbFile.Enabled = true;
+                //btnInFile.Enabled = true;
             }
         }
 
@@ -198,25 +194,19 @@ namespace DF2DTool.Frm
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
-            this.btnInFile = new DevExpress.XtraEditors.SimpleButton();
             this.btnQuit = new DevExpress.XtraEditors.SimpleButton();
             this.btnExport = new DevExpress.XtraEditors.SimpleButton();
             this.btnOutFile = new DevExpress.XtraEditors.SimpleButton();
             this.txtFile = new DevExpress.XtraEditors.TextEdit();
             this.txtAngle = new DevExpress.XtraEditors.TextEdit();
             this.txtObjNum = new DevExpress.XtraEditors.TextEdit();
-            this.cmbFile = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.chlOperType = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.chlFiletype = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem28 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -262,6 +252,8 @@ namespace DF2DTool.Frm
             this.layoutControlItem25 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ce_OperType = new DevExpress.XtraEditors.CheckEdit();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
@@ -272,19 +264,14 @@ namespace DF2DTool.Frm
             ((System.ComponentModel.ISupportInitialize)(this.txtFile.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAngle.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtObjNum.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbFile.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chlOperType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chlFiletype)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
@@ -325,6 +312,8 @@ namespace DF2DTool.Frm
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem25)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ce_OperType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -334,7 +323,7 @@ namespace DF2DTool.Frm
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(302, 327);
+            this.layoutControl1.Size = new System.Drawing.Size(302, 268);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -343,7 +332,7 @@ namespace DF2DTool.Frm
             this.xtraTabControl1.Location = new System.Drawing.Point(2, 2);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(298, 323);
+            this.xtraTabControl1.Size = new System.Drawing.Size(298, 264);
             this.xtraTabControl1.TabIndex = 4;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
@@ -353,41 +342,30 @@ namespace DF2DTool.Frm
             // 
             this.xtraTabPage1.Controls.Add(this.layoutControl2);
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(292, 294);
+            this.xtraTabPage1.Size = new System.Drawing.Size(292, 235);
             this.xtraTabPage1.Text = "导出设置";
             // 
             // layoutControl2
             // 
-            this.layoutControl2.Controls.Add(this.btnInFile);
+            this.layoutControl2.Controls.Add(this.ce_OperType);
             this.layoutControl2.Controls.Add(this.btnQuit);
             this.layoutControl2.Controls.Add(this.btnExport);
             this.layoutControl2.Controls.Add(this.btnOutFile);
             this.layoutControl2.Controls.Add(this.txtFile);
             this.layoutControl2.Controls.Add(this.txtAngle);
             this.layoutControl2.Controls.Add(this.txtObjNum);
-            this.layoutControl2.Controls.Add(this.cmbFile);
-            this.layoutControl2.Controls.Add(this.chlOperType);
             this.layoutControl2.Controls.Add(this.groupControl1);
             this.layoutControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(292, 294);
+            this.layoutControl2.Size = new System.Drawing.Size(292, 235);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
-            // btnInFile
-            // 
-            this.btnInFile.Location = new System.Drawing.Point(235, 137);
-            this.btnInFile.Name = "btnInFile";
-            this.btnInFile.Size = new System.Drawing.Size(52, 22);
-            this.btnInFile.StyleController = this.layoutControl2;
-            this.btnInFile.TabIndex = 13;
-            this.btnInFile.Text = "...";
-            // 
             // btnQuit
             // 
-            this.btnQuit.Location = new System.Drawing.Point(148, 267);
+            this.btnQuit.Location = new System.Drawing.Point(148, 208);
             this.btnQuit.Name = "btnQuit";
             this.btnQuit.Size = new System.Drawing.Size(139, 22);
             this.btnQuit.StyleController = this.layoutControl2;
@@ -397,7 +375,7 @@ namespace DF2DTool.Frm
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(5, 267);
+            this.btnExport.Location = new System.Drawing.Point(5, 208);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(139, 22);
             this.btnExport.StyleController = this.layoutControl2;
@@ -407,7 +385,7 @@ namespace DF2DTool.Frm
             // 
             // btnOutFile
             // 
-            this.btnOutFile.Location = new System.Drawing.Point(237, 241);
+            this.btnOutFile.Location = new System.Drawing.Point(237, 182);
             this.btnOutFile.Name = "btnOutFile";
             this.btnOutFile.Size = new System.Drawing.Size(50, 22);
             this.btnOutFile.StyleController = this.layoutControl2;
@@ -417,7 +395,7 @@ namespace DF2DTool.Frm
             // 
             // txtFile
             // 
-            this.txtFile.Location = new System.Drawing.Point(68, 241);
+            this.txtFile.Location = new System.Drawing.Point(68, 182);
             this.txtFile.Name = "txtFile";
             this.txtFile.Size = new System.Drawing.Size(165, 22);
             this.txtFile.StyleController = this.layoutControl2;
@@ -426,7 +404,8 @@ namespace DF2DTool.Frm
             // txtAngle
             // 
             this.txtAngle.EditValue = "Direction";
-            this.txtAngle.Location = new System.Drawing.Point(68, 189);
+            this.txtAngle.Enabled = false;
+            this.txtAngle.Location = new System.Drawing.Point(68, 130);
             this.txtAngle.Name = "txtAngle";
             this.txtAngle.Size = new System.Drawing.Size(219, 22);
             this.txtAngle.StyleController = this.layoutControl2;
@@ -435,41 +414,19 @@ namespace DF2DTool.Frm
             // txtObjNum
             // 
             this.txtObjNum.EditValue = "GeoObjNum";
-            this.txtObjNum.Location = new System.Drawing.Point(68, 163);
+            this.txtObjNum.Enabled = false;
+            this.txtObjNum.Location = new System.Drawing.Point(68, 104);
             this.txtObjNum.Name = "txtObjNum";
             this.txtObjNum.Size = new System.Drawing.Size(219, 22);
             this.txtObjNum.StyleController = this.layoutControl2;
             this.txtObjNum.TabIndex = 8;
-            // 
-            // cmbFile
-            // 
-            this.cmbFile.Location = new System.Drawing.Point(68, 137);
-            this.cmbFile.Name = "cmbFile";
-            this.cmbFile.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbFile.Size = new System.Drawing.Size(163, 22);
-            this.cmbFile.StyleController = this.layoutControl2;
-            this.cmbFile.TabIndex = 6;
-            // 
-            // chlOperType
-            // 
-            this.chlOperType.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(true, "从选择集导出", System.Windows.Forms.CheckState.Checked),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(false, "从文件导出", System.Windows.Forms.CheckState.Unchecked, false)});
-            this.chlOperType.Location = new System.Drawing.Point(5, 80);
-            this.chlOperType.MultiColumn = true;
-            this.chlOperType.Name = "chlOperType";
-            this.chlOperType.Size = new System.Drawing.Size(282, 53);
-            this.chlOperType.StyleController = this.layoutControl2;
-            this.chlOperType.TabIndex = 5;
-            this.chlOperType.SelectedIndexChanged += new System.EventHandler(this.chlOperType_SelectedIndexChanged);
             // 
             // groupControl1
             // 
             this.groupControl1.Controls.Add(this.chlFiletype);
             this.groupControl1.Location = new System.Drawing.Point(2, 2);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(288, 51);
+            this.groupControl1.Size = new System.Drawing.Size(288, 52);
             this.groupControl1.TabIndex = 4;
             this.groupControl1.Text = "导出数据类型";
             // 
@@ -482,7 +439,7 @@ namespace DF2DTool.Frm
             this.chlFiletype.Location = new System.Drawing.Point(2, 22);
             this.chlFiletype.MultiColumn = true;
             this.chlFiletype.Name = "chlFiletype";
-            this.chlFiletype.Size = new System.Drawing.Size(284, 27);
+            this.chlFiletype.Size = new System.Drawing.Size(284, 28);
             this.chlFiletype.TabIndex = 0;
             this.chlFiletype.SelectedIndexChanged += new System.EventHandler(this.chlFiletype_SelectedIndexChanged);
             // 
@@ -498,7 +455,7 @@ namespace DF2DTool.Frm
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup2.Size = new System.Drawing.Size(292, 294);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(292, 235);
             this.layoutControlGroup2.Text = "layoutControlGroup2";
             this.layoutControlGroup2.TextVisible = false;
             // 
@@ -508,7 +465,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(292, 55);
+            this.layoutControlItem2.Size = new System.Drawing.Size(292, 56);
             this.layoutControlItem2.Text = "layoutControlItem2";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextToControlDistance = 0;
@@ -518,44 +475,20 @@ namespace DF2DTool.Frm
             // 
             this.layoutControlGroup3.CustomizationFormText = "layoutControlGroup3";
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem3,
-            this.layoutControlItem4,
             this.layoutControlItem6,
             this.layoutControlItem7,
-            this.layoutControlItem28});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 55);
+            this.layoutControlItem3});
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 56);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
             this.layoutControlGroup3.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup3.Size = new System.Drawing.Size(292, 161);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(292, 101);
             this.layoutControlGroup3.Text = "导出方式";
-            // 
-            // layoutControlItem3
-            // 
-            this.layoutControlItem3.Control = this.chlOperType;
-            this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(286, 57);
-            this.layoutControlItem3.Text = "layoutControlItem3";
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextToControlDistance = 0;
-            this.layoutControlItem3.TextVisible = false;
-            // 
-            // layoutControlItem4
-            // 
-            this.layoutControlItem4.Control = this.cmbFile;
-            this.layoutControlItem4.CustomizationFormText = "文件名：";
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 57);
-            this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(230, 26);
-            this.layoutControlItem4.Text = "文件名：";
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.txtObjNum;
             this.layoutControlItem6.CustomizationFormText = "符号编码：";
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 83);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 23);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(286, 26);
             this.layoutControlItem6.Text = "符号编码：";
@@ -565,23 +498,11 @@ namespace DF2DTool.Frm
             // 
             this.layoutControlItem7.Control = this.txtAngle;
             this.layoutControlItem7.CustomizationFormText = "旋转角度：";
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 109);
+            this.layoutControlItem7.Location = new System.Drawing.Point(0, 49);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(286, 26);
             this.layoutControlItem7.Text = "旋转角度：";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(60, 14);
-            // 
-            // layoutControlItem28
-            // 
-            this.layoutControlItem28.Control = this.btnInFile;
-            this.layoutControlItem28.CustomizationFormText = "layoutControlItem28";
-            this.layoutControlItem28.Location = new System.Drawing.Point(230, 57);
-            this.layoutControlItem28.Name = "layoutControlItem28";
-            this.layoutControlItem28.Size = new System.Drawing.Size(56, 26);
-            this.layoutControlItem28.Text = "layoutControlItem28";
-            this.layoutControlItem28.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem28.TextToControlDistance = 0;
-            this.layoutControlItem28.TextVisible = false;
             // 
             // layoutControlGroup4
             // 
@@ -591,7 +512,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem9,
             this.layoutControlItem26,
             this.layoutControlItem27});
-            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 216);
+            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 157);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
             this.layoutControlGroup4.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup4.Size = new System.Drawing.Size(292, 78);
@@ -647,7 +568,7 @@ namespace DF2DTool.Frm
             // 
             this.xtraTabPage2.Controls.Add(this.layoutControl3);
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(292, 294);
+            this.xtraTabPage2.Size = new System.Drawing.Size(292, 235);
             this.xtraTabPage2.Text = "高级设置";
             // 
             // layoutControl3
@@ -674,33 +595,33 @@ namespace DF2DTool.Frm
             this.layoutControl3.Location = new System.Drawing.Point(0, 0);
             this.layoutControl3.Name = "layoutControl3";
             this.layoutControl3.Root = this.layoutControlGroup5;
-            this.layoutControl3.Size = new System.Drawing.Size(292, 294);
+            this.layoutControl3.Size = new System.Drawing.Size(292, 235);
             this.layoutControl3.TabIndex = 0;
             this.layoutControl3.Text = "layoutControl3";
             // 
             // btnSym
             // 
-            this.btnSym.Location = new System.Drawing.Point(228, 100);
+            this.btnSym.Location = new System.Drawing.Point(215, 45);
             this.btnSym.Name = "btnSym";
-            this.btnSym.Size = new System.Drawing.Size(59, 22);
+            this.btnSym.Size = new System.Drawing.Size(55, 22);
             this.btnSym.StyleController = this.layoutControl3;
             this.btnSym.TabIndex = 22;
             this.btnSym.Text = "...";
             // 
             // btnLayer
             // 
-            this.btnLayer.Location = new System.Drawing.Point(226, 74);
+            this.btnLayer.Location = new System.Drawing.Point(213, 19);
             this.btnLayer.Name = "btnLayer";
-            this.btnLayer.Size = new System.Drawing.Size(61, 22);
+            this.btnLayer.Size = new System.Drawing.Size(57, 22);
             this.btnLayer.StyleController = this.layoutControl3;
             this.btnLayer.TabIndex = 21;
             this.btnLayer.Text = "...";
             // 
             // btnProFile
             // 
-            this.btnProFile.Location = new System.Drawing.Point(227, 48);
+            this.btnProFile.Location = new System.Drawing.Point(214, -7);
             this.btnProFile.Name = "btnProFile";
-            this.btnProFile.Size = new System.Drawing.Size(60, 22);
+            this.btnProFile.Size = new System.Drawing.Size(56, 22);
             this.btnProFile.StyleController = this.layoutControl3;
             this.btnProFile.TabIndex = 20;
             this.btnProFile.Text = "...";
@@ -708,110 +629,110 @@ namespace DF2DTool.Frm
             // 
             // cmbScale
             // 
-            this.cmbScale.Location = new System.Drawing.Point(80, 253);
+            this.cmbScale.Location = new System.Drawing.Point(80, 198);
             this.cmbScale.Name = "cmbScale";
             this.cmbScale.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbScale.Size = new System.Drawing.Size(207, 22);
+            this.cmbScale.Size = new System.Drawing.Size(190, 22);
             this.cmbScale.StyleController = this.layoutControl3;
             this.cmbScale.TabIndex = 19;
             // 
             // btnFont
             // 
-            this.btnFont.Location = new System.Drawing.Point(226, 227);
+            this.btnFont.Location = new System.Drawing.Point(213, 172);
             this.btnFont.Name = "btnFont";
-            this.btnFont.Size = new System.Drawing.Size(61, 22);
+            this.btnFont.Size = new System.Drawing.Size(57, 22);
             this.btnFont.StyleController = this.layoutControl3;
             this.btnFont.TabIndex = 18;
             this.btnFont.Text = "...";
             // 
             // btnLinetype
             // 
-            this.btnLinetype.Location = new System.Drawing.Point(224, 201);
+            this.btnLinetype.Location = new System.Drawing.Point(211, 146);
             this.btnLinetype.Name = "btnLinetype";
-            this.btnLinetype.Size = new System.Drawing.Size(63, 22);
+            this.btnLinetype.Size = new System.Drawing.Size(59, 22);
             this.btnLinetype.StyleController = this.layoutControl3;
             this.btnLinetype.TabIndex = 17;
             this.btnLinetype.Text = "...";
             // 
             // btnBlock
             // 
-            this.btnBlock.Location = new System.Drawing.Point(226, 175);
+            this.btnBlock.Location = new System.Drawing.Point(213, 120);
             this.btnBlock.Name = "btnBlock";
-            this.btnBlock.Size = new System.Drawing.Size(61, 22);
+            this.btnBlock.Size = new System.Drawing.Size(57, 22);
             this.btnBlock.StyleController = this.layoutControl3;
             this.btnBlock.TabIndex = 16;
             this.btnBlock.Text = "...";
             // 
             // txtFont
             // 
-            this.txtFont.Location = new System.Drawing.Point(80, 227);
+            this.txtFont.Location = new System.Drawing.Point(80, 172);
             this.txtFont.Name = "txtFont";
-            this.txtFont.Size = new System.Drawing.Size(142, 22);
+            this.txtFont.Size = new System.Drawing.Size(129, 22);
             this.txtFont.StyleController = this.layoutControl3;
             this.txtFont.TabIndex = 15;
             // 
             // txtLinetype
             // 
-            this.txtLinetype.Location = new System.Drawing.Point(80, 201);
+            this.txtLinetype.Location = new System.Drawing.Point(80, 146);
             this.txtLinetype.Name = "txtLinetype";
-            this.txtLinetype.Size = new System.Drawing.Size(140, 22);
+            this.txtLinetype.Size = new System.Drawing.Size(127, 22);
             this.txtLinetype.StyleController = this.layoutControl3;
             this.txtLinetype.TabIndex = 14;
             // 
             // txtBlock
             // 
-            this.txtBlock.Location = new System.Drawing.Point(80, 175);
+            this.txtBlock.Location = new System.Drawing.Point(80, 120);
             this.txtBlock.Name = "txtBlock";
-            this.txtBlock.Size = new System.Drawing.Size(142, 22);
+            this.txtBlock.Size = new System.Drawing.Size(129, 22);
             this.txtBlock.StyleController = this.layoutControl3;
             this.txtBlock.TabIndex = 13;
             // 
             // chkSymSet
             // 
             this.chkSymSet.EditValue = true;
-            this.chkSymSet.Location = new System.Drawing.Point(5, 152);
+            this.chkSymSet.Location = new System.Drawing.Point(5, 97);
             this.chkSymSet.Name = "chkSymSet";
             this.chkSymSet.Properties.Caption = "使用默认配置";
-            this.chkSymSet.Size = new System.Drawing.Size(282, 19);
+            this.chkSymSet.Size = new System.Drawing.Size(265, 19);
             this.chkSymSet.StyleController = this.layoutControl3;
             this.chkSymSet.TabIndex = 12;
             // 
             // cmbSym
             // 
-            this.cmbSym.Location = new System.Drawing.Point(80, 100);
+            this.cmbSym.Location = new System.Drawing.Point(80, 45);
             this.cmbSym.Name = "cmbSym";
             this.cmbSym.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbSym.Size = new System.Drawing.Size(144, 22);
+            this.cmbSym.Size = new System.Drawing.Size(131, 22);
             this.cmbSym.StyleController = this.layoutControl3;
             this.cmbSym.TabIndex = 10;
             // 
             // cmbLayer
             // 
-            this.cmbLayer.Location = new System.Drawing.Point(80, 74);
+            this.cmbLayer.Location = new System.Drawing.Point(80, 19);
             this.cmbLayer.Name = "cmbLayer";
             this.cmbLayer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbLayer.Size = new System.Drawing.Size(142, 22);
+            this.cmbLayer.Size = new System.Drawing.Size(129, 22);
             this.cmbLayer.StyleController = this.layoutControl3;
             this.cmbLayer.TabIndex = 8;
             // 
             // txtProFile
             // 
-            this.txtProFile.Location = new System.Drawing.Point(80, 48);
+            this.txtProFile.Location = new System.Drawing.Point(80, -7);
             this.txtProFile.Name = "txtProFile";
-            this.txtProFile.Size = new System.Drawing.Size(143, 22);
+            this.txtProFile.Size = new System.Drawing.Size(130, 22);
             this.txtProFile.StyleController = this.layoutControl3;
             this.txtProFile.TabIndex = 6;
             // 
             // chkFileSet
             // 
             this.chkFileSet.EditValue = true;
-            this.chkFileSet.Location = new System.Drawing.Point(5, 25);
+            this.chkFileSet.Location = new System.Drawing.Point(5, -30);
             this.chkFileSet.Name = "chkFileSet";
             this.chkFileSet.Properties.Caption = "使用默认配置";
-            this.chkFileSet.Size = new System.Drawing.Size(282, 19);
+            this.chkFileSet.Size = new System.Drawing.Size(265, 19);
             this.chkFileSet.StyleController = this.layoutControl3;
             this.chkFileSet.TabIndex = 5;
             this.chkFileSet.CheckStateChanged += new System.EventHandler(this.chkFileSet_CheckStateChanged);
@@ -843,10 +764,10 @@ namespace DF2DTool.Frm
             this.layoutControlGroup5.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup6,
             this.layoutControlGroup7});
-            this.layoutControlGroup5.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup5.Location = new System.Drawing.Point(0, -55);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
             this.layoutControlGroup5.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup5.Size = new System.Drawing.Size(292, 294);
+            this.layoutControlGroup5.Size = new System.Drawing.Size(275, 290);
             this.layoutControlGroup5.Text = "layoutControlGroup5";
             this.layoutControlGroup5.TextVisible = false;
             // 
@@ -864,7 +785,7 @@ namespace DF2DTool.Frm
             this.layoutControlGroup6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup6.Name = "layoutControlGroup6";
             this.layoutControlGroup6.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup6.Size = new System.Drawing.Size(292, 127);
+            this.layoutControlGroup6.Size = new System.Drawing.Size(275, 127);
             this.layoutControlGroup6.Text = "配置文件设置";
             // 
             // layoutControlItem11
@@ -873,7 +794,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem11.CustomizationFormText = "layoutControlItem11";
             this.layoutControlItem11.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(286, 23);
+            this.layoutControlItem11.Size = new System.Drawing.Size(269, 23);
             this.layoutControlItem11.Text = "layoutControlItem11";
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextToControlDistance = 0;
@@ -885,7 +806,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem12.CustomizationFormText = "配置文件：";
             this.layoutControlItem12.Location = new System.Drawing.Point(0, 23);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(222, 26);
+            this.layoutControlItem12.Size = new System.Drawing.Size(209, 26);
             this.layoutControlItem12.Text = "配置文件：";
             this.layoutControlItem12.TextSize = new System.Drawing.Size(72, 14);
             // 
@@ -895,7 +816,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem14.CustomizationFormText = "图层对照表：";
             this.layoutControlItem14.Location = new System.Drawing.Point(0, 49);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(221, 26);
+            this.layoutControlItem14.Size = new System.Drawing.Size(208, 26);
             this.layoutControlItem14.Text = "图层对照表：";
             this.layoutControlItem14.TextSize = new System.Drawing.Size(72, 14);
             // 
@@ -905,7 +826,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem16.CustomizationFormText = "符号对照表：";
             this.layoutControlItem16.Location = new System.Drawing.Point(0, 75);
             this.layoutControlItem16.Name = "layoutControlItem16";
-            this.layoutControlItem16.Size = new System.Drawing.Size(223, 26);
+            this.layoutControlItem16.Size = new System.Drawing.Size(210, 26);
             this.layoutControlItem16.Text = "符号对照表：";
             this.layoutControlItem16.TextSize = new System.Drawing.Size(72, 14);
             // 
@@ -913,9 +834,9 @@ namespace DF2DTool.Frm
             // 
             this.layoutControlItem5.Control = this.btnProFile;
             this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
-            this.layoutControlItem5.Location = new System.Drawing.Point(222, 23);
+            this.layoutControlItem5.Location = new System.Drawing.Point(209, 23);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(64, 26);
+            this.layoutControlItem5.Size = new System.Drawing.Size(60, 26);
             this.layoutControlItem5.Text = "layoutControlItem5";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextToControlDistance = 0;
@@ -925,9 +846,9 @@ namespace DF2DTool.Frm
             // 
             this.layoutControlItem15.Control = this.btnLayer;
             this.layoutControlItem15.CustomizationFormText = "layoutControlItem15";
-            this.layoutControlItem15.Location = new System.Drawing.Point(221, 49);
+            this.layoutControlItem15.Location = new System.Drawing.Point(208, 49);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(65, 26);
+            this.layoutControlItem15.Size = new System.Drawing.Size(61, 26);
             this.layoutControlItem15.Text = "layoutControlItem15";
             this.layoutControlItem15.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem15.TextToControlDistance = 0;
@@ -937,9 +858,9 @@ namespace DF2DTool.Frm
             // 
             this.layoutControlItem17.Control = this.btnSym;
             this.layoutControlItem17.CustomizationFormText = "layoutControlItem17";
-            this.layoutControlItem17.Location = new System.Drawing.Point(223, 75);
+            this.layoutControlItem17.Location = new System.Drawing.Point(210, 75);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(63, 26);
+            this.layoutControlItem17.Size = new System.Drawing.Size(59, 26);
             this.layoutControlItem17.Text = "layoutControlItem17";
             this.layoutControlItem17.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem17.TextToControlDistance = 0;
@@ -961,7 +882,7 @@ namespace DF2DTool.Frm
             this.layoutControlGroup7.Location = new System.Drawing.Point(0, 127);
             this.layoutControlGroup7.Name = "layoutControlGroup7";
             this.layoutControlGroup7.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup7.Size = new System.Drawing.Size(292, 167);
+            this.layoutControlGroup7.Size = new System.Drawing.Size(275, 163);
             this.layoutControlGroup7.Text = "符号定义文件配置";
             // 
             // emptySpaceItem3
@@ -970,7 +891,7 @@ namespace DF2DTool.Frm
             this.emptySpaceItem3.CustomizationFormText = "emptySpaceItem3";
             this.emptySpaceItem3.Location = new System.Drawing.Point(0, 127);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(286, 14);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(269, 10);
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -980,7 +901,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem18.CustomizationFormText = "layoutControlItem18";
             this.layoutControlItem18.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(286, 23);
+            this.layoutControlItem18.Size = new System.Drawing.Size(269, 23);
             this.layoutControlItem18.Text = "layoutControlItem18";
             this.layoutControlItem18.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem18.TextToControlDistance = 0;
@@ -992,7 +913,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem19.CustomizationFormText = "符号定义：";
             this.layoutControlItem19.Location = new System.Drawing.Point(0, 23);
             this.layoutControlItem19.Name = "layoutControlItem19";
-            this.layoutControlItem19.Size = new System.Drawing.Size(221, 26);
+            this.layoutControlItem19.Size = new System.Drawing.Size(208, 26);
             this.layoutControlItem19.Text = "  符号定义：";
             this.layoutControlItem19.TextSize = new System.Drawing.Size(72, 14);
             // 
@@ -1002,7 +923,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem20.CustomizationFormText = "  线型定义：";
             this.layoutControlItem20.Location = new System.Drawing.Point(0, 49);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(219, 26);
+            this.layoutControlItem20.Size = new System.Drawing.Size(206, 26);
             this.layoutControlItem20.Text = "  线型定义：";
             this.layoutControlItem20.TextSize = new System.Drawing.Size(72, 14);
             // 
@@ -1012,7 +933,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem21.CustomizationFormText = "  字体定义：";
             this.layoutControlItem21.Location = new System.Drawing.Point(0, 75);
             this.layoutControlItem21.Name = "layoutControlItem21";
-            this.layoutControlItem21.Size = new System.Drawing.Size(221, 26);
+            this.layoutControlItem21.Size = new System.Drawing.Size(208, 26);
             this.layoutControlItem21.Text = "  字体定义：";
             this.layoutControlItem21.TextSize = new System.Drawing.Size(72, 14);
             // 
@@ -1020,9 +941,9 @@ namespace DF2DTool.Frm
             // 
             this.layoutControlItem22.Control = this.btnBlock;
             this.layoutControlItem22.CustomizationFormText = "layoutControlItem22";
-            this.layoutControlItem22.Location = new System.Drawing.Point(221, 23);
+            this.layoutControlItem22.Location = new System.Drawing.Point(208, 23);
             this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(65, 26);
+            this.layoutControlItem22.Size = new System.Drawing.Size(61, 26);
             this.layoutControlItem22.Text = "layoutControlItem22";
             this.layoutControlItem22.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem22.TextToControlDistance = 0;
@@ -1032,9 +953,9 @@ namespace DF2DTool.Frm
             // 
             this.layoutControlItem23.Control = this.btnLinetype;
             this.layoutControlItem23.CustomizationFormText = "layoutControlItem23";
-            this.layoutControlItem23.Location = new System.Drawing.Point(219, 49);
+            this.layoutControlItem23.Location = new System.Drawing.Point(206, 49);
             this.layoutControlItem23.Name = "layoutControlItem23";
-            this.layoutControlItem23.Size = new System.Drawing.Size(67, 26);
+            this.layoutControlItem23.Size = new System.Drawing.Size(63, 26);
             this.layoutControlItem23.Text = "layoutControlItem23";
             this.layoutControlItem23.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem23.TextToControlDistance = 0;
@@ -1044,9 +965,9 @@ namespace DF2DTool.Frm
             // 
             this.layoutControlItem24.Control = this.btnFont;
             this.layoutControlItem24.CustomizationFormText = "layoutControlItem24";
-            this.layoutControlItem24.Location = new System.Drawing.Point(221, 75);
+            this.layoutControlItem24.Location = new System.Drawing.Point(208, 75);
             this.layoutControlItem24.Name = "layoutControlItem24";
-            this.layoutControlItem24.Size = new System.Drawing.Size(65, 26);
+            this.layoutControlItem24.Size = new System.Drawing.Size(61, 26);
             this.layoutControlItem24.Text = "layoutControlItem24";
             this.layoutControlItem24.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem24.TextToControlDistance = 0;
@@ -1058,7 +979,7 @@ namespace DF2DTool.Frm
             this.layoutControlItem25.CustomizationFormText = "  比例尺：";
             this.layoutControlItem25.Location = new System.Drawing.Point(0, 101);
             this.layoutControlItem25.Name = "layoutControlItem25";
-            this.layoutControlItem25.Size = new System.Drawing.Size(286, 26);
+            this.layoutControlItem25.Size = new System.Drawing.Size(269, 26);
             this.layoutControlItem25.Text = "  比例尺：";
             this.layoutControlItem25.TextSize = new System.Drawing.Size(72, 14);
             // 
@@ -1072,7 +993,7 @@ namespace DF2DTool.Frm
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(302, 327);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(302, 268);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -1082,17 +1003,41 @@ namespace DF2DTool.Frm
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(302, 327);
+            this.layoutControlItem1.Size = new System.Drawing.Size(302, 268);
             this.layoutControlItem1.Text = "layoutControlItem1";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextToControlDistance = 0;
             this.layoutControlItem1.TextVisible = false;
             // 
+            // ce_OperType
+            // 
+            this.ce_OperType.EditValue = true;
+            this.ce_OperType.Enabled = false;
+            this.ce_OperType.Location = new System.Drawing.Point(5, 81);
+            this.ce_OperType.Name = "ce_OperType";
+            this.ce_OperType.Properties.Caption = "从选择集导出";
+            this.ce_OperType.Size = new System.Drawing.Size(282, 19);
+            this.ce_OperType.StyleController = this.layoutControl2;
+            this.ce_OperType.TabIndex = 13;
+            // 
+            // layoutControlItem3
+            // 
+            this.layoutControlItem3.Control = this.ce_OperType;
+            this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem3.Name = "layoutControlItem3";
+            this.layoutControlItem3.Size = new System.Drawing.Size(286, 23);
+            this.layoutControlItem3.Text = "layoutControlItem3";
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextToControlDistance = 0;
+            this.layoutControlItem3.TextVisible = false;
+            // 
             // FrmDxfExport
             // 
-            this.ClientSize = new System.Drawing.Size(302, 327);
+            this.ClientSize = new System.Drawing.Size(302, 268);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmDxfExport";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "地图导出";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
@@ -1105,19 +1050,14 @@ namespace DF2DTool.Frm
             ((System.ComponentModel.ISupportInitialize)(this.txtFile.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAngle.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtObjNum.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbFile.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chlOperType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chlFiletype)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem28)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
@@ -1158,6 +1098,8 @@ namespace DF2DTool.Frm
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem25)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ce_OperType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1253,14 +1195,14 @@ namespace DF2DTool.Frm
 
        
 
-        private void btnInFile_Click(object sender, EventArgs e)
-        {
-            DatasetEdit dsEdit = new DatasetEdit(inputDs);
-            dsEdit.ShowDialog();
-            inputDs = dsEdit.dsNames;
-            refCmbFile(inputDs);
-        }
-        private void refCmbFile(DataSetNames dsNames)
+        //private void btnInFile_Click(object sender, EventArgs e)
+        //{
+        //    DatasetEdit dsEdit = new DatasetEdit(inputDs);
+        //    dsEdit.ShowDialog();
+        //    inputDs = dsEdit.dsNames;
+        //    //refCmbFile(inputDs);
+        //}
+        /*private void refCmbFile(DataSetNames dsNames)
         {
             cmbFile.Properties.Items.Clear();
             //填充ComboBox
@@ -1292,7 +1234,7 @@ namespace DF2DTool.Frm
             if (cmbFile.Properties.Items.Count > 0)
                 cmbFile.Text = cmbFile.Properties.Items[0].ToString();
             this.refCmd();
-        }
+        }*/
 
       
         private void btnOutFile_Click(object sender, EventArgs e)
@@ -1393,7 +1335,7 @@ namespace DF2DTool.Frm
             }
             else
             {
-                if (cmbFile.Text == "") isValid = false;
+                //if (cmbFile.Text == "") isValid = false;
             }
 
             if (isValid) btnExport.Enabled = true;
@@ -1522,21 +1464,21 @@ namespace DF2DTool.Frm
             }
         }
 
-        private void chlOperType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (chlOperType.SelectedIndex == 0)
-            {
-                chlOperType.SetItemCheckState(0, CheckState.Checked);
-                chlOperType.SetItemCheckState(1, CheckState.Unchecked);
-                operType = "1";
-            }
-            else
-            {
-                chlOperType.SetItemCheckState(0, CheckState.Unchecked);
-                chlOperType.SetItemCheckState(1, CheckState.Checked);
-                operType = "2";
-            }
-        }
+        //private void chlOperType_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (chlOperType.SelectedIndex == 0)
+        //    {
+        //        chlOperType.SetItemCheckState(0, CheckState.Checked);
+        //        chlOperType.SetItemCheckState(1, CheckState.Unchecked);
+        //        operType = "1";
+        //    }
+        //    else
+        //    {
+        //        chlOperType.SetItemCheckState(0, CheckState.Unchecked);
+        //        chlOperType.SetItemCheckState(1, CheckState.Checked);
+        //        operType = "2";
+        //    }
+        //}
 
 
     }

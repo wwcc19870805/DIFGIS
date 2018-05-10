@@ -17,7 +17,7 @@ namespace DF2DTool.Command
             DF2DApplication app = DF2DApplication.Application;
             IMap map = app.Current2DMapControl.Map;
             FrmSpecialMap dialog = new FrmSpecialMap(map);
-            dialog.ShowDialog();
+            dialog.Show();
         }
     }
 }

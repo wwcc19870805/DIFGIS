@@ -132,6 +132,7 @@ namespace DF2DPipe.Stats.Frm
             this.ClientSize = new System.Drawing.Size(920, 491);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmStatasByRoadChart2D";
+            this.ShowIcon = false;
             this.Text = "道路统计图表";
             this.Load += new System.EventHandler(this.FrmStatasByRoadChart2D_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

@@ -33,6 +33,7 @@ namespace DF2DPipe.Query.Command
             Map2DCommandManager.Push(this);
             //FrmPropertyQueryDepth dialog = new FrmPropertyQueryDepth(this.CommandName, "DeepStart");
             FrmPropertyQueryByDepth dialog = new FrmPropertyQueryByDepth(this.CommandName, "PipeLine");
+            dialog.Text = "按埋深查询";
             if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
             this._uPanel = new UIDockPanel("查询结果", "查询结果", this.Location, this._width, this._height);
             this._dockPanel = FloatPanelManager.Instance.Add(ref this._uPanel, DockingStyle.Right);

@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
+using System.Data.OleDb;
+using System.Windows.Forms;
 using DF2DControl.Command;
-using ESRI.ArcGIS.Controls;
 using DF2DControl.UserControl.View;
 using DF2DControl.Base;
-using System.Data;
-using ESRI.ArcGIS.Geodatabase;
 using DFWinForms.Service;
-using System.Data.OleDb;
 using DFWinForms.Class;
-using System.Windows.Forms;
 using DF2DDataCheck.Frm;
 using DF2DData.Class;
 using DFDataConfig.Class;
-using System.Collections;
+using DFDataConfig.Logic;
+using ESRI.ArcGIS.Controls;
+using ESRI.ArcGIS.Geodatabase;
 using DevExpress.XtraEditors;
 
 namespace DF2DDataCheck.Command
@@ -27,9 +28,10 @@ namespace DF2DDataCheck.Command
         DF2DApplication app;
         private DataTable m_dtDic;
         private ArrayList row= new ArrayList();
+        private ArrayList m_arrPipeType;
         Dictionary<IFeatureClass, DataTable> dict = new Dictionary<IFeatureClass, DataTable>();
-        private string[] PntField = { "MATTER", "CHARACTER_", "FUSU", "UseState", "SOURCE" };  //点表中有数据字典定义的字段
-        private string[] ArcField = { "MATTER", "COVERSTSLE", "UseState", "PRESSURE", "BranchPipeMaterial", "SOURCE" };  //线表中有数据字典定义的字段
+        private string[] PntField = { "Material", "LinkType", "Additional", "UState", "dataSrc" };  //点表中有数据字典定义的字段
+        private string[] ArcField = { "Material", "CoverStyle", "UState", "Pressure", "BranchPipeMatter"};  //线表中有数据字典定义的字段
 
         private DataTable GetDataTableByStruture()
         {
@@ -63,8 +65,6 @@ namespace DF2DDataCheck.Command
 
         public override void Run(object sender, EventArgs e)
         {
-
-            
             mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
             if (mapView == null) return;
             bool bBind = mapView.Bind(this);
@@ -73,23 +73,27 @@ namespace DF2DDataCheck.Command
             if (app == null || app.Current2DMapControl == null) return;
             m_pMapControl = app.Current2DMapControl;
 
-            //将数据字典读入内存
-            string strMdbPath = System.Windows.Forms.Application.StartupPath + @"\..\Support\管线数据字典.mdb";
-            string strTableName = "_CONFIGDICTIONARY";
-            bool bSuccess = false;
-            m_dtDic = GetDataDictionary(strTableName, strMdbPath, ref bSuccess);
+            frmSelType frmType = new frmSelType();
+            if (frmType.ShowDialog() == DialogResult.OK)
+            {
+                //将数据字典读入内存
+                string strMdbPath = System.Windows.Forms.Application.StartupPath + @"\..\Support\管线数据字典.mdb";
+                string strTableName = "_CONFIGDICTIONARY";
+                bool bSuccess = false;
+                m_dtDic = GetDataDictionary(strTableName, strMdbPath, ref bSuccess);
+                m_arrPipeType = frmType.PipeType;
 
-            //点表数据检查
-            DataPntCheck();
+                //点表数据检查
+                DataPntCheck();
 
-            //线表数据检查
-            DataArcCheck();
+                //线表数据检查
+                DataArcCheck();
 
-            WaitForm.Stop();
-            FormCheckResult dlg = new FormCheckResult(dict, m_pMapControl);
-            dlg.Text = this.CommandName;
-            dlg.Show();
-           
+                WaitForm.Stop();
+                FormCheckResult dlg = new FormCheckResult(dict, m_pMapControl);
+                dlg.Text = this.CommandName;
+                dlg.Show();
+            }           
         }
 
             
@@ -167,22 +171,42 @@ namespace DF2DDataCheck.Command
 
         private void DataPntCheck()
         {
-
-
             //管线点表数据规范性检查
 
             int i, j, k;
+            string strFld;
             string strDicValue;
             IFeatureClass pFeaClass;
             IFeatureCursor pFeaCursor;
             IQueryFilter pFilter = new QueryFilterClass();
-            DataTable dt = GetDataTableByStruture();
-
             IFeature pFea;
+            string[] arrFc2DId;
+
             //Dictionary<IFeatureClass, DataTable> dict = new Dictionary<IFeatureClass, DataTable>();
-            List<DF2DFeatureClass> list = Dictionary2DTable.Instance.GetFeatureClassByFacilityClassName("PipeNode");
+
+            List<DF2DFeatureClass> list = new List<DF2DFeatureClass>();
+
+            for (i = 0; i < m_arrPipeType.Count; i++)
+            {
+                MajorClass mc = m_arrPipeType[i] as MajorClass;
+                arrFc2DId = mc.Fc2D.Split(';');
+                if (arrFc2DId == null) continue;
+                foreach (string fc2DId in arrFc2DId)
+                {
+                    DF2DFeatureClass dffc = DF2DFeatureClassManager.Instance.GetFeatureClassByID(fc2DId);
+                    if (dffc == null || dffc.GetFacilityClassName() != "PipeNode") continue;
+                    IFeatureClass fc = dffc.GetFeatureClass();
+                    if (fc == null) continue;
+                    //if (fc.ShapeType == ESRI.ArcGIS.Geometry.esriGeometryType.esriGeometryPoint)
+                    //{
+                        list.Add(dffc);
+                    //}
+                }
+            }
+
+            //List<DF2DFeatureClass> list = Dictionary2DTable.Instance.GetFeatureClassByFacilityClassName("PipeNode");
             if (list == null) return;
-            WaitForm.Start("开始数据规范性检查..", "请稍后");
+            WaitForm.Start("开始数据规范性检查..", "请稍候");
             foreach (DF2DFeatureClass dfcc in list)
             {
                 bool b1 = false, b2 = false, b3 = false, b4 = false;
@@ -192,12 +216,12 @@ namespace DF2DDataCheck.Command
                 WaitForm.SetCaption("正在检查图层：" + " " + pFeaClass.AliasName);
                 FacilityClass fac = dfcc.GetFacilityClass();
                 if (fac == null) continue;
-                List<DFDataConfig.Class.FieldInfo> listField = fac.FieldInfoCollection;
-                DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("floorheight");
+
+                DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("SurfHeight2D");
                 if (fi == null) continue;
-                DFDataConfig.Class.FieldInfo fi1 = fac.GetFieldInfoBySystemName("welldepth");
+                DFDataConfig.Class.FieldInfo fi1 = fac.GetFieldInfoBySystemName("WellDep");
                 if (fi1 == null) continue;
-                DFDataConfig.Class.FieldInfo fi2 = fac.GetFieldInfoBySystemName("fuse");
+                DFDataConfig.Class.FieldInfo fi2 = fac.GetFieldInfoBySystemName("Additional");
                 if (fi2 == null) continue;
 
                 if (pFeaClass.AliasName.Contains("燃气"))
@@ -212,7 +236,7 @@ namespace DF2DDataCheck.Command
                 {
                     strPipeClass = "EP";
                 }
-                else if (pFeaClass.AliasName.Contains("给水"))
+                else if (pFeaClass.AliasName.Contains("上水"))
                 {
                     strPipeClass = "FP";
                 }
@@ -233,15 +257,19 @@ namespace DF2DDataCheck.Command
                     strPipeClass = "";
                 }
                 // 数据字典字段值检查
+                DataTable dt = GetDataTableByStruture();
+
                 //遍历字段
                 for (j = 0; j < PntField.Length; j++)
                 {
-                    if (pFeaClass.FindField(PntField[j]) == -1)
+                    if (fac.GetFieldInfoBySystemName(PntField[j]) == null)
                     {
                         continue;
                     }
+                    
                     //获取数据字典中的对应值
-                    strDicValue = GetValueFromDictionary(strPipeClass, PntField[j]);
+                    strFld = fac.GetFieldInfoNameBySystemName(PntField[j]);
+                    strDicValue = GetValueFromDictionary(strPipeClass, strFld);
 
                     if (strDicValue != "空")
                     {
@@ -255,14 +283,12 @@ namespace DF2DDataCheck.Command
                             }
                             strWhere.Remove(strWhere.LastIndexOf(","));
                             strWhere += ")";
-                            pFilter.WhereClause = PntField[j] + " not in" + strWhere;
+                            pFilter.WhereClause = strFld + " not in" + strWhere;
                         }
                         else
                         {
-                            pFilter.WhereClause = PntField[j] + "<>'" + strDicValue + "'";
+                            pFilter.WhereClause = strFld + "<>'" + strDicValue + "'";
                         }
-
-
                         pFeaCursor = pFeaClass.Search(pFilter, true);
                         pFea = null;
 
@@ -274,100 +300,113 @@ namespace DF2DDataCheck.Command
                             dr["FeatureofClass"] = pFeaClass.AliasName;
                             dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
                             dr["FeatureClass"] = pFeaClass;
-                            dr["ErrorType"] = "【" + PntField[j] + "】字段值不属于数据字典";
+                            dr["ErrorType"] = "【" + strFld + "】字段值不属于数据字典";
                             dt.Rows.Add(dr);
-                            Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
-
+                            //Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
                         }
-                        
                     }
-
                     if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
                 }
-                        if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
-
-                        pFilter.WhereClause = fi.Name + "=-999";
-                        pFeaCursor = pFeaClass.Search(pFilter, true);
-                        pFea = pFeaCursor.NextFeature();
-                        while (pFea != null)
-                        {
-                            b2 = true;
-                           DataRow dr = dt.NewRow();
-                            dr["ErrorFeatureID"] = pFea.OID;
-                            dr["FeatureofClass"] = pFeaClass.AliasName;
-                            dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
-                            dr["FeatureClass"] = pFeaClass;
-                            dr["ErrorType"] = "【地面高程】字段值不能为-999";
-                            dt.Rows.Add(dr);
-                            pFea = pFeaCursor.NextFeature();
-                        }
+                pFilter.WhereClause = fi.Name + "=-999";
+                pFeaCursor = pFeaClass.Search(pFilter, true);
+                pFea = pFeaCursor.NextFeature();
+                while (pFea != null)
+                {
+                    b2 = true;
+                    DataRow dr = dt.NewRow();
+                    dr["ErrorFeatureID"] = pFea.OID;
+                    dr["FeatureofClass"] = pFeaClass.AliasName;
+                    dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
+                    dr["FeatureClass"] = pFeaClass;
+                    dr["ErrorType"] = "【地面高程】字段值不能为-999";
+                    dt.Rows.Add(dr);
+                    pFea = pFeaCursor.NextFeature();
+                }
                         
-                        if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+                //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
 
-                        if (strPipeClass == "BP")
-                        {
-                            pFilter.WhereClause = fi1.Name + "< 0 or " + fi1.Name + "> 3";
-                        }
-                        else if (strPipeClass == "IOP")
-                        {
-                            pFilter.WhereClause = fi1.Name + "< 0 or " + fi1.Name + "> 5";
-                        }
-                        else
-                        {
-                            pFilter.WhereClause = fi1.Name + "< 0 or " + fi1.Name + "> 10";
-                        }
-                        pFeaCursor = pFeaClass.Search(pFilter, true);
-                        while ((pFea = pFeaCursor.NextFeature()) != null)
-                        {
-                            b3 = true;
-                            DataRow dr = dt.NewRow();
-                            dr["ErrorFeatureID"] = pFea.OID;
-                            dr["FeatureofClass"] = pFeaClass.AliasName;
-                            dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
-                            dr["FeatureClass"] = pFeaClass;
-                            dr["ErrorType"] = "【井底深】字段值不在规范值范围内";
-                            dt.Rows.Add(dr);
-                        }
+                if (strPipeClass == "BP")
+                {
+                    pFilter.WhereClause = fi1.Name + "< 0 or " + fi1.Name + "> 3";
+                }
+                else if (strPipeClass == "IOP")
+                {
+                    pFilter.WhereClause = fi1.Name + "< 0 or " + fi1.Name + "> 5";
+                }
+                else
+                {
+                    pFilter.WhereClause = fi1.Name + "< 0 or " + fi1.Name + "> 10";
+                }
+                pFeaCursor = pFeaClass.Search(pFilter, true);
+                while ((pFea = pFeaCursor.NextFeature()) != null)
+                {
+                    b3 = true;
+                    DataRow dr = dt.NewRow();
+                    dr["ErrorFeatureID"] = pFea.OID;
+                    dr["FeatureofClass"] = pFeaClass.AliasName;
+                    dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
+                    dr["FeatureClass"] = pFeaClass;
+                    dr["ErrorType"] = "【井底深】字段值不在规范值范围内";
+                    dt.Rows.Add(dr);
+                }
                        
-                        if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+                //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
 
-                        pFilter.WhereClause = fi2.Name + " in ('阀门井','水表井','消防井','水源井','净水池','检修井','清水池','雨水检修井','污水检修井','跌水井','雨水篦',"
-                                                                + "'测试井','人孔','手孔','排气井','凝水井','通风井') and len(" + fi1.Name + ")=0";
+                pFilter.WhereClause = fi2.Name + " in ('阀门井','水表井','消防井','水源井','净水池','检修井','清水池','雨水检修井','污水检修井','跌水井','雨水篦',"
+                                                        + "'测试井','人孔','手孔','排气井','凝水井','通风井') and len(" + fi1.Name + ")=0";
 
-                        pFeaCursor = pFeaClass.Search(pFilter, true);
-                        while ((pFea = pFeaCursor.NextFeature()) != null)
-                        {
-                            b4 = true;
-                            DataRow dr = dt.NewRow();
-                            dr["ErrorFeatureID"] = pFea.OID;
-                            dr["FeatureofClass"] = pFeaClass.AliasName;
-                            dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
-                            dr["FeatureClass"] = pFeaClass;
-                            dr["ErrorType"] = "【井底深】字段值不应为空";
-                            dt.Rows.Add(dr);
-                        }
+                pFeaCursor = pFeaClass.Search(pFilter, true);
+                while ((pFea = pFeaCursor.NextFeature()) != null)
+                {
+                    b4 = true;
+                    DataRow dr = dt.NewRow();
+                    dr["ErrorFeatureID"] = pFea.OID;
+                    dr["FeatureofClass"] = pFeaClass.AliasName;
+                    dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
+                    dr["FeatureClass"] = pFeaClass;
+                    dr["ErrorType"] = "【井底深】字段值不应为空";
+                    dt.Rows.Add(dr);
+                }
                         
-                        dt = ReturnMergeData(dt);
-                    if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+                dt = ReturnMergeData(dt);
+                if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
             }
         }
 
         
         private void DataArcCheck()
         {
-        
-        //管线线表数据规范性检查
-            int i, j, k;   
+            //管线线表数据规范性检查
+            int i, j, k;
+            string strFld;
             string strDicValue;
             IFeatureClass pFeaClass;
             IFeatureCursor pFeaCursor;
             IQueryFilter pFilter = new QueryFilterClass();
-            DataTable dt = GetDataTableByStruture();
             //Dictionary<IFeatureClass, DataTable> dict = new Dictionary<IFeatureClass, DataTable>();
             IFeature pFea;
+            string[] arrFc2DId;
+            List<DF2DFeatureClass> List = new List<DF2DFeatureClass>();
 
-           
-            List<DF2DFeatureClass> List = Dictionary2DTable.Instance.GetFeatureClassByFacilityClassName("PipeLine");
+            for (i = 0; i < m_arrPipeType.Count; i++)
+            {
+                MajorClass mc = m_arrPipeType[i] as MajorClass;
+                arrFc2DId = mc.Fc2D.Split(';');
+                if (arrFc2DId == null) continue;
+                foreach (string fc2DId in arrFc2DId)
+                {
+                    DF2DFeatureClass dffc = DF2DFeatureClassManager.Instance.GetFeatureClassByID(fc2DId);
+                    if (dffc == null || dffc.GetFacilityClassName() != "PipeLine") continue;
+                    IFeatureClass fc = dffc.GetFeatureClass();
+                    if (fc == null) continue;
+                    //if (fc.ShapeType == ESRI.ArcGIS.Geometry.esriGeometryType.esriGeometryPolyline)
+                    //{
+                        List.Add(dffc);
+                    //}
+                }
+            }
+
+            //List<DF2DFeatureClass> List = Dictionary2DTable.Instance.GetFeatureClassByFacilityClassName("PipeLine");
             if (List == null) return;
             WaitForm.Start("开始检查..", "请稍后");
             foreach (DF2DFeatureClass dfcc in List)
@@ -380,17 +419,17 @@ namespace DF2DDataCheck.Command
                 FacilityClass fac = dfcc.GetFacilityClass();
                 if (fac == null) continue;
                 List<DFDataConfig.Class.FieldInfo> listField = fac.FieldInfoCollection;
-                DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("startdepthgc");
+                DFDataConfig.Class.FieldInfo fi = fac.GetFieldInfoBySystemName("StartHeight2D");
                 if (fi == null) continue;
-                DFDataConfig.Class.FieldInfo fi1 = fac.GetFieldInfoBySystemName("enddepthgc");
+                DFDataConfig.Class.FieldInfo fi1 = fac.GetFieldInfoBySystemName("EndHeight");
                 if (fi1 == null) continue;
-                DFDataConfig.Class.FieldInfo fi2 = fac.GetFieldInfoBySystemName("startdepth");
+                DFDataConfig.Class.FieldInfo fi2 = fac.GetFieldInfoBySystemName("StartDep");
                 if (fi2 == null) continue;
-                DFDataConfig.Class.FieldInfo fi3 = fac.GetFieldInfoBySystemName("enddepth");
+                DFDataConfig.Class.FieldInfo fi3 = fac.GetFieldInfoBySystemName("EndDep");
                 if (fi3 == null) continue;
-                DFDataConfig.Class.FieldInfo fi4 = fac.GetFieldInfoBySystemName("coverstsle");
+                DFDataConfig.Class.FieldInfo fi4 = fac.GetFieldInfoBySystemName("CoverStyle");
                 if (fi4 == null) continue;
-                DFDataConfig.Class.FieldInfo fi5 = fac.GetFieldInfoBySystemName("standard");
+                DFDataConfig.Class.FieldInfo fi5 = fac.GetFieldInfoBySystemName("Diameter");
                 if (fi5 == null) continue;
                 if (pFeaClass.AliasName.Contains("燃气"))
                 {
@@ -404,7 +443,7 @@ namespace DF2DDataCheck.Command
                 {
                     strPipeClass = "EP";
                 }
-                else if (pFeaClass.AliasName.Contains("给水"))
+                else if (pFeaClass.AliasName.Contains("上水") || pFeaClass.AliasName.Contains("给水"))
                 {
                     strPipeClass = "FP";
                 }
@@ -425,15 +464,17 @@ namespace DF2DDataCheck.Command
                     strPipeClass = "";
                 }
                 //数据字典字段值检查
+                DataTable dt = GetDataTableByStruture();
                 //遍历字段
                 for (j = 0; j < ArcField.Length; j++)
                 {
-                    if (pFeaClass.FindField(ArcField[j]) == -1)
+                    if (fac.GetFieldInfoBySystemName(ArcField[j]) == null)
                     {
                         continue;
                     }
                     //获取数据字典中的对应值
-                    strDicValue = GetValueFromDictionary(strPipeClass, ArcField[j]);
+                    strFld = fac.GetFieldInfoNameBySystemName(ArcField[j]);
+                    strDicValue = GetValueFromDictionary(strPipeClass, strFld);
 
                     if (strDicValue != "空")
                     {
@@ -447,11 +488,11 @@ namespace DF2DDataCheck.Command
                             }
                             strWhere.Remove(strWhere.LastIndexOf(","));
                             strWhere += ")";
-                            pFilter.WhereClause = ArcField[j] + " not in" + strWhere;
+                            pFilter.WhereClause = strFld + " not in" + strWhere;
                         }
                         else
                         {
-                            pFilter.WhereClause = ArcField[j] + "<>'" + strDicValue + "'";
+                            pFilter.WhereClause = strFld + "<>'" + strDicValue + "'";
                         }
 
                         pFeaCursor = pFeaClass.Search(pFilter, true);
@@ -463,178 +504,170 @@ namespace DF2DDataCheck.Command
                             dr["FeatureofClass"] = pFeaClass.AliasName;
                             dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
                             dr["FeatureClass"] = pFeaClass;
-                            dr["ErrorType"] = "【" + ArcField[j] + "】字段值不属于数据字典";
+                            dr["ErrorType"] = "【" + strFld + "】字段值不属于数据字典";
                             dt.Rows.Add(dr);
-                            Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
+                            //Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
                         }
                         System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
                     }
-                    if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+                    //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
                 }
-                       if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+                       //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
 
-                        pFilter.WhereClause = fi.Name + "= -999 or " + fi1.Name+ "= -999";
-                        pFeaCursor = pFeaClass.Search(pFilter, true);
-                        while ((pFea = pFeaCursor.NextFeature()) != null)
-                        {
+                pFilter.WhereClause = fi.Name + "= -999 or " + fi1.Name+ "= -999";
+                pFeaCursor = pFeaClass.Search(pFilter, true);
+                while ((pFea = pFeaCursor.NextFeature()) != null)
+                {
                                    
-                                  DataRow dr = dt.NewRow();
-                                  dr["ErrorFeatureID"] = pFea.OID;
-                                  dr["FeatureofClass"] = pFeaClass.AliasName;
-                                  dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
-                                  dr["ErrorType"] ="【管线高程】字段值不能为-999";
-                                  dr["FeatureClass"] = pFeaClass;
-                                  dt.Rows.Add(dr);
-                                  Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
-                        }
-                        System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
-                        if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
-
-                        //管线埋深（只针对管线，管点不需要检查）
-                        if (strPipeClass == "BP")
-                        {
-                            pFilter.WhereClause = "(" + fi2.Name + "< 0 or " + fi2.Name + "> 3) or (" + fi3.Name + "< 0 or " + fi3.Name + "> 3)";
-                            pFeaCursor = pFeaClass.Search(pFilter, true);
-                            while ((pFea = pFeaCursor.NextFeature()) != null)
-                            {
-                               
-                                  DataRow dr = dt.NewRow();
-                                  dr["ErrorFeatureID"] = pFea.OID;
-                                  dr["FeatureofClass"] = pFeaClass.AliasName;
-                                  dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
-                                  dr["FeatureClass"] = pFeaClass;
-                                  dr["ErrorType"] ="【管线埋深】字段值不在规范值范围内";
-                                  dt.Rows.Add(dr);
-                                  Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
-                            }
-                            System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
-                            if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
-
-                        }
-                        else
-                        {
-                            //'直埋', '管埋', '管块'
-                            pFilter.WhereClause = fi4.Name + " in ('直埋','管埋','管块') and (" + fi2.Name + "< 0 or " + fi2.Name + "> 10) or (" + fi3.Name + "< 0 or " + fi3.Name + "> 10)";
-                            pFeaCursor = pFeaClass.Search(pFilter, true);
-                            while ((pFea = pFeaCursor.NextFeature()) != null)
-                            {
-                               
-                                  DataRow dr = dt.NewRow();
-                                  dr["ErrorFeatureID"] = pFea.OID;
-                                  dr["FeatureofClass"] = pFeaClass.AliasName;
-                                  dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
-                                  dr["FeatureClass"] = pFeaClass;
-                                  dr["ErrorType"] ="【管线埋深】字段值不在规范值范围内";
-                                  dt.Rows.Add(dr);
-                                  Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
-                            }
-                            System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
-                            if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
-                        }
-                        //'架空'
-
-                        pFilter.WhereClause = fi4.Name + "='架空' and (" + fi2.Name + ">0 or " + fi3.Name + ">0)";
-                        pFeaCursor = pFeaClass.Search(pFilter, true);
-                        while ((pFea = pFeaCursor.NextFeature()) != null)
-                        {
-                                   
-                                  DataRow dr = dt.NewRow();
-                                  dr["ErrorFeatureID"] = pFea.OID;
-                                  dr["FeatureofClass"] = pFeaClass.AliasName;
-                                  dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
-                                  dr["FeatureClass"] = pFeaClass;
-                                  dr["ErrorType"] ="【管线埋深】字段值不在规范值范围内";
-                                  dt.Rows.Add(dr);
-                                  Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
-                        }
-                        System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
-                        if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
-
-                        pFilter.WhereClause = fi4.Name + "='管沟'";
-                        pFeaCursor = pFeaClass.Search(pFilter, true);
-                        while ((pFea = pFeaCursor.NextFeature()) != null)
-                        {
-                            string s = pFea.get_Value(pFeaClass.FindField(fi5.Name)).ToString();
-                            if (s.Contains("*"))
-                            {
-                                if (s.Contains("*"))
-                                {
-                                    double d = Convert.ToDouble(s.Substring(s.IndexOf("*") + 1));
-                                    double d1 = Convert.ToDouble(pFea.get_Value(pFeaClass.FindField(fi2.Name)).ToString());
-                                    double d2 = Convert.ToDouble(pFea.get_Value(pFeaClass.FindField(fi3.Name)).ToString());
-                                    if (d1 < d || d2 < d)
-                                    {
-                                        
-                                      DataRow dr = dt.NewRow();
-                                      dr["ErrorFeatureID"] = pFea.OID;
-                                      dr["FeatureofClass"] = pFeaClass.AliasName;
-                                      dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
-                                      dr["FeatureClass"] = pFeaClass;
-                                      dr["ErrorType"] ="【管线埋深】字段值不在规范值范围内";
-                                      dt.Rows.Add(dr);
-                                      Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
-                                    }
-                                }
-                            }
-                        }
-                        System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
-                         if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
-
-                        //管径
-                        if (strPipeClass == "BP" || strPipeClass == "FP")
-                        {
-                            pFilter.WhereClause = "ISNUMERIC(" + fi5.Name + ")=1";
-                        }
-                        else
-                        {
-                            //直埋、管埋
-                            pFilter.WhereClause = fi4.Name + " in ('直埋','管埋') and " + "ISNUMERIC(" + fi5.Name + ")=1";
-                            pFeaCursor = pFeaClass.Search(pFilter, true);
-                            while ((pFea = pFeaCursor.NextFeature()) != null)
-                            {
-                               
-                                DataRow dr = dt.NewRow();
-                               dr["ErrorFeatureID"] = pFea.OID;
-                               dr["FeatureofClass"] = pFeaClass.AliasName;
-                               dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
-                               dr["FeatureClass"] = pFeaClass;
-                               dr["ErrorType"] ="【管线规格】字段值不在规范值范围内";
-                                dt.Rows.Add(dr);
-                                Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
-                            }
-
-                            System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);                            
-                             if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
-                        }
-
-                        pFilter.WhereClause = fi4.Name + " in ('管块','管沟') and " + fi5.Name + " like '%*%'";
-                        pFeaCursor = pFeaClass.Search(pFilter, true);
-                       while ((pFea = pFeaCursor.NextFeature()) != null)
-                        {
-                           
                             DataRow dr = dt.NewRow();
+                            dr["ErrorFeatureID"] = pFea.OID;
+                            dr["FeatureofClass"] = pFeaClass.AliasName;
+                            dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
+                            dr["ErrorType"] ="【管线高程】字段值不能为-999";
+                            dr["FeatureClass"] = pFeaClass;
+                            dt.Rows.Add(dr);
+                            //Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
+                }
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
+                //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+
+                //管线埋深（只针对管线，管点不需要检查）
+                if (strPipeClass == "BP")
+                {
+                    pFilter.WhereClause = "(" + fi2.Name + "< 0 or " + fi2.Name + "> 3) or (" + fi3.Name + "< 0 or " + fi3.Name + "> 3)";
+                    pFeaCursor = pFeaClass.Search(pFilter, true);
+                    while ((pFea = pFeaCursor.NextFeature()) != null)
+                    {
+                               
+                            DataRow dr = dt.NewRow();
+                            dr["ErrorFeatureID"] = pFea.OID;
+                            dr["FeatureofClass"] = pFeaClass.AliasName;
+                            dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
+                            dr["FeatureClass"] = pFeaClass;
+                            dr["ErrorType"] ="【管线埋深】字段值不在规范值范围内";
+                            dt.Rows.Add(dr);
+                            //Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
+                    }
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
+                    //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+
+                }
+                else
+                {
+                    //'直埋', '管埋', '管块'
+                    pFilter.WhereClause = fi4.Name + " in ('直埋','管埋','管块') and (" + fi2.Name + "< 0 or " + fi2.Name + "> 10) or (" + fi3.Name + "< 0 or " + fi3.Name + "> 10)";
+                    pFeaCursor = pFeaClass.Search(pFilter, true);
+                    while ((pFea = pFeaCursor.NextFeature()) != null)
+                    {
+                               
+                            DataRow dr = dt.NewRow();
+                            dr["ErrorFeatureID"] = pFea.OID;
+                            dr["FeatureofClass"] = pFeaClass.AliasName;
+                            dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
+                            dr["FeatureClass"] = pFeaClass;
+                            dr["ErrorType"] ="【管线埋深】字段值不在规范值范围内";
+                            dt.Rows.Add(dr);
+                            //Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
+                    }
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
+                    //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+                }
+                //'架空'
+
+                pFilter.WhereClause = fi4.Name + "='架空' and (" + fi2.Name + ">0 or " + fi3.Name + ">0)";
+                pFeaCursor = pFeaClass.Search(pFilter, true);
+                while ((pFea = pFeaCursor.NextFeature()) != null)
+                {
+                                   
+                    DataRow dr = dt.NewRow();
+                    dr["ErrorFeatureID"] = pFea.OID;
+                    dr["FeatureofClass"] = pFeaClass.AliasName;
+                    dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
+                    dr["FeatureClass"] = pFeaClass;
+                    dr["ErrorType"] ="【管线埋深】字段值不在规范值范围内";
+                    dt.Rows.Add(dr);
+                    //Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
+                }
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
+                //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+
+                pFilter.WhereClause = fi4.Name + "='管沟'";
+                pFeaCursor = pFeaClass.Search(pFilter, true);
+                while ((pFea = pFeaCursor.NextFeature()) != null)
+                {
+                    string s = pFea.get_Value(pFeaClass.FindField(fi5.Name)).ToString();
+                    if (s.Contains("*"))
+                    {
+                        if (s.Contains("*"))
+                        {
+                            double d = Convert.ToDouble(s.Substring(s.IndexOf("*") + 1));
+                            double d1 = Convert.ToDouble(pFea.get_Value(pFeaClass.FindField(fi2.Name)).ToString());
+                            double d2 = Convert.ToDouble(pFea.get_Value(pFeaClass.FindField(fi3.Name)).ToString());
+                            if (d1 < d || d2 < d)
+                            {
+                                        
+                                DataRow dr = dt.NewRow();
+                                dr["ErrorFeatureID"] = pFea.OID;
+                                dr["FeatureofClass"] = pFeaClass.AliasName;
+                                dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
+                                dr["FeatureClass"] = pFeaClass;
+                                dr["ErrorType"] ="【管线埋深】字段值不在规范值范围内";
+                                dt.Rows.Add(dr);
+                                //Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
+                            }
+                        }
+                    }
+                }
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
+                    //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+
+                //管径
+                if (strPipeClass == "BP" || strPipeClass == "FP")
+                {
+                    pFilter.WhereClause = "ISNUMERIC(" + fi5.Name + ")=1";
+                }
+                else
+                {
+                    //直埋、管埋
+                    pFilter.WhereClause = fi4.Name + " in ('直埋','管埋') and " + "ISNUMERIC(" + fi5.Name + ")=1";
+                    pFeaCursor = pFeaClass.Search(pFilter, true);
+                    while ((pFea = pFeaCursor.NextFeature()) != null)
+                    {
+                               
+                        DataRow dr = dt.NewRow();
                         dr["ErrorFeatureID"] = pFea.OID;
                         dr["FeatureofClass"] = pFeaClass.AliasName;
                         dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
                         dr["FeatureClass"] = pFeaClass;
                         dr["ErrorType"] ="【管线规格】字段值不在规范值范围内";
-                         dt.Rows.Add(dr);
-                         Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
-                        }
-                       System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
+                        dt.Rows.Add(dr);
+                        //Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
+                    }
+
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);                            
+                        //if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
+                }
+
+                pFilter.WhereClause = fi4.Name + " in ('管块','管沟') and " + fi5.Name + " like '%*%'";
+                pFeaCursor = pFeaClass.Search(pFilter, true);
+                while ((pFea = pFeaCursor.NextFeature()) != null)
+                {
+                           
+                    DataRow dr = dt.NewRow();
+                    dr["ErrorFeatureID"] = pFea.OID;
+                    dr["FeatureofClass"] = pFeaClass.AliasName;
+                    dr["FeatureofLayer"] = (pFeaClass as IDataset).Name;
+                    dr["FeatureClass"] = pFeaClass;
+                    dr["ErrorType"] ="【管线规格】字段值不在规范值范围内";
+                    dt.Rows.Add(dr);
+                    //Console.WriteLine(pFea.OID + " " + pFeaClass.AliasName);
+                }
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(pFeaCursor);
                        
-                         dt =ReturnMergeData(dt);
+                dt =ReturnMergeData(dt);
                 if (dt.Rows.Count > 0) dict[pFeaClass] = dt;
             }
-
-            if (dict.Count == 0)
-            {
-
-                XtraMessageBox.Show("提示表格数据为空！");
-                
-            }
-            
- }
+         }
 
         //合并重复行
         public DataTable ReturnMergeData(DataTable dataTable)

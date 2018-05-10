@@ -252,6 +252,7 @@ namespace DF2DAnalysis.Frm
             this.ClientSize = new System.Drawing.Size(1011, 512);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmPipeAlertChart2D";
+            this.ShowIcon = false;
             this.Text = "管线预警统计图表";
             this.Load += new System.EventHandler(this.FrmPipeAlertChart2D_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

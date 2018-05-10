@@ -268,6 +268,7 @@ namespace DF2DScan.Frm
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmCertainLoc";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "特定场景";
             this.TopMost = true;

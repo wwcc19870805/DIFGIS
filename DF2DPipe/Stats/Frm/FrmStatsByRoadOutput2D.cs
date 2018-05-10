@@ -225,6 +225,7 @@ namespace DF2DPipe.Stats.Frm
             this.ClientSize = new System.Drawing.Size(970, 509);
             this.Controls.Add(this.layoutControl1);
             this.Name = "FrmStatsByRoadOutput2D";
+            this.ShowIcon = false;
             this.Load += new System.EventHandler(this.FrmStatsByRoadOutput2D_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);

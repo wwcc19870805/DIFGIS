@@ -39,7 +39,7 @@ namespace DF2DPipe.Stats.Command
             if (!bBind) return;
             DF2DApplication app = DF2DApplication.Application;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(false);
+            app.Workbench.SetMenuEnable(false);
             app.Current2DMapControl.MousePointer = esriControlsMousePointer.esriPointerArrow;
             //FrmCompoundConditionStats2D dialog = new FrmCompoundConditionStats2D();
             //dialog.SetData(LogicDataStructureManage2D.Instance.RootLogicGroups, LogicDataStructureManage2D.Instance.RootMajorClasses, null);
@@ -52,7 +52,7 @@ namespace DF2DPipe.Stats.Command
             DF2DApplication app = DF2DApplication.Application;
             bool ready = true;
             if (app == null || app.Current2DMapControl == null||app.Workbench == null) return;
-            //app.Workbench.SetMenuEnable(true);
+            app.Workbench.SetMenuEnable(true);
             m_ActiveView = app.Current2DMapControl.ActiveView;
             IScreenDisplay m_Display = app.Current2DMapControl.ActiveView.ScreenDisplay;
 

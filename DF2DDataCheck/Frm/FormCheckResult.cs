@@ -19,7 +19,7 @@ namespace DF2DDataCheck.Frm
     public partial class FormCheckResult : XtraForm
     {
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
-        private ComboBoxEdit comboBoxEdit1;
+        private ComboBoxEdit cmbLayer;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
@@ -44,7 +44,7 @@ namespace DF2DDataCheck.Frm
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnClose = new DevExpress.XtraEditors.SimpleButton();
-            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.cmbLayer = new DevExpress.XtraEditors.ComboBoxEdit();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -59,7 +59,7 @@ namespace DF2DDataCheck.Frm
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbLayer.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
@@ -72,7 +72,7 @@ namespace DF2DDataCheck.Frm
             // layoutControl1
             // 
             this.layoutControl1.Controls.Add(this.btnClose);
-            this.layoutControl1.Controls.Add(this.comboBoxEdit1);
+            this.layoutControl1.Controls.Add(this.cmbLayer);
             this.layoutControl1.Controls.Add(this.gridControl1);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
@@ -92,16 +92,16 @@ namespace DF2DDataCheck.Frm
             this.btnClose.Text = "关闭";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // comboBoxEdit1
+            // cmbLayer
             // 
-            this.comboBoxEdit1.Location = new System.Drawing.Point(12, 12);
-            this.comboBoxEdit1.Name = "comboBoxEdit1";
-            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.cmbLayer.Location = new System.Drawing.Point(12, 12);
+            this.cmbLayer.Name = "cmbLayer";
+            this.cmbLayer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit1.Size = new System.Drawing.Size(833, 22);
-            this.comboBoxEdit1.StyleController = this.layoutControl1;
-            this.comboBoxEdit1.TabIndex = 5;
-            this.comboBoxEdit1.SelectedIndexChanged += new System.EventHandler(this.comboBoxEdit1_SelectedIndexChanged);
+            this.cmbLayer.Size = new System.Drawing.Size(833, 22);
+            this.cmbLayer.StyleController = this.layoutControl1;
+            this.cmbLayer.TabIndex = 5;
+            this.cmbLayer.SelectedIndexChanged += new System.EventHandler(this.comboBoxEdit1_SelectedIndexChanged);
             // 
             // gridControl1
             // 
@@ -196,7 +196,7 @@ namespace DF2DDataCheck.Frm
             // 
             // layoutControlItem2
             // 
-            this.layoutControlItem2.Control = this.comboBoxEdit1;
+            this.layoutControlItem2.Control = this.cmbLayer;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
@@ -238,7 +238,7 @@ namespace DF2DDataCheck.Frm
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbLayer.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
@@ -261,9 +261,9 @@ namespace DF2DDataCheck.Frm
             if (dict == null) return;
             foreach (IFeatureClass fc in dict.Keys)
             {
-                this.comboBoxEdit1.Properties.Items.Add(fc.AliasName);
+                this.cmbLayer.Properties.Items.Add(fc.AliasName);
             }
-            if (this.comboBoxEdit1.Properties.Items.Count > 0) this.comboBoxEdit1.SelectedIndex = 0;
+            if (this.cmbLayer.Properties.Items.Count > 0) this.cmbLayer.SelectedIndex = 0;
             
         }
 
@@ -279,9 +279,10 @@ namespace DF2DDataCheck.Frm
 
         private void comboBoxEdit1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dt = GetDataTable(this.comboBoxEdit1.Text);
+            DataTable dt = GetDataTable(this.cmbLayer.Text);
             this.gridControl1.DataSource = dt;
-            this.gridControl1.MainView = this.gridView1;
+            gridView1.RefreshData();
+            //this.gridControl1.MainView = this.gridView1;
             gridView1.Columns["ErrorFeatureID"].SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
             gridView1.Columns["ErrorFeatureID"].SummaryItem.DisplayFormat = "合计：{0}";
             gridView1.ExpandAllGroups();

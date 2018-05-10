@@ -196,7 +196,7 @@ namespace DF2DEdit.CmdDraw
 			IPointCollection pPointCollection;
 	
 			//向数组添加结束点
-			if (((IFeatureLayer)m_CurrentLayer).FeatureClass.ShapeType == esriGeometryType.esriGeometryPolyline)
+			if (((IFeatureLayer)m_CurrentLayer).FeatureClass.ShapeType == esriGeometryType.esriGeometryPolygon)
 			{
 				m_pUndoArray.Add(m_pUndoArray.get_Element(0));		　
 			}
