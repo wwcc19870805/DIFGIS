@@ -49,6 +49,12 @@ namespace DF2DAnalysis.Commands
         {
             try
             {
+                IMap2DView mapView = UCService.GetContent(typeof(Map2DView)) as Map2DView;
+                if (mapView == null) return;
+                if (app == null || app.Current2DMapControl == null || app.Workbench == null) return;
+                pGraphicsContainer.DeleteAllElements();
+                app.Current2DMapControl.ActiveView.Refresh();
+
                 IGeometry geo = app.Current2DMapControl.TrackCircle();
                 if (geo != null)
                 {
