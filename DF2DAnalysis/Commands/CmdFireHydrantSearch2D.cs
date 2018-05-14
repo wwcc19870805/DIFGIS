@@ -55,7 +55,7 @@ namespace DF2DAnalysis.Commands
                     AddCircleElement(geo, this.m_ActiveView);
                     this.m_ActiveView.Refresh();
                 }
-                WaitForm.Start("正在查询，请稍后...");
+                WaitForm.Start("正在查询...","请稍后");
                 FacilityClass facc = FacilityClassManager.Instance.GetFacilityClassByName("PipeNode");
                 if (facc == null) return;
                 DFDataConfig.Class.FieldInfo fi = facc.GetFieldInfoBySystemName("Additional");

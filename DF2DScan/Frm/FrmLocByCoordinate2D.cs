@@ -215,6 +215,7 @@ namespace DF2DScan.Frm
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Location = new System.Drawing.Point(5, 180);
             this.Name = "FormLocByCoordinate2D";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "坐标定位";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormLocByCoordinate2D_FormClosed);
@@ -267,25 +268,35 @@ namespace DF2DScan.Frm
 
         private bool OnLocation()
         {
-            if (te_X.Text != null && te_Y.Text != null)
+            try
             {
-                x = Convert.ToDouble(te_X.Text);
-                y = Convert.ToDouble(te_Y.Text);
-            }
-            else
-            {
-                MessageBox.Show("请输入正确的坐标！");
-            }
+                if (te_X.Text != "" && te_Y.Text != "")
+                {
+                    x = Convert.ToDouble(te_X.Text);
+                    y = Convert.ToDouble(te_Y.Text);
+                }
+                else
+                {
+                    XtraMessageBox.Show("请输入正确的坐标！");
+                    return false;
+                }
 
 
-            pPoint.X = x;
-            pPoint.Y = y;
-            string strText = "X:" + pPoint.X.ToString("F2") + "\n" + "Y:" + pPoint.Y.ToString("F2");
-            AddCallout(pPoint, strText);
-            app.Current2DMapControl.CenterAt(pPoint);
-            app.Current2DMapControl.MapScale = 500;
-            app.Current2DMapControl.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGraphics, null, null);
-            return true;
+                pPoint.X = x;
+                pPoint.Y = y;
+                string strText = "X:" + pPoint.X.ToString("F2") + "\n" + "Y:" + pPoint.Y.ToString("F2");
+                AddCallout(pPoint, strText);
+                app.Current2DMapControl.CenterAt(pPoint);
+                app.Current2DMapControl.MapScale = 500;
+                app.Current2DMapControl.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGraphics, null, null);
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                XtraMessageBox.Show("请输入正确的坐标！");
+                return false;
+            }
+           
         }
 
         public void MapScaleChanged()

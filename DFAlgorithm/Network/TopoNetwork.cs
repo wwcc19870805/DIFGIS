@@ -108,6 +108,8 @@ namespace DFAlgorithm.Network
             try
             {
                 if (node == null || valveIds == null || valveIds.Count == 0) return;
+                TimeSpan ts = DateTime.Now.Subtract(this._startBGFX);
+                if (ts.TotalSeconds > 60) return;
                 if (type == 0)
                 {
                     if (dictMark[node.ID]) return;
@@ -144,11 +146,12 @@ namespace DFAlgorithm.Network
             }
            
         }
-
+        private DateTime _startBGFX;
         public void BGFX(string startId, string endId, HashSet<string> valveIds, ref HashSet<string> recordPre, ref HashSet<string> recordNext)
         {
             if (string.IsNullOrEmpty(startId) || string.IsNullOrEmpty(endId) || valveIds == null || valveIds.Count == 0) return;
-
+            this._startBGFX = DateTime.Now;
+            
             Dictionary<string, bool> dictPreMark = new Dictionary<string, bool>();
             foreach (string nodeid in this._dictNodes.Keys)
             {

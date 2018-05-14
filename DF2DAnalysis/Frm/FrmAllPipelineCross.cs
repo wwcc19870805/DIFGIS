@@ -545,7 +545,7 @@ namespace DF2DAnalysis.Frm
                     XtraMessageBox.Show("分区上限必须大于分区下线");
                     return;
                 } 
-                WaitForm.Start("开始分析...请稍后...", new Size(300, 40));
+                WaitForm.Start("开始分析...", "请稍后",new Size(300, 40));
                 this.lbx_CrossPipe.Items.Clear();
                 hsCross.Clear();
                 crossAnalysis.CrossType = this.radioGroup1.SelectedIndex;
@@ -559,7 +559,7 @@ namespace DF2DAnalysis.Frm
                 {
                     n++;
                     if (n < Convert.ToInt16(se_Min.Value)) continue;
-                    WaitForm.SetCaption("正在分析区域" + n + "/" + count + "中的管线");
+                    WaitForm.SetCaption("正在分析区域" + n + "/" + count + "中的管线","请稍后");
                     IGeometry geo = feature.Shape;
                     IPolygon polygon = null;     
                     if (geo.GeometryType == esriGeometryType.esriGeometryPolyline)

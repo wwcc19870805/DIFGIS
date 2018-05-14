@@ -281,6 +281,8 @@ namespace DF2DPipe.Query.Frm
             // imageCollection1
             // 
             this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
+            this.imageCollection1.Images.SetKeyName(0, "Group.png");
+            this.imageCollection1.Images.SetKeyName(1, "FeatureLayer_model.png");
             // 
             // btnCancel
             // 

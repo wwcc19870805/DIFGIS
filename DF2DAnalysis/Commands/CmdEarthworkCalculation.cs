@@ -130,7 +130,7 @@ namespace DF2DAnalysis.Commands
             }
             try
             {
-                WaitForm.Start("正在分析...请稍后");
+                WaitForm.Start("正在分析...","请稍后");
                 //h = _uc.H;
                 pFc = GetGCD();
                 h = GetH(m_Geo, pFc);               

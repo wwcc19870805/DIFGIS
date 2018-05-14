@@ -839,13 +839,16 @@ namespace DF3DPipeCreateTool.Class
                     {
                         case HeightMode.Top:
                             this._vPos = VerticalPos.Top;
-                            return;
+                            break;
 
                         case HeightMode.Bottom:
                             this._vPos = VerticalPos.Bottom;
-                            return;
+                            break;
+                        default:
+                            this._vPos = VerticalPos.Center;
+                            break;
                     }
-                    this._vPos = VerticalPos.Center;
+                   
                     // 重新设置高程选项,针对同类管线中高程设置不一致的情况
                     DFDataConfig.Class.FieldInfo fiHLB = fac.GetFieldInfoBySystemName("HLB");
                     if (fiHLB != null)

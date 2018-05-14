@@ -82,8 +82,9 @@ namespace DF2DPipe.Query.Frm
         }
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPropertyQueryByDepth));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnAddRow = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
@@ -101,7 +102,7 @@ namespace DF2DPipe.Query.Frm
             this.treelist = new DevExpress.XtraTreeList.TreeList();
             this.NodeName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.NodeObject = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.imageCollection1 = new DevExpress.Utils.ImageCollection();
+            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnQuery = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
@@ -264,7 +265,7 @@ namespace DF2DPipe.Query.Frm
             this.repositoryItemButtonEdit1.Appearance.Options.UseImage = true;
             this.repositoryItemButtonEdit1.AutoHeight = false;
             this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "删除", null, null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "删除", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "删除", null, null, true)});
             this.repositoryItemButtonEdit1.HideSelection = false;
             this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
             this.repositoryItemButtonEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -360,6 +361,8 @@ namespace DF2DPipe.Query.Frm
             // imageCollection1
             // 
             this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
+            this.imageCollection1.Images.SetKeyName(0, "Group.png");
+            this.imageCollection1.Images.SetKeyName(1, "FeatureLayer_model.png");
             // 
             // btnCancel
             // 

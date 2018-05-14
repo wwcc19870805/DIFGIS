@@ -800,7 +800,7 @@ namespace DF2DPipe.Query.Frm
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "复合查询";
+            this.Text = "高级查询";
             this.Load += new System.EventHandler(this.FrmCompoundConditionQuery_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);

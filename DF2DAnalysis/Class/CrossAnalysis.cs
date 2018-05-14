@@ -219,10 +219,12 @@ namespace DF2DAnalysis.Class
                         List<IFeature> linesB = dict[mcb.Alias];
                         int count = 0;
                         int n = 0;
+                        string hint;
                         foreach (IFeature la in linesA)
                         {
                             count++;
-                            WaitForm.SetCaption("正在分析【" + mca.Alias + "】与【" + mcb.Alias + "】，" + count + "/" + linesA.Count);
+                            hint = "正在分析【" + mca.Alias + "】与【" + mcb.Alias + "】，" + count + "/" + linesA.Count;
+                            WaitForm.SetCaption(hint,"请稍后");
                             double dA = GetDiameter(la, this._diameter);
                             IPolyline lineA = la.Shape as IPolyline;
                             foreach (IFeature lb in linesB)

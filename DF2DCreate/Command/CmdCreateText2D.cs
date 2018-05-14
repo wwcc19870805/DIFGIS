@@ -55,8 +55,9 @@ namespace DF2DCreate.Command
                     pColor.RGB = color.B * 65536 + color.G * 256 + color.R;
 
                     sym.Color = pColor;
-                    textElement.Symbol = sym;
                     sym.Size = (double)frmCreateText.WordsSize;
+                    textElement.Symbol = sym;
+                    
 
                     IPoint point = new PointClass();
                     point.PutCoords(mapX, mapY);

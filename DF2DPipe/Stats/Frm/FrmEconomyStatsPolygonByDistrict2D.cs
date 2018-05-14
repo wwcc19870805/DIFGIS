@@ -322,7 +322,7 @@ namespace DF2DPipe.Stats.Frm
         private void FrmPipeLineLengthStats_Load(object sender, EventArgs e)
         {
             this.Text = GetFrmText(_sysFieldName);
-            WaitForm.Start("正在读取区域图层，请稍后...");
+            WaitForm.Start("正在读取区域图层...","请稍后");
             FacilityClass facDistrict = FacilityClassManager.Instance.GetFacilityClassByName("District");
             FacilityClass fac = FacilityClassManager.Instance.GetFacilityClassByName(_sysFieldName);
             int index = 0;
@@ -332,7 +332,7 @@ namespace DF2DPipe.Stats.Frm
                 {
                     IFeatureClass district = GetOnlyFcByFacilityClass(facDistrict);
                     IFeatureClass fc = GetOnlyFcByFacilityClass(fac);
-                    if (district == null || fc == null) return;
+                    if (district == null || fc == null) { WaitForm.Stop(); return; }
                     IFeatureCursor cursor = district.Search(null, true);
                     if (cursor == null) return;
                     IFeature feature;
@@ -351,7 +351,7 @@ namespace DF2DPipe.Stats.Frm
                     this.cbProperty.SelectedIndex = 0;
 
 
-                    WaitForm.SetCaption("正在统计，请稍后...");
+                    WaitForm.SetCaption("正在统计...","请稍后");
                     EconomyStats econoyStats = EconomyStatsFactory.CreateEconomyStats(_sysFieldName);
                     econoyStats.SetFeatureClass(district, fc);
                     econoyStats.IndexOfDisName = index;

@@ -105,7 +105,8 @@ namespace DF2DPipe.Query.Frm
             this.Name = "FrmMajorClass";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "管线类别";
+            this.Text = "选择查询类型";
+            this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMajorClass_FormClosed);
             this.Load += new System.EventHandler(this.FrmMajorClass_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();

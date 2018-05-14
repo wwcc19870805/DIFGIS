@@ -237,7 +237,6 @@
     <Compile Include="Commands\CmdEarthworkCalculation.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\CmdFireHydrantSearch.cs" />
     <Compile Include="Commands\CmdFireHydrantSearch2D.cs" />
     <Compile Include="Commands\CmdFlowDirectionAnalysis2D.cs" />
     <Compile Include="Commands\CmdPipeAlert.cs" />

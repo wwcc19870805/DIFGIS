@@ -11,6 +11,7 @@ using DFCommon.Class;
 using System.IO;
 using System.Xml;
 using DevExpress.XtraTreeList.Nodes;
+using DevExpress.XtraEditors.Controls;
 using ICSharpCode.Core;
 using DFUser.Class;
 
@@ -345,52 +346,94 @@ namespace DFUser.Frm
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            string roleID = "";
-            if (radioGroup1.SelectedIndex == 0)
+            try
             {
-                BuildAddIn();
-                string addin2D = menu2D.OuterXml;
-                string addin3D = menu3D.OuterXml;
-                string addinGen = general.OuterXml;
-                if (AddRole(te_RoleName.Text, null, "2D3D", "CS", addin2D, addin3D, addinGen))
+                string roleID = "";
+                string addin2D;
+                string addin3D;
+                string addinGen;
+                if (radioGroup1.SelectedIndex == 0)
                 {
-                    LoadAllRoles();
-                    this.lcInfo.Text = msg;
-                    //XtraMessageBox.Show("添加角色成功", "提示");
+                    BuildAddIn();
+                    if (SystemInfo.Instance.SystemType == "2D")
+                    {
+                        addin2D = menu2D.OuterXml;
+                        addin3D = "";
+                        addinGen = general.OuterXml;
+                    }
+                    else if (SystemInfo.Instance.SystemType == "3D")
+                    {
+                        addin2D = "";
+                        addin3D = menu3D.OuterXml;
+                        addinGen = general.OuterXml;
+                    }
+                    else
+                    {
+                        addin2D = menu2D.OuterXml;
+                        addin3D = menu3D.OuterXml;
+                        addinGen = general.OuterXml;
+                    }
+                    
+                    if (AddRole(te_RoleName.Text, null, "2D3D", "CS", addin2D, addin3D, addinGen))
+                    {
+                        LoadAllRoles();
+                        this.lcInfo.Text = msg;
+                        //XtraMessageBox.Show("添加角色成功", "提示");
+                    }
+
                 }
-                
-            }
-            else if (radioGroup1.SelectedIndex == 1)
-            {
-                BuildAddIn();
-                string addin2D = menu2D.OuterXml;
-                string addin3D = menu3D.OuterXml;
-                string addinGen = general.OuterXml;
-                if(dicRoleID.ContainsKey(cmb_Role.Text)) roleID = dicRoleID[cmb_Role.Text];
-                if (EditRole(roleID, null, "2D3D", "CS", addin2D, addin3D, addinGen))
+                else if (radioGroup1.SelectedIndex == 1)
                 {
-                    this.lcInfo.Text = msg;
-                }
+                    BuildAddIn();
+                    if (SystemInfo.Instance.SystemType == "2D")
+                    {
+                        addin2D = menu2D.OuterXml;
+                        addin3D = "";
+                        addinGen = general.OuterXml;
+                    }
+                    else if (SystemInfo.Instance.SystemType == "3D")
+                    {
+                        addin2D = "";
+                        addin3D = menu3D.OuterXml;
+                        addinGen = general.OuterXml;
+                    }
+                    else
+                    {
+                        addin2D = menu2D.OuterXml;
+                        addin3D = menu3D.OuterXml;
+                        addinGen = general.OuterXml;
+                    }
+                    if (dicRoleID.ContainsKey(cmb_Role.Text)) roleID = dicRoleID[cmb_Role.Text];
+                    if (EditRole(roleID, null, "2D3D", "CS", addin2D, addin3D, addinGen))
+                    {
+                        this.lcInfo.Text = msg;
+                    }
                     //XtraMessageBox.Show("修改角色成功", "提示");
 
-            }
-            else
-            {
-                if (authService == null) return;
-                if (dicRoleID == null || dicRoleID.Count == 0) return;
-                if(dicRoleID.ContainsKey(cmb_Role.Text))
-                roleID = dicRoleID[cmb_Role.Text];
-                if (authService.deleteRole(roleID, "2D3D", "CS", out msg))
-                {
-                    LoadAllRoles();
-                    this.lcInfo.Text = msg;
-                    //XtraMessageBox.Show("删除角色成功", "提示");
                 }
                 else
-                    this.lcInfo.Text = msg;
+                {
+                    if (authService == null) return;
+                    if (dicRoleID == null || dicRoleID.Count == 0) return;
+                    if (dicRoleID.ContainsKey(cmb_Role.Text))
+                        roleID = dicRoleID[cmb_Role.Text];
+                    if (authService.deleteRole(roleID, "2D3D", "CS", out msg))
+                    {
+                        LoadAllRoles();
+                        this.lcInfo.Text = msg;
+                        //XtraMessageBox.Show("删除角色成功", "提示");
+                    }
+                    else
+                        this.lcInfo.Text = msg;
                     //XtraMessageBox.Show("删除角色失败", "提示");
 
+                }
             }
+            catch (System.Exception ex)
+            {
+            	
+            }
+          
             
         }
 
@@ -411,7 +454,7 @@ namespace DFUser.Frm
                 Directory.CreateDirectory(addInPath);
             }
             string xmlPath;
-            if (xmlPath2D == null || xmlPath3D == null || xmlPathGeneral == null) return;
+            //if (xmlPath2D == null || xmlPath3D == null || xmlPathGeneral == null) return;
             try
             {
                 TreeListNodes nodes = this.treeList1.Nodes;
@@ -523,16 +566,51 @@ namespace DFUser.Frm
         private void FrmRoleManage_Load(object sender, EventArgs e)
         {
             this.cmb_Role.Enabled = false;
-            xmlPath2D = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\Menu2D.addin");
-            xmlPath3D = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\Menu3D.addin");
-            xmlPathGeneral = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\General.addin");
-            if (xmlPath2D == null || xmlPath3D == null||xmlPathGeneral == null) return;
-            dicRoleID = new Dictionary<string, string>();//创建角色ID字典
-            dicRoleXml = new Dictionary<string, List<string>>();//创建角色AddIn文档字典
-            LoadAllRoles();//加载所有角色
-            BuildTree(xmlPath2D,"二维菜单");//创建二维菜单树
-            BuildTree(xmlPath3D,"三维菜单");//创建三维菜单树
-            BuildTree(xmlPathGeneral,"系统管理");//创建系统菜单树
+            this.cmb_Role.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            try
+            {
+                if (SystemInfo.Instance.SystemType == "2D")
+                {
+                    xmlPath2D = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\Menu2D.addin");
+                    xmlPathGeneral = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\General.addin");
+                    if (xmlPath2D == null || xmlPathGeneral == null) return;
+                    dicRoleID = new Dictionary<string, string>();//创建角色ID字典
+                    dicRoleXml = new Dictionary<string, List<string>>();//创建角色AddIn文档字典
+                    LoadAllRoles();//加载所有角色
+                    BuildTree(xmlPath2D, "二维菜单");//创建二维菜单树
+                    BuildTree(xmlPathGeneral, "系统管理");//创建系统菜单树
+                }
+                else if (SystemInfo.Instance.SystemType == "3D")
+                {
+                    xmlPath3D = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\Menu3D.addin");
+                    xmlPathGeneral = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\General.addin");
+                    if ( xmlPath3D == null || xmlPathGeneral == null) return;
+                    dicRoleID = new Dictionary<string, string>();//创建角色ID字典
+                    dicRoleXml = new Dictionary<string, List<string>>();//创建角色AddIn文档字典
+                    LoadAllRoles();//加载所有角色
+                    BuildTree(xmlPath3D, "三维菜单");//创建三维菜单树
+                    BuildTree(xmlPathGeneral, "系统管理");//创建系统菜单树
+                }
+                else
+                {
+                    xmlPath2D = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\Menu2D.addin");
+                    xmlPath3D = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\Menu3D.addin");
+                    xmlPathGeneral = Path.Combine(FileUtility.ApplicationRootPath, "..\\AddIns\\General.addin");
+                    if (xmlPath2D == null || xmlPath3D == null || xmlPathGeneral == null) return;
+                    dicRoleID = new Dictionary<string, string>();//创建角色ID字典
+                    dicRoleXml = new Dictionary<string, List<string>>();//创建角色AddIn文档字典
+                    LoadAllRoles();//加载所有角色
+                    BuildTree(xmlPath2D, "二维菜单");//创建二维菜单树
+                    BuildTree(xmlPath3D, "三维菜单");//创建三维菜单树
+                    BuildTree(xmlPathGeneral, "系统管理");//创建系统菜单树
+                }
+               
+            }
+            catch (System.Exception ex)
+            {
+            	
+            }
+           
 
         }
         /// <summary>
@@ -595,7 +673,7 @@ namespace DFUser.Frm
         private void AddTreeListNode(TreeListNode treeNode, XmlNode xmlNode)
         {
             if (xmlNode.Attributes == null) return;
-            if (xmlNode.Name == "Condition")//如果该节点是条件节点
+            if (xmlNode.Name == "Condition" || xmlNode.Name == "TerrainCondition")//如果该节点是条件节点
             {
                 XmlElement element = xmlNode as XmlElement;
                 if (element.HasAttribute("name"))
@@ -645,7 +723,7 @@ namespace DFUser.Frm
                         AddTreeListNode(node, child);
                     }
                 }
-                if (xmlNode.Attributes["type"].Value.Trim() == "CheckCommand" || xmlNode.Attributes["type"].Value.Trim() == "ButtonCommand" || xmlNode.Attributes["type"].Value.Trim() == "RadioCommand")
+                if (xmlNode.Attributes["type"].Value.Trim() == "CheckCommand" || xmlNode.Attributes["type"].Value.Trim() == "ButtonCommand" || xmlNode.Attributes["type"].Value.Trim() == "RadioCommand" || xmlNode.Attributes["type"].Value.Trim() == "ComboBoxCommand" || xmlNode.Attributes["type"].Value.Trim() == "CheckBoxCommand" || xmlNode.Attributes["type"].Value.Trim() == "MenuTrackBarCommand")
                 {
                     if (xmlNode.Attributes["label"] == null) return;
                     TreeListNode node = this.treeList1.AppendNode(new object[] { xmlNode.Attributes["label"].Value.Trim(), xmlNode }, treeNode);
@@ -714,7 +792,7 @@ namespace DFUser.Frm
         /// 根据当前菜单树节点及对应的AddIn文件进行初始化
         /// </summary>
         /// <param name="xmlNode">当前AddIn文件的菜单节点</param>
-        /// <param name="node">当前菜单树节点</param>
+        /// <param name="node">当前菜单树节点</param>  
         private void InitTreeList(XmlNode xmlNode,TreeListNode node)
         {
             if (!xmlNode.HasChildNodes) return ;

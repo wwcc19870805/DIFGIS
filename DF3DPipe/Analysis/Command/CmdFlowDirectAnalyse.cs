@@ -21,6 +21,7 @@ using DevExpress.XtraEditors;
 using DF3DPipeCreateTool.ParamModeling;
 using Gvitech.CityMaker.Math;
 using DFCommon.Class;
+using DFWinForms.Class;
 
 namespace DF3DPipe.Analysis.Command
 {
@@ -320,12 +321,14 @@ namespace DF3DPipe.Analysis.Command
         public override void RcMouseDragSelect(object sender, Gvitech.CityMaker.Controls._IRenderControlEvents_RcMouseDragSelectEvent e)
         {
             if (e.pickResults == null || e.pickResults.Count == 0) return;
-            for (int i = 0;i< e.pickResults.Count;i++)
+            WaitForm.Start("正在渲染流向...", "请稍后");
+            for (int i = 0; i < e.pickResults.Count; i++)
             {
                 IPickResult pr = e.pickResults[i];
                 if (pr == null || pr.Type != gviObjectType.gviObjectFeatureLayer) continue;
                 ShowFlowDirect(pr as IFeatureLayerPickResult);
             }
+            WaitForm.Stop();
         }
     }
 }

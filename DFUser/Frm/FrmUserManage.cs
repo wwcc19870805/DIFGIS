@@ -591,6 +591,8 @@ namespace DFUser.Frm
             //InitMyInfo();
             this.cbDeplist.Enabled = false;
             this.cbName.Enabled = false;
+            this.cmbRole.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cmbDep.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             dicDep = new Dictionary<string, string>();
             dicRoleID = new Dictionary<string, string>();
             dicDepUser = new Dictionary<string, string>();
